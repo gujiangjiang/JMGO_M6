@@ -163,7 +163,7 @@ class Ext4:
         if ino is None:
             return
         info = self.inode_info(ino)
-        if info['ft'] == 2:  # dir
+        if info['ft'] == 4:  # dir (S_IFDIR>>12)
             if cb:
                 cb(path + '/', info, None)
             for name, (cino, ft) in sorted(self.list_dir(ino).items()):
@@ -171,7 +171,7 @@ class Ext4:
                     continue
                 cp = (path.rstrip('/') + '/' + name)
                 ci = self.inode_info(cino)
-                if ci['ft'] == 2:
+                if ci['ft'] == 4:
                     self.walk(cp, cb, cino)
                 else:
                     if cb:
@@ -190,7 +190,7 @@ def main():
             return
         for name, (cino, ft) in sorted(fs.list_dir(ino).items()):
             st = fs.inode_info(cino)
-            kind = 'd' if st['ft'] == 2 else ('l' if st['ft'] == 7 else ('f' if st['ft'] == 1 else '?'))
+            kind = {4: 'd', 8: 'f', 10: 'l'}.get(st['ft'], '?')
             print(f"{kind} {st['size']:>10} {name}")
     elif cmd == 'cat':
         ino = fs.resolve(sys.argv[3])
@@ -219,7 +219,7 @@ def main():
         count = 0
         def cb(path, info, ino):
             nonlocal total, count
-            if info['ft'] != 2:
+            if info['ft'] != 8:
                 total += info['size']
                 count += 1
         fs.walk('/', cb)
