@@ -1,0 +1,29 @@
+# 大文件与中间产物（不入库）
+update_jmgo.zip
+*.new.dat
+*.transfer.list
+system.img
+boot.img
+boot_kernel
+boot_ramdisk*
+*.img
+*.patch.dat
+
+# 解包/中间产物
+extracted/
+dex/
+launcher_x/
+ramdisk/
+signing_test/
+disasm.txt
+*.oat
+*.art
+plugin.apk
+
+# 系统垃圾
+.DS_Store
+__pycache__/
+*.pyc
+*.tmp
+*.unsigned
+*.stage/
