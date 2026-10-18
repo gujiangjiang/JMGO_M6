@@ -28,4 +28,11 @@
 
 ## 修改记录
 
-（暂无。格式：`<日期> <原APK> -> <修改文件>：<改动摘要> <SHA256>`）
+| 日期 | 目标 | 修改 | 说明 |
+|---|---|---|---|
+| 2026-10-19 | `PackageInstaller`（priv-app） | `apks/PackageInstaller.odex.patched` | 解除第三方应用安装数量限制（10 个）。仅改 odex 中 4 字节（`0x48928c`: `cbnz w0` → `b`），不影响 APK 签名/权限。详见 `docs/install-limit.md` |
+
+修改版校验：`PackageInstaller.odex.patched`
+- 原始 odex sha256: `21cf269a72fea6eef5c843713aeba340739e40b37b0b7f45691f8c0616bf9b7f`
+- 修改后 sha256: `7b08f3db32a50f72494f7b6f88173e919456d1fbe24354eeffff370e43b63ac9`
+- 应用方式（macOS 可直接做）：`tools/patch_pkginstaller_odex.py --in-img system.img`
