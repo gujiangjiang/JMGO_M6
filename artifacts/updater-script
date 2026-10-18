@@ -1,0 +1,18 @@
+(!less_than_int(1560158187, getprop("ro.build.date.utc"))) || abort("E3003: Can't install this package (Mon Jun 10 17:16:27 CST 2019) over newer build (" + getprop("ro.build.date") + ").");
+getprop("ro.product.device") == "JmGO_mt5863_64_n" || abort("E3004: This package is for \"JmGO_mt5863_64_n\" devices; this is a \"" + getprop("ro.product.device") + "\".");
+ui_print("Target: Android/JmGO_mt5863_64_n/JmGO_mt5863_64_n:7.0/NRD90M/1.0.53:userdebug/test-keys");
+show_progress(0.750000, 0);
+ui_print("Patching system image unconditionally...");
+block_image_update("/dev/block/mmcblk0p6", package_extract_file("system.transfer.list"), "system.new.dat", "system.patch.dat") ||
+  abort("E1001: Failed to update system image.");
+show_progress(0.050000, 5);
+package_extract_file("boot.img", "/dev/block/mmcblk0p5");
+show_progress(0.200000, 10);
+package_extract_file("uboot.bin", "/dev/block/mmcblk0p1");
+package_extract_file("uenv.bin", "/dev/block/mmcblk0p2");
+package_extract_file("tz.bin.lzhs", "/dev/block/mmcblk0p22");
+package_extract_file("AQ.bin", "/dev/block/mmcblk0p19");
+package_extract_file("pq.bin", "/dev/block/mmcblk0p18");
+package_extract_file("rootfs.bin", "/dev/block/mmcblk0p10");
+package_extract_file("adsp.bin", "/dev/block/mmcblk0p23");
+set_progress(1.000000);

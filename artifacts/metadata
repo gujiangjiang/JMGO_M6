@@ -1,0 +1,5 @@
+ota-required-cache=0
+ota-type=BLOCK
+post-build=Android/JmGO_mt5863_64_n/JmGO_mt5863_64_n:7.0/NRD90M/1.0.53:userdebug/test-keys
+post-timestamp=1560158187
+pre-device=JmGO_mt5863_64_n
