@@ -1,0 +1,23 @@
+# QyPlayerActivity.apk（AXML 解析导出）
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: REAL_GET_TASKS
+uses-permission: GET_TASKS
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.BROADCAST_STICKY
+uses-permission: android.permission.SYSTEM_ALERT_WINDOW
+uses-permission: android.permission.READ_PHONE_STATE
+package: com.jmgo.qy.player
+sharedUserId: None
+versionName: 100  versionCode: 100
+targetSdkVersion: None  minSdkVersion: None
+activity: com.jmgo.qy.player.QyPlayerActivity  [android.intent.action.MAIN]
+activity: com.jmgo.qy.player.WindowPlayer  [android.intent.action.PLAYER_JDWL]
+receiver: com.jmgo.qy.player.PlayerReceiver  [android.intent.action.PLAYER_SERVICE]
+service: com.jmgo.qy.player.PlayerService  [com.jmgo.qy.player.project.logrecord.LRProxyService, android.intent.category.DEFAULT]
+service: com.gala.sdk.player.logrecord.service.LRProxyService

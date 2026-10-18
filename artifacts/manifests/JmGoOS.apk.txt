@@ -1,0 +1,106 @@
+# JmGoOS.apk（AXML 解析导出）
+uses-permission: android.permission.INSTALL_PACKAGES
+uses-permission: android.permission.MODIFY_PHONE_STATE
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_MEDIA_STORAGE
+uses-permission: android.permission.BLUETOOTH_ADMIN
+uses-permission: android.permission.ACCESS_FINE_LOCATION
+uses-permission: android.permission.ACCESS_FINE_LOCATION
+uses-permission: android.permission.READ_LOGS
+uses-permission: android.permission.GET_TASKS
+uses-permission: android.permission.KILL_BACKGROUND_PROCESSES
+uses-permission: android.permission.RESTART_PACKAGES
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.CHANGE_WIFI_STATE
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.READ_SETTINGS
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.CHANGE_CONFIGURATION
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.VIBRATE
+uses-permission: android.permission.BLUETOOTH
+uses-permission: android.permission.BLUETOOTH_ADMIN
+uses-permission: android.permission.BLUETOOTH_PRIVILEGED
+uses-permission: android.permission.NFC
+uses-permission: android.permission.CALL_PHONE
+uses-permission: android.permission.MODIFY_AUDIO_SETTINGS
+uses-permission: android.permission.USE_CREDENTIALS
+uses-permission: com.google.android.googleapps.permission.GOOGLE_AUTH
+uses-permission: android.permission.ACCESS_DOWNLOAD_MANAGER
+uses-permission: android.permission.READ_CONTACTS
+uses-permission: android.permission.WRITE_CONTACTS
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIMAX_STATE
+uses-permission: android.permission.CHANGE_WIMAX_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.CHANGE_WIFI_STATE
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.READ_PHONE_STATE
+uses-permission: android.permission.ACCESS_COARSE_LOCATION
+uses-permission: android.permission.READ_USER_DICTIONARY
+uses-permission: android.permission.WRITE_USER_DICTIONARY
+uses-permission: android.permission.BATTERY_STATS
+uses-permission: com.android.launcher.permission.READ_SETTINGS
+uses-permission: com.android.launcher.permission.WRITE_SETTINGS
+uses-permission: android.permission.USE_CREDENTIALS
+uses-permission: android.permission.READ_SYNC_SETTINGS
+uses-permission: android.permission.WRITE_SYNC_SETTINGS
+uses-permission: android.permission.READ_SYNC_STATS
+uses-permission: android.permission.READ_SYNC_SETTINGS
+uses-permission: android.permission.WRITE_SYNC_SETTINGS
+uses-permission: com.android.voicemail.permission.ADD_VOICEMAIL
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.GET_PACKAGE_SIZE
+uses-permission: android.permission.GET_TASKS
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.RECORD_AUDIO
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.READ_CONTACTS
+uses-permission: com.jmgo.launcher.permission.JPUSH_MESSAGE
+uses-permission: android.permission.RECEIVE_USER_PRESENT
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.VIBRATE
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.OVERRIDE_WIFI_CONFIG
+uses-permission: android.permission.SYSTEM_ALERT_WINDOW
+uses-permission: android.permission.ACCESS_COARSE_LOCATION
+uses-permission: android.permission.CHANGE_WIFI_STATE
+uses-permission: android.permission.ACCESS_FINE_LOCATION
+uses-permission: android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.MOUNT_FORMAT_FILESYSTEMS
+uses-permission: android.permission.REAL_GET_TASKS
+uses-permission: android.permission.GET_TASKS
+package: com.jmgo.launcher
+sharedUserId: None
+versionName: 3.0.0.038  versionCode: 300038
+targetSdkVersion: None  minSdkVersion: None
+activity: org.cocos2dx.lua.AppActivity  [android.intent.action.PACKAGE_ADDED, android.intent.action.PACKAGE_REPLACED, android.intent.action.PACKAGE_REMOVED]
+receiver: com.jmgo.launcher2.br.AppInstallReceiver  [android.bluetooth.device.action.PAIRING_REQUEST, android.bluetooth.device.action.PAIRING_CANCEL]
+receiver: com.jmgo.setting.bluetooth.BluetoothPairingRequest  [com.jmgo.qy.player.error, com.jmgo.qy.player.history, android.settings.SETTINGS, com.jmgo.qy.player.collect, com.jmgo.qy.player.to3d, com.jmgo.qy.player.to2d, com.jmgo.qy.player.tobuy.vip]
+receiver: com.jmgo.launcher2.br.QyPlayerReceiver  [android.bluetooth.device.action.PAIRING_REQUEST, android.intent.category.DEFAULT]
+activity: com.jmgo.setting.bluetooth.BluetoothPairingDialog
+service: com.jmgo.usb.provider.MyIntentService
+provider: com.jmgo.usb.provider.MediaStoreProvider  [cn.jpush.android.ui.PushActivity, android.intent.category.DEFAULT, com.jmgo.launcher]
+activity: cn.jpush.android.ui.PushActivity
+service: cn.jpush.android.service.DownloadService  [cn.jpush.android.intent.REGISTER, cn.jpush.android.intent.REPORT, cn.jpush.android.intent.PushService, cn.jpush.android.intent.PUSH_TIME]
+service: cn.jpush.android.service.PushService  [cn.jpush.android.intent.DaemonService, com.jmgo.launcher]
+service: cn.jpush.android.service.DaemonService  [cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY, com.jmgo.launcher, android.intent.action.USER_PRESENT, android.net.conn.CONNECTIVITY_CHANGE, android.intent.action.PACKAGE_ADDED, android.intent.action.PACKAGE_REMOVED]
+receiver: cn.jpush.android.service.PushReceiver
+receiver: cn.jpush.android.service.AlarmReceiver  [cn.jpush.android.intent.REGISTRATION, cn.jpush.android.intent.UNREGISTRATION, cn.jpush.android.intent.MESSAGE_RECEIVED, cn.jpush.android.intent.NOTIFICATION_RECEIVED, cn.jpush.android.intent.NOTIFICATION_OPENED, cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK, cn.jpush.android.intent.CONNECTION, com.jmgo.launcher]
+receiver: com.jmgo.launcher2.br.MyReceiver

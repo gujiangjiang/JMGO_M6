@@ -1,0 +1,32 @@
+# wps_4.6_34.apk（AXML 解析导出）
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: com.android.email.permission.ACCESS_PROVIDER
+uses-permission: com.android.email.permission.READ_ATTACHMENT
+uses-permission: com.kddi.market.permission.USE_ALML
+package: cn.wps.moffice_i18n_TV
+sharedUserId: None
+versionName: 4.6  versionCode: 34
+targetSdkVersion: None  minSdkVersion: None
+receiver: cn.wps.moffice.GoogleAnalytics  [android.intent.action.MAIN, android.intent.category.LAUNCHER, android.intent.action.VIEW, android.intent.action.EDIT, android.intent.category.DEFAULT, android.intent.category.BROWSABLE, android.intent.action.VIEW, android.intent.action.EDIT, android.intent.category.DEFAULT, android.intent.category.BROWSABLE]
+activity: cn.wps.moffice.documentmanager.PreStartActivity
+activity: cn.wps.moffice.documentmanager.DocumentManager
+activity: cn.wps.cropimage.CropImage
+activity: cn.wps.moffice.documentmanager.StartWriterActivity
+activity: cn.wps.moffice.documentmanager.StartSpreadsheetActivity
+activity: cn.wps.moffice.documentmanager.StartPresentationActivity
+activity: cn.wps.moffice.documentmanager.StartPDFActivity
+activity: cn.wps.moffice.writer.Writer
+activity: cn.wps.moffice.writer.pagesetting.PageSetting
+activity: cn.wps.moffice.pdf.PDFReader
+activity: cn.wps.moffice.spreadsheet.Spreadsheet
+activity: cn.wps.moffice.presentation.Presentation
+activity: cn.wps.moffice.presentation.ui.edit.EditPpt
+activity: cn.wps.moffice.presentation._test.TestActivity
+activity: cn.wps.moffice.presentation._test.TestAvy
+activity: cn.wps.impress.test.selfvalidate.lmj.TestServiceActivity
+activity: cn.wps.moffice.documentmanager.storage.dropbox.view.DropboxActivity  [android.intent.action.VIEW, android.intent.category.BROWSABLE, android.intent.category.DEFAULT]
+activity: com.dropbox.client2.android.AuthActivity  [android.appwidget.action.APPWIDGET_UPDATE, cn.wps.widget.NEWFILE, cn.wps.widget.OPEN, cn.wps.widget.NEXT, cn.wps.widget.PREV, ACTION_APP_WIDGET_RELOAD, ACTION_APP_WIDGET_REQUEST_HISTORY_UPDATE]
+receiver: cn.wps.widget.MofficeAppWidgetProvider_4x2

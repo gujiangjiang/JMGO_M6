@@ -1,0 +1,5 @@
+# plugin-qiyi-playercore-1.56.0.apk（AXML 解析导出）
+package: com.qiyi.playercore
+sharedUserId: None
+versionName: 1.56.0  versionCode: 48119
+targetSdkVersion: None  minSdkVersion: None

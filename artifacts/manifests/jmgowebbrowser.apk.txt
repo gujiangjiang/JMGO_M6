@@ -1,0 +1,23 @@
+# jmgowebbrowser.apk（AXML 解析导出）
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.SYSTEM_ALERT_WINDOW
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.WRITE_SECURE_SETTINGS
+uses-permission: android.permission.INSTALL_PACKAGES
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+package: com.jmgo.webbrowser
+sharedUserId: android.uid.system
+versionName: 1.0  versionCode: 2
+targetSdkVersion: None  minSdkVersion: None
+activity: com.jmgo.webbrowser.MainActivity  [android.intent.action.MAIN]
+activity: com.jmgo.customizeapp.InstallActivity
+activity: com.jmgo.customizeapp.CustomizedActivity
+activity: com.jmgo.customizeapp.SorActivity
+service: com.jmgo.customizeapp.SilenceInstallService  [android.intent.action.BOOT_COMPLETED]
+receiver: com.jmgo.customizeapp.InstallActivity$MyReceiver  [android.net.conn.CONNECTIVITY_CHANGE, android.net.wifi.WIFI_STATE_CHANGED, android.net.wifi.STATE_CHANGE]
+receiver: com.jmgo.webbrowser.MybroadcastReceiver
+activity: com.jmgo.webbrowser.CheckwifiActivity

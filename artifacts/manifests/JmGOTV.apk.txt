@@ -1,0 +1,10 @@
+# JmGOTV.apk（AXML 解析导出）
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.SET_PREFERRED_APPLICATIONS
+package: com.jmgo.tv
+sharedUserId: android.uid.system
+versionName: 1.0  versionCode: 1
+targetSdkVersion: None  minSdkVersion: None
+activity: .MainActivity  [android.intent.action.MAIN]
+activity: .MtkTvActivity  [android.intent.action.MAIN]
+activity: .AmlogicTvActivity

@@ -1,0 +1,17 @@
+# jgvideoplayer.apk（AXML 解析导出）
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.WRITE_USER_DICTIONARY
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.RECORD_AUDIO
+uses-permission: android.permission.SET_WALLPAPER
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.SET_ANIMATION_SCALE
+uses-permission: android.permission.MODIFY_AUDIO_SETTINGS
+package: com.jmgo.moive
+sharedUserId: android.uid.system
+versionName: 17.12.19  versionCode: 1712190
+targetSdkVersion: None  minSdkVersion: None
+activity: com.jmgo.moive.ui.VideoPlayerActivity

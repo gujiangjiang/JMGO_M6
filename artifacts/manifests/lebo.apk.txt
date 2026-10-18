@@ -1,0 +1,60 @@
+# lebo.apk（AXML 解析导出）
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.uid.system.permission.INSTALL_PACKAGES
+uses-permission: lerad.permission.provider.settings.READ
+uses-permission: android.permission.ACCESS_COARSE_LOCATION
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.CHANGE_WIFI_STATE
+uses-permission: android.permission.CHANGE_WIFI_MULTICAST_STATE
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.READ_SETTINGS
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.MODIFY_AUDIO_SETTINGS
+uses-permission: android.permission.READ_PHONE_STATE
+uses-permission: android.permission.READ_LOGS
+uses-permission: android.permission.RAISED_THREAD_PRIORITY
+uses-permission: android.permission.RECORD_AUDIO
+uses-permission: android.permission.CAPTURE_AUDIO_OUTPUT
+uses-permission: android.permission.CAPTURE_VIDEO_OUTPUT
+uses-permission: android.permission.CAPTURE_SECURE_VIDEO_OUTPUT
+uses-permission: android.permission.ACCESS_SUPERUSER
+uses-permission: android.permission.DISABLE_KEYGUARD
+uses-permission: android.permission.GET_TASKS
+uses-permission: android.permission.DOWNLOAD_WITHOUT_NOTIFICATION
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.VIBRATE
+uses-permission: android.permission.BROADCAST_STICKY
+uses-permission: com.mstar.android.permissionn.ACCESS_TV_DATA
+uses-permission: droidlogic.permission.SYSTEM_CONTROL
+package: com.hpplay.happyplay.aw
+sharedUserId: None
+versionName: 8.1.10  versionCode: 808080110
+targetSdkVersion: None  minSdkVersion: None
+activity: com.hpplay.happyplay.aw.WelcomeActivity
+activity: com.hpplay.happyplay.aw.app.MainActivity
+activity: com.hpplay.happyplay.aw.app.CastCheckActivity
+activity: com.hpplay.happyplay.aw.app.HelpActivity
+activity: com.hpplay.happyplay.aw.app.RepairActivity
+activity: com.hpplay.happyplay.aw.app.SettingActivity
+activity: com.hpplay.happyplay.aw.app.DeviceActivity
+activity: com.hpplay.happyplay.aw.app.AboutActivity
+activity: com.hpplay.happyplay.aw.app.ProtectionActivity
+activity: com.hpplay.happyplay.aw.app.FeedbackActivity
+activity: com.hpplay.happyplay.aw.dmp.DMPActivity  [android.intent.action.START_LEBO_SERVER, android.intent.category.DEFAULT]
+activity: com.hpplay.happyplay.aw.app.StartActivity  [android.intent.action.BOOT_COMPLETED, android.intent.category.DEFAULT]
+receiver: com.hpplay.happyplay.aw.BootReceiver
+receiver: com.hpplay.happyplay.bootBroadcast
+receiver: com.hpplay.happyplay.aw.PresentReceiver  [android.intent.action.PACKAGE_ADDED, android.intent.action.PACKAGE_REPLACED]
+receiver: com.hpplay.happyplay.aw.app.AppAddReceiver  [android.intent.action.START_LEBO_SERVICE, android.intent.category.DEFAULT]
+service: com.hpplay.happyplay.aw.AirPlayService
+service: com.hpplay.happyplay.aw.app.RemoteService
+service: com.hpplay.happyplay.aw.app.JobHandlerService
+provider: android.support.v4.content.FileProvider  [android.intent.action.MAIN]
+activity: com.hpplay.sdk.sink.business.BusinessActivity  [android.intent.action.MAIN]
+activity: com.hpplay.sdk.sink.business.TipActivity
+service: com.hpplay.sdk.sink.business.DaemonService

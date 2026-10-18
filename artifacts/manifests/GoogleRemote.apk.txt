@@ -1,0 +1,20 @@
+# GoogleRemote.apk（AXML 解析导出）
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.INJECT_EVENTS
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+uses-permission: android.permission.BROADCAST_STICKY
+uses-permission: android.permission.UPDATE_DEVICE_STATS
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.SYSTEM_ALERT_WINDOW
+uses-permission: android.permission.BLUETOOTH
+uses-permission: android.permission.BLUETOOTH_ADMIN
+package: com.softwinner.tvremoteserver
+sharedUserId: android.uid.system
+versionName: 1.3.1  versionCode: 125
+targetSdkVersion: None  minSdkVersion: None
+service: com.softwinner.tvremoteserver.TvRemoteService  [com.softwinner.tvblueremoteserver, android.intent.category.DEFAULT]
+service: com.softwinner.tvremoteserver.TvBlueToothService  [android.intent.action.BOOT_COMPLETED, android.bluetooth.adapter.action.STATE_CHANGED]
+receiver: com.softwinner.tvremoteserver.SoftWinnerReceiver
+activity: com.softwinner.tvremoteserver.TestActivity

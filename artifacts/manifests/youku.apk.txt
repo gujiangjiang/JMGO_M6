@@ -1,0 +1,217 @@
+# youku.apk（AXML 解析导出）
+uses-permission: android.permission.ACCESS_COARSE_LOCATION
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.GET_TASKS
+uses-permission: android.permission.REAL_GET_TASKS
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.READ_PHONE_STATE
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.READ_FRAME_BUFFER
+uses-permission: android.permission.WAKE_LOCK
+uses-permission: android.permission.INSTALL_PACKAGES
+uses-permission: android.permission.CHANGE_WIFI_MULTICAST_STATE
+uses-permission: com.aliyun.permission.TYID_MGR_SERVICE
+uses-permission: com.aliyun.permission.TYID_SERVICE
+uses-permission: android.permission.boot_tvshop_service
+uses-permission: android.permission.CHANGE_WIFI_STATE
+uses-permission: com.yunos.tv.permission.yingshi.multiscreen.StartupService
+uses-permission: com.yunos.tv.permission.InterDeviceCommunicatorService
+uses-permission: com.yunos.tv.permission.homeshell.provider
+uses-permission: com.yunos.datacenter.permission.READ
+uses-permission: com.yunos.datacenter.permission.WRITE
+uses-permission: com.yunos.cloudapp.permission.SERVER_RECEIVER
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.MODIFY_AUDIO_SETTINGS
+uses-permission: android.permission.BROADCAST_STICKY
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.READ_LOGS
+uses-permission: android.permission.BLUETOOTH
+uses-permission: android.permission.ACCESS_FINE_LOCATION
+uses-permission: android.permission.READ_SETTINGS
+uses-permission: android.permission.FILTER_EVENTS
+uses-permission: android.permission.SET_ACTIVITY_WATCHER
+uses-permission: android.permission.FORCE_STOP_PACKAGES
+uses-permission: android.permission.ACCESS_MOCK_LOCATION
+uses-permission: android.permission.VIBRATE
+uses-permission: droidlogic.permission.SYSTEM_CONTROL
+uses-permission: android.permission.EXPAND_STATUS_BAR
+uses-permission: android.permission.DISABLE_KEYGUARD
+uses-permission: android.permission.SYSTEM_OVERLAY_WINDOW
+uses-permission: com.yunos.tv.permission.APP_OPERATOR
+uses-permission: com.taobao.statistic.permission.DEVICE_STATE
+uses-permission: com.cibn.tv.permission.MIPUSH_RECEIVE
+uses-permission: android.permission.KILL_BACKGROUND_PROCESSES
+package: com.cibn.tv
+sharedUserId: None
+versionName: 5.13.1.1  versionCode: 2120513101
+targetSdkVersion: None  minSdkVersion: None
+receiver: com.yunos.tv.yingshi.boutique.boot.TotalActionReceiver  [com.taobao.accs.intent.action.SERVICE]
+service: com.taobao.accs.ChannelService
+service: com.taobao.accs.ChannelService$KernelService  [android.intent.action.BOOT_COMPLETED, android.net.conn.CONNECTIVITY_CHANGE, android.intent.action.PACKAGE_REMOVED, android.intent.action.USER_PRESENT]
+receiver: com.taobao.accs.EventReceiver  [com.taobao.accs.intent.action.COMMAND, com.taobao.accs.intent.action.START_FROM_AGOO]
+receiver: com.taobao.accs.ServiceReceiver  [com.taobao.accs.intent.action.RECEIVE]
+service: org.android.agoo.accs.AgooService  [org.agoo.android.intent.action.RECEIVE]
+service: com.yunos.tv.yingshi.boutique.TaobaoIntentService  [org.agoo.android.intent.action.RECEIVE]
+service: com.yunos.tv.yingshi.boutique.AccsTLogService  [org.agoo.android.intent.action.RECEIVE]
+service: com.yunos.tv.yingshi.boutique.AccsBundleUpdate  [com.yunos.tv.yingshi.boutique.intent.action.COMMAND, android.intent.action.PACKAGE_REMOVED]
+receiver: com.taobao.agoo.AgooCommondReceiver  [org.android.agoo.client.MessageReceiverService]
+service: com.taobao.agoo.TaobaoMessageIntentReceiverService  [com.taobao.accs.intent.action.RECEIVE]
+service: com.taobao.accs.data.MsgDistributeService  [anetwork.channel.aidl.IRemoteNetworkGetter]
+service: anetwork.channel.aidl.NetworkService  [mtopsdk.xstate.aidl.IXState]
+service: mtopsdk.xstate.XStateService
+service: com.taobao.android.runtime.Dex2OatService
+activity: android.taobao.atlas.remote.RemoteActivityManager$EmbeddedActivity  [android.intent.action.MAIN, android.intent.category.DEFAULT]
+activity: com.yunos.accountsdk.activity.YoukuLoginActivity  [android.intent.action.MAIN, android.intent.category.DEFAULT]
+activity: com.yunos.accountsdk.activity.AccountLogoutActivity  [android.intent.action.MAIN, android.intent.category.DEFAULT]
+activity: com.yunos.accountsdk.activity.YoukuAccountListActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.accountsdk.activity.NavigationActivity  [android.intent.action.MAIN, android.intent.category.LAUNCHER, android.intent.action.MAIN, android.intent.category.LEANBACK_LAUNCHER, android.intent.action.VIEW, android.intent.category.DEFAULT, android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.WelcomeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.CrazyDegradeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.tv.ApiActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.tv.SearchActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.cibn.tv.WelcomeActivity
+activity: com.yunos.tv.yingshi.RemoteBundleFirstEnterActivity
+service: com.yunos.tv.yingshi.boutique.BundleUpgradeService
+service: com.yunos.tv.yingshi.boutique.keeper.LiveService
+service: com.yunos.tv.yingshi.boutique.keeper.ShortLiveService  [DUMP_SIGNAL_ACTION]
+service: com.yunos.tv.yingshi.debug.DumpHeapService
+service: com.yunos.tv.yingshi.boutique.accs.TvAccsMessageService  [org.agoo.android.intent.action.RECEIVE, com.taobao.taobao.intent.thirdPush.action.COMMAND]
+service: com.yunos.tv.yingshi.boutique.agoo.TvAgooMessageService  [com.yunos.account.action.LOGIN_BROADCAST, com.yunos.account.action.DELETE_ACCOUNT]
+receiver: com.yunos.tv.yingshi.boutique.agoo.UserSignInOutReceiver  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.activity.ChildActivity
+activity: com.yunos.tv.yingshi.activity.YingshiYoukuDetailActivity
+activity: com.yunos.tv.yingshi.activity.HistoryActivity
+activity: com.yunos.tv.yingshi.activity.FavorActivity
+service: com.alibaba.analytics.AnalyticsService  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.player.error_detect.NetworkDiagnoseActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.player.error_detect.PlayerErrorDetectActivity
+service: com.yunos.tv.yingshi.boutique.bundle.upgrade.UpgradeInitService
+provider: android.support.v4.content.FileProvider
+activity: com.yunos.tv.yingshi.activity.CarouselAggregationActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.carousel.NewPlaybackActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.FavorActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.ChargePkgDetailActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.ChargeTypeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.ChargeDemandActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.TboMemberCenterActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.FavourOrderActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.ActiveVipRightsActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.Order2CodeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.Order2CodeCommonActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.VipExchangeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.YingshiKQBActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.YingshiBoughtActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.FavourBoughtContentActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.TboDianboActivity
+activity: com.yunos.tv.yingshi.boutique.bundle.member.VipTestActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.VipWebViewAcitivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.SingleQrCodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.OpenVipQrcodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.UpgradeVipQrCodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.FuFeiBaoQrCodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.TryEndQrCodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.UseCouponActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.VipQrCodeBuyActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.VipBuyCenterActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.member.qrcodebuy.VipBPlanCashierDeskActivity
+activity: com.yunos.tv.yingshi.boutique.bundle.member.ChargeVipActivity
+provider: com.yunos.tv.dao.provider.YingshiProvider  [com.yunos.tv.getyktk, com.yunos.tv.kumiaovip]
+service: com.yunos.tv.yingshi.server.AccountYktkService
+service: com.yunos.tv.ottauthclient.OTTAuthService  [android.intent.action.MAIN, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.weex.DemosActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.weex.PowerMsgDemoActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.weex.CrazyInitActivity  [com.yunos.tv.action.WEEX, android.intent.category.DEFAULT, android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.weex.WXPageActivity  [org.agoo.android.intent.action.RECEIVE]
+service: com.yunos.tv.weex.init.AccsReceiverService  [com.yunos.tv.yingshi.weexinit]
+service: com.yunos.tv.yingshi.boutique.bundle.server.WeexInitService  [com.cibntv_yingshi.action.tvweex.remote.SHOW_DIALOG, com.cibntv_yingshi.action.tvweex.remote.SHOW_LIVE_DIALOG]
+receiver: com.yunos.tv.yingshi.boutique.bundle.weex.TvWxRemoteReceiver
+receiver: com.taobao.weex.WXGlobalEventReceiver  [com.alibaba.live.interact.LiveInteractTestActivity, android.intent.category.DEFAULT]
+activity: com.alibaba.live.interact.LiveInteractTestActivity
+activity: com.yunos.tv.yingshi.activity.FilterActivity
+activity: com.yunos.tv.yingshi.activity.SearchActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.search.SearchActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.search.FilterActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.LableAggregationActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.UserFeedbackActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.HistoryActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.FavourBoughtActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.MyYingshiActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.DeleteHistoryActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.StopServiceActivity
+activity: com.yunos.tv.yingshi.activity.MyYingshiActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.UserSettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.bundle.labelaggr.boutique.UserSettingHighActivity  [com.tv.user.data.update, com.cibn.tv.database.update]
+receiver: com.yunos.tv.yingshi.bundle.labelaggr.manager.NetDataUserReceiver  [com.tv.favorite.del.toapp, com.tv.history.del.toapp, com.tv.ali.favorite.del.toapp, com.tv.ali.history.del.toapp]
+receiver: com.yunos.tv.yingshi.bundle.labelaggr.manager.DmodeDataBroadCastReceiver  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.subject.CatalogListActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.subject.ProgramListActivity
+activity: com.yunos.tv.yingshi.activity.YingshiActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.topic.TopicActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.topic.TopicHActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.topic.VTopicActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.topic.ActorDetailActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT, android.intent.action.VIEW, android.intent.category.DEFAULT, com.tv.yingshi.detail, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.detail.activity.YingshiDetailActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.detail.activity.PlayerActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.detail.projection.VideoDispatcherActivity
+activity: com.yunos.tv.yingshi.boutique.bundle.detail.activity.SettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.detail.activity.PlayListActivity  [com.yunos.intent.action.VIDEO_PLAYER]
+receiver: com.yunos.tv.yingshi.boutique.bundle.detail.projection.ClientBroadcastReceiver  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.home.HomeActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.home.popupdialog.MacVipActivity
+activity: com.yunos.tv.yingshi.activity.YingshiHomeActivity  [android.intent.action.MAIN, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.home.ad.AdActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.activity.DownloadingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.home.TabWrapperActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.home.LiveDetailWrapperActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.home.LiveRoomWrapperActivity  [com.yunos.tv.Orange.OrangeManagerService]
+service: com.yunos.tv.Orange.OrangeManagerService  [com.taobao.orange.service.OrangeApiService]
+service: com.taobao.orange.service.OrangeApiService
+service: com.yunos.tv.Orange.accs.AccsReceiverService  [com.taobao.accs.intent.action.RECEIVE]
+service: com.taobao.orange.accssupport.OrangeAccsService  [com.aliott.m3u8Proxy.IPlayerProxy.action, android.intent.category.DEFAULT]
+service: com.aliott.m3u8Proxy.PlayerProxyService  [com.yunos.tv.bundle.aliyingshithirdsdk.ThirdSdkService]
+service: com.yunos.tv.bundle.aliyingshithirdsdk.ThirdSdkService  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.newactivity.activity.WelComeActivity
+activity: com.yunos.tv.newactivity.activity.TVSimpleBrowserActivity  [android.intent.action.MAIN]
+activity: com.yunos.tv.newactivity.activity.BlitzBrowserActivity
+activity: com.yunos.tv.newactivity.activity.DownloadAppActivity  [android.intent.action.PACKAGE_ADDED, android.intent.action.PACKAGE_REPLACED, android.intent.action.PACKAGE_REMOVED]
+receiver: com.yunos.tv.newactivity.InstallNotifyReceive
+service: com.yunos.tv.newactivity.KeyPressedService  [com.yunos.tv.newactivity.AppUpdateService, com.yunos.tv.newactivity.appUpdateNotify, android.intent.action.PACKAGE_ADDED, android.intent.action.PACKAGE_REPLACED, android.intent.action.PACKAGE_REMOVED, com.yunos.tv.newactivity.openUriNotifyReceive, android.intent.category.DEFAULT]
+service: com.yunos.tv.newactivity.AppUpdateService
+service: com.yingshi.dynamic_update.DynamicUpdateService
+receiver: com.taobao.update.bundle.BundleInstalledExitAppReceiver
+activity: com.taobao.update.lightapk.storagespace.SpaceActivity
+activity: com.taobao.update.lightapk.BundleNotFoundActivity  [com.taobao.intent.action.UPDATE_TEST, android.intent.category.DEFAULT]
+activity: com.taobao.test.UpdateSettingsActivity  [com.taobao.atlas.intent.startdynamic]
+receiver: com.taobao.update.test.DynamicTestReceiver  [com.taobao.atlas.intent.startmutidynamic]
+receiver: com.taobao.update.test.MutiDynamicTestReceiver  [com.taobao.atlas.intent.startandfix]
+receiver: com.taobao.update.test.AndFixTestReceiver  [com.taobao.atlas.intent.startapk]
+receiver: com.taobao.update.test.ApkTestReceiver
+service: com.taobao.update.test.DynamicTestService  [com.taobao.atlas.dexmerge.DexMergeService]
+service: com.taobao.atlas.dexmerge.DexMergeService  [com.taobao.atlas.intent.PATCH_APP, com.taobao.atlas.intent.DEX_PATCH_APP, com.taobao.atlas.intent.ROLLBACK_PATCH, com.taobao.atlas.intent.ROLLBACK_DEX_PATCH]
+receiver: com.taobao.atlas.update.AwoPatchReceiver  [com.yunos.tv.intent.MultiScreenService.ACTION_STARTUP.D]
+service: com.yunos.tv.yingshi.boutique.bundle.multiscreenservice.StartupService
+service: com.yunos.dlna.service.DLNAService  [com.yunos.tv.intent.RemoteControlServer.ACTION_DIAGNOSTIC.D, android.intent.category.DEFAULT]
+activity: com.yunos.tv.app.remotecontrolserver.diagnostic.ui.DiagActivity  [com.yunos.tv.intent.InterDeviceCommunicatorService.ACTION_BIND.D]
+service: com.yunos.tv.app.remotecontrolserver.service.InterDeviceCommunicatorService  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.cartoon.activity.CartoonStarActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.cartoon.activity.CartoonStarDetailActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.cartoon.activity.BrandDetailActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.ChildSettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.ChildNickSettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.DialogActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.KuBaoPlayActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.ChildManagerSettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.TestActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.parent.activity.ChildAgeSettingActivity  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.edu.bundle.vip.activity.ChildVipActivity
+service: com.yunos.tv.yingshi.boutique.bundle.inavAd.InteractiveAdInitService  [android.intent.action.VIEW, android.intent.category.DEFAULT]
+activity: com.yunos.tv.yingshi.boutique.bundle.inavAd.ui.AdActivity
+service: com.xiaomi.mipush.sdk.PushMessageHandler
+service: com.xiaomi.mipush.sdk.MessageHandleService  [com.xiaomi.mipush.RECEIVE_MESSAGE, com.xiaomi.mipush.ERROR]
+receiver: org.android.agoo.xiaomi.MiPushBroadcastReceiver  [TAOBAO_DELAY_START_POWMSG, com.taobao.tao.messagkit.receive]
+receiver: com.taobao.tao.powermsg.PowerMsgReceiver  [powermsg]
+service: com.taobao.tao.powermsg.outter.PowerMsg4WXService  [mtopsdk.mtop.antiattack.checkcode.validate.activity_action, android.intent.category.DEFAULT]
+activity: mtopsdk.extra.antiattack.CheckCodeValidateActivity

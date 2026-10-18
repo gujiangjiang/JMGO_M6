@@ -1,0 +1,22 @@
+# JGServersigned.apk（AXML 解析导出）
+uses-permission: android.permission.INTERNET
+uses-permission: android.permission.RECORD_AUDIO
+uses-permission: android.permission.ACCESS_NETWORK_STATE
+uses-permission: android.permission.ACCESS_WIFI_STATE
+uses-permission: android.permission.CHANGE_NETWORK_STATE
+uses-permission: android.permission.READ_PHONE_STATE
+uses-permission: android.permission.READ_CONTACTS
+uses-permission: android.permission.SYSTEM_ALERT_WINDOW
+uses-permission: android.permission.SYSTEM_OVERLAY_WINDOW
+uses-permission: android.permission.RECEIVE_BOOT_COMPLETED
+uses-permission: android.permission.WRITE_SETTINGS
+uses-permission: android.permission.GET_TASKS
+uses-permission: com.mstar.android.permissionn.ACCESS_TV_DATA
+uses-permission: android.permission.WRITE_EXTERNAL_STORAGE
+uses-permission: android.permission.READ_EXTERNAL_STORAGE
+uses-permission: android.permission.INTERACT_ACROSS_USERS_FULL
+package: com.jianguo.server
+sharedUserId: android.uid.system
+versionName: 1.3.21  versionCode: 33
+targetSdkVersion: None  minSdkVersion: None
+service: com.jianguo.server.JgService

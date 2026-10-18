@@ -1,0 +1,8 @@
+# YouCastRender.apk（AXML 解析导出）
+package: cn.youcast.wired.render
+sharedUserId: None
+versionName: 1.0  versionCode: 1
+targetSdkVersion: None  minSdkVersion: None
+activity: cn.youcast.wired.render.MainActivity
+activity: cn.youcast.wired.render.PlayerActivity
+service: cn.youcast.wired.render.MainService
