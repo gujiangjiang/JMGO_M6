@@ -60,6 +60,8 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - 只修改 system（可选 boot）时几乎无变砖风险；**不要碰 uboot/uenv/tz 等底层分区**（保留原 `updater-script` 即可）。
 - 桌面 `com.jmgo.launcher`（JmGoOS）为 Cocos2d-x + LuaJIT 应用，设置项内置其中，由 `/etc/jmgodefault.dat` 指定为默认 launcher（无标准 HOME intent）。
 - 预装应用位于 `/system/preinstall`（乐播投屏、WPS、优酷 CIBN），首次开机由 `com.jmgo.update` 静默安装。
+- 自定义应用安装约 10 个后提示"应用过多"：限制在自研 `PackageInstaller`（Holatek）的 `canInstallApp()`（SharedPreferences `apps/list`，阈值 10，adb 绕过）。
+  已给出免刷机绕过与 4 字节 odex 补丁，见 [安装数量限制分析与修复](docs/install-limit.md)。
 
 ## 文档索引
 
@@ -69,7 +71,7 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - [OTA 格式与签名](docs/ota-signature.md)
 - [刷机指南](docs/flash.md)
 - [内置应用清单](docs/apps.md)
-- [安装数量限制分析与修复](docs/install-limit.md)：*(进行中)*
+- [安装数量限制分析与修复](docs/install-limit.md)（含补丁工具与刷机步骤）
 
 ## 免责声明
 

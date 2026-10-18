@@ -35,6 +35,8 @@
 - `tools/signzip.py`：SignApk `-w`（whole-file）克隆。摘要范围 = `file[0 : len-comment_size-2]`（注意**末尾 2 字节注释长度字段不参与签名**）；PKCS7 结构与官方包逐字节对齐已校验。改动后必须用 `verify_ota.py` 对官方包和自签包双向回归。
 - `tools/verify_ota.py`：模拟 recovery 验签（整包签名 + MANIFEST 摘要 + 证书匹配）。
 - `tools/ext4.py`：只读 ext4（支持 extents）。支持 `ls/cat/get/find/du` 子命令。
+- `tools/ext4_patch.py`：ext4 镜像内**原位改字节**（4 字节级补丁无需 Linux）。
+- `tools/patch_pkginstaller_odex.py`：解除安装数量限制的 odex 补丁（含上下文校验，仅 1.0.53 适用）。
 
 ## 4. 修改 APK 的注意点
 
