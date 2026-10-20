@@ -1,0 +1,46 @@
+# 来源: /linux_rootfs (rootfs.bin) -> basic/dtv_driver.ko
+# DRVCUST_InitQueryUptr() 内注册的平台查询表（字符串常量在 .rodata.str1.1 中的出现顺序）
+# 提取方法: tools/squashfs_lzo.py 解包 rootfs.bin 后，对 .ko 做 ELF 重定位分析
+#          （见 docs/usb-rescue.md §证据链）
+
+[平台标识]
+5863DTMBC_VDRTuner_P_atdeu      # 机型/调谐器标识
+mt5863_m1v1_cn                  # 项目代号（与 p1 uboot.bin 镜像内字符串一致）
+
+[升级包]
+upgrade.pkg                     # U 盘升级包文件名（开机救砖用）
+upgrade
+.pkg
+
+[分区名表]（升级器按名字定位/擦写分区）
+uboot
+uboot_env
+misc
+recovery
+boot
+system
+userdata
+cache
+dmverity
+linux_rootfs
+basic
+perm
+3rd_ro
+3rd_rw
+reserved
+channelA
+channelB
+pq
+aq
+logo
+bootlogo
+tzbp
+adsp
+part_23
+part_24
+part_26
+part_27
+part_28
+part_29
+part_30
+part_31
