@@ -37,6 +37,8 @@
 - `tools/ext4.py`：只读 ext4（支持 extents）。支持 `ls/cat/get/find/du` 子命令。
 - `tools/ext4_patch.py`：ext4 镜像内**原位改字节**（4 字节级补丁无需 Linux）。
 - `tools/patch_pkginstaller_odex.py`：解除安装数量限制的 odex 补丁（含上下文校验，仅 1.0.53 适用）。
+- `tools/squashfs_lzo.py`：纯 Python SquashFS 解包（MTK C30 变体：压缩 id 3=LZO、dirent 无 type 数组、
+  inode diff 非累积、fragment 间接表为裸 u64 数组）。解 `rootfs.bin` 用。
 
 ## 4. 修改 APK 的注意点
 

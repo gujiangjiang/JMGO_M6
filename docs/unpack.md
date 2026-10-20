@@ -58,13 +58,20 @@ gunzip -kf work/boot_ramdisk.gz && mkdir -p work/ramdisk && bsdtar -xf work/boot
 
 `boot_kernel` 为 uImage（`file` 可见 Linux 3.18.25），`work/ramdisk/` 即根文件系统（`init.rc`、`fstab.mt5863`、`default.prop` 等）。
 
-## 5. rootfs.bin（squashfs-lzo）
+## 5. rootfs.bin（MTK 变体 squashfs，LZO）
 
-44MB，lzo 压缩，目录项亦被压缩，`strings` 基本无文本。macOS 自带工具无法解出 lzo squashfs；如需完整解包：
-- Linux：`unsquashfs -d out rootfs.bin`（需 lzo 支持）
-- 或安装 `python-lzo` + 自写 squashfs 解析
+44MB。`file` 会误报 lzo；实际是 **MTK C30 变体 squashfs（超块 compression id = 3 → LZO，
+沿用 3.x 编号）**，且与主线格式有差异（dirent 无 type 数组、inode diff 非累积、
+fragment 间接表为裸 u64 数组、符号链接 inode 末尾多 4 字节 xattr 索引）。
+本仓库提供纯 Python 解包器（无需依赖）：
 
-本仓库分析到「包含 directfb 等 linux 阶段二进制」为止，未深入。
+```bash
+python3 tools/squashfs_lzo.py list    work/extracted/rootfs.bin
+python3 tools/squashfs_lzo.py extract work/extracted/rootfs.bin work/rootfs_x
+```
+
+解出的即 Linux 世界 rootfs（含 `bin/`、`basic/` 中间件、`etc/checker.sh`、
+`basic/dtv_driver.ko` 等）——U 盘救砖机制就在其中，见 [`usb-rescue.md`](usb-rescue.md)。
 
 ## 6. APK 解析（AXML）
 
