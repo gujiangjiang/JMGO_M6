@@ -133,9 +133,9 @@ pq aq logo bootlogo tzbp adsp part_23 part_24 part_26..part_31
 
 ## 6. 尚未证实（后续工作）
 
-- `upgrade.pkg` 的**容器二进制格式**（magic、组件表 `sign/kern/root/sysm/chrm` 的
-  偏移/长度/校验字段、签名算法）→ 需要进一步逆向 `libmtkapp.so` 的
-  `a_fw_updater_*`/`c_dlm_*` 实现。
+- `upgrade.pkg` 的**容器二进制格式**：已逆向出魔数与结构框架，见
+  [`pkg-format.md`](pkg-format.md)（`#DH@FiRm` 头 / `iMtK` 追加段 / 分 tag 组件 /
+  digest-HMAC-RSA 校验链）；字段级偏移仍需一份真实 pkg 样本对照。
 - "开机即自动刷"是**自动触发**还是**屏上确认**（升级器含确认 UI 代码
   `_nav_updater_lb_confirm_proc_fct`，且字符串有 `pause menu`）。
 - 双 bank 的物理布局（分区表未见 `*_a/*_b`，bank 概念可能只作用于 SVL/TSL 版本表与

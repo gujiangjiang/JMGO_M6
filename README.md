@@ -31,7 +31,8 @@
 │   ├── flash.md            # 官方/本地刷机流程与安全注意事项
 │   ├── apps.md             # 系统/预装应用清单
 │   ├── install-limit.md    # 第三方应用安装数量限制的分析与修复
-│   └── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析
+│   ├── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析
+│   └── pkg-format.md       # upgrade.pkg 包格式逆向（MTK DLM 容器）
 ├── tools/                  # 已验证的 Python 工具链（详见 docs）
 ├── artifacts/              # 小体积原始件：prop、fstab、证书、清单、校验值
 └── apks/                   # JMGO 官方 APK 备份（用于解包/修改溯源）
@@ -65,7 +66,8 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
   已给出免刷机绕过与 4 字节 odex 补丁，见 [安装数量限制分析与修复](docs/install-limit.md)。
 - U 盘 `.pkg` 救砖：设备为 MTK"双世界"架构，Linux 世界（`linux_rootfs`+`basic` 中间件）中的
   NAV_UPDATER 开机扫描 U 盘 `upgrade.pkg`，校验后按分区表擦写并重启；与被刷的 Android 相互独立，故可救砖。
-  见 [U 盘救砖机制分析](docs/usb-rescue.md)。
+  见 [U 盘救砖机制分析](docs/usb-rescue.md)；包格式（magic `#DH@FiRm`、`iMtK` 追加段、
+  分 tag 组件、digest/HMAC/RSA 校验链）见 [upgrade.pkg 包格式](docs/pkg-format.md)。
 
 ## 文档索引
 
@@ -77,6 +79,7 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - [内置应用清单](docs/apps.md)
 - [安装数量限制分析与修复](docs/install-limit.md)（含补丁工具与刷机步骤）
 - [U 盘救砖机制分析（upgrade.pkg）](docs/usb-rescue.md)
+- [upgrade.pkg 包格式逆向（MTK DLM 容器）](docs/pkg-format.md)
 
 ## 免责声明
 
