@@ -1,0 +1,94 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'app/**'
+      - '.github/workflows/android.yml'
+  pull_request:
+    paths:
+      - 'app/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build unsigned APKs
+        working-directory: app
+        run: gradle assembleStandardRelease assembleSystemRelease --no-daemon --stacktrace
+
+      - name: Fetch AOSP testkey and verify against ROM platform cert
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://android.googlesource.com/platform/build/+/refs/tags/android-7.0.0_r1/target/product/security/testkey.pk8?format=TEXT" | base64 -d > /tmp/testkey.pk8
+          openssl pkey -inform DER -in /tmp/testkey.pk8 -pubout -out /tmp/testkey.pub
+          openssl x509 -in artifacts/certs/testkey.x509.pem -pubkey -noout > /tmp/rom.pub
+          if ! cmp -s /tmp/testkey.pub /tmp/rom.pub; then
+            echo "::error::AOSP testkey 与 ROM 内平台证书不一致"
+            exit 1
+          fi
+          echo "AOSP testkey 与 ROM 平台证书一致（平台签名可用）"
+
+      - name: Read version
+        id: ver
+        run: |
+          V=$(grep -oE "versionName \"[^\"]+\"" app/app/build.gradle | head -1 | cut -d'"' -f2)
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - name: Align and sign APKs
+        run: |
+          set -euo pipefail
+          BT="$ANDROID_HOME/build-tools/34.0.0"
+          mkdir -p /tmp/out
+          declare -A NAMES=( [standard]="JMGOControl-${{ steps.ver.outputs.version }}-standard.apk" [system]="JMGOControl-${{ steps.ver.outputs.version }}-system.apk" )
+          for flavor in standard system; do
+            UNSIGNED="app/app/build/outputs/apk/$flavor/release/app-$flavor-release-unsigned.apk"
+            OUT="/tmp/out/${NAMES[$flavor]}"
+            "$BT/zipalign" -f -p 4 "$UNSIGNED" /tmp/aligned.apk
+            "$BT/apksigner" sign \
+              --key /tmp/testkey.pk8 \
+              --cert artifacts/certs/testkey.x509.pem \
+              --v1-signing-enabled true \
+              --v2-signing-enabled true \
+              --min-sdk-version 24 \
+              --out "$OUT" /tmp/aligned.apk
+            "$BT/apksigner" verify --print-certs "$OUT" | head -5
+          done
+          ls -la /tmp/out
+          (cd /tmp/out && sha256sum *.apk > SHA256SUMS.txt && cat SHA256SUMS.txt)
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: JMGOControl-${{ steps.ver.outputs.version }}
+          path: |
+            /tmp/out/*.apk
+            /tmp/out/SHA256SUMS.txt
+          if-no-files-found: error

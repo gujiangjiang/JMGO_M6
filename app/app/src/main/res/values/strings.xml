@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">坚果控制台</string>
+    <string name="app_slogan">JMGO M6 设置与遥控工具</string>
+    <string name="build_info">版本 %1$s (%2$d)</string>
+</resources>

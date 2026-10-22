@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.gujiangjiang.jmgocontrol'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.gujiangjiang.jmgocontrol"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "0.1.0"
+        resourceConfigurations += ["zh", "en"]
+    }
+
+    flavorDimensions "dist"
+    productFlavors {
+        standard {
+            dimension "dist"
+        }
+        system {
+            dimension "dist"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            // CI 中用 apksigner + AOSP testkey 签名（保证与官方 ROM 同证书）
+        }
+        debug {
+            applicationIdSuffix ".debug"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+    lint {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
