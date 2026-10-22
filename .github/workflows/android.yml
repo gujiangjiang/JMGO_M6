@@ -27,13 +27,17 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Show Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          which sdkmanager || ls "$ANDROID_HOME/cmdline-tools" || true
+          sdkmanager --list_installed 2>/dev/null | head -30 || true
 
       - name: Install SDK packages
         run: |
           yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null || true
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
