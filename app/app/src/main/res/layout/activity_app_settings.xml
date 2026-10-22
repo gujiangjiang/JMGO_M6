@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="28dp">
+
+        <TextView
+            style="@style/SectionLabel"
+            android:text="@string/as_mode_section" />
+
+        <LinearLayout
+            android:id="@+id/rowLocalMode"
+            style="@style/SettingRow">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_local" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    android:id="@+id/localModeTitle"
+                    style="@style/SettingRowTitle"
+                    android:text="@string/mode_local" />
+
+                <TextView
+                    android:id="@+id/localModeSub"
+                    style="@style/SettingRowSub" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowRemoteMode"
+            style="@style/SettingRow"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_remote" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    android:id="@+id/remoteModeTitle"
+                    style="@style/SettingRowTitle"
+                    android:text="@string/mode_remote" />
+
+                <TextView
+                    android:id="@+id/remoteModeSub"
+                    style="@style/SettingRowSub" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/SectionLabel"
+            android:text="@string/as_local_section" />
+
+        <LinearLayout
+            android:id="@+id/rowBriFloor"
+            style="@style/SettingRow">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_general" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_bri_floor" />
+
+                <TextView
+                    style="@style/SettingRowSub"
+                    android:text="@string/as_bri_floor_sub" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/briFloorValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowLab"
+            style="@style/SettingRow"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_lab" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_lab" />
+
+                <TextView
+                    style="@style/SettingRowSub"
+                    android:text="@string/as_lab_sub" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/labValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowAgent"
+            style="@style/SettingRow"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_agent" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_agent" />
+
+                <TextView
+                    style="@style/SettingRowSub"
+                    android:text="@string/as_agent_sub" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/agentValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/teal"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/SectionLabel"
+            android:text="@string/as_about_section" />
+
+        <LinearLayout style="@style/SettingRow">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_info" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_version" />
+
+                <TextView
+                    android:id="@+id/versionValue"
+                    style="@style/SettingRowSub" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowRepo"
+            style="@style/SettingRow"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_toolbox" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_repo" />
+
+                <TextView
+                    style="@style/SettingRowSub"
+                    android:text="github.com/gujiangjiang/JMGO_M6" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3dp"
+            android:text="@string/as_footnote"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+    </LinearLayout>
+</ScrollView>

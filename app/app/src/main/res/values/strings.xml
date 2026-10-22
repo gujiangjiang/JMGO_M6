@@ -3,4 +3,58 @@
     <string name="app_name">坚果控制台</string>
     <string name="app_slogan">JMGO M6 设置与遥控工具</string>
     <string name="build_info">版本 %1$s (%2$d)</string>
+
+    <!-- 模式选择 -->
+    <string name="mode_select_title">选择使用模式</string>
+    <string name="mode_select_desc">本机模式：在这台投影仪上设置各类参数。\n遥控模式：在手机上遥控投影仪（需与本机处于同一局域网）。</string>
+    <string name="mode_local">本机模式</string>
+    <string name="mode_remote">遥控模式</string>
+    <string name="mode_local_desc">直接控制本机硬件设置：亮度、投影方式、对焦、风扇等</string>
+    <string name="mode_remote_desc">局域网遥控：方向键、音量、投屏与工具箱扩展</string>
+    <string name="mode_select_hint">稍后可在「应用设置」中随时切换模式</string>
+
+    <!-- 主界面 -->
+    <string name="device_line">%1$s · Android %2$s</string>
+    <string name="entry_general">一般设置</string>
+    <string name="entry_general_sub">亮度、画面、声音、信号源等常用项</string>
+    <string name="entry_advanced">高级设置</string>
+    <string name="entry_advanced_sub">梯形校正、数码变焦、色彩微调等</string>
+    <string name="entry_lab">实验室设置</string>
+    <string name="entry_lab_sub_unlocked">谨慎操作：工厂级参数，每项操作均有二次确认</string>
+    <string name="entry_connect">连接设备</string>
+    <string name="entry_connect_sub">发现局域网内的投影仪</string>
+    <string name="entry_remote_pad">遥控面板</string>
+    <string name="entry_remote_pad_sub">按键、鼠标、文本输入</string>
+    <string name="entry_toolbox">工具箱</string>
+    <string name="entry_toolbox_sub">亮度、截屏、应用推送、文件管理</string>
+    <string name="entry_app_settings">应用设置</string>
+    <string name="wip">该功能正在开发中，敬请期待</string>
+
+    <!-- 应用设置 -->
+    <string name="as_mode_section">使用模式</string>
+    <string name="as_mode_current">当前使用中</string>
+    <string name="as_local_section">本机模式选项</string>
+    <string name="as_bri_floor">最低亮度阈值</string>
+    <string name="as_bri_floor_sub">防止把亮度调到 0 导致光机熄灭（范围 0–50）</string>
+    <string name="as_lab">实验室解锁状态</string>
+    <string name="as_lab_sub">解锁序列：上上下下左右左右 OK；或快速连点本行 7 次</string>
+    <string name="as_lab_unlocked">已解锁</string>
+    <string name="as_lab_locked">未解锁</string>
+    <string name="as_agent">远程助手服务</string>
+    <string name="as_agent_sub">允许手机端使用本机的高级遥控功能（需本应用在后台运行）</string>
+    <string name="on">已开启</string>
+    <string name="off">已关闭</string>
+    <string name="as_about_section">关于</string>
+    <string name="as_version">版本</string>
+    <string name="as_repo">项目主页</string>
+    <string name="as_footnote">本应用使用与官方 ROM 相同的 AOSP 测试密钥签名（平台签名），仅用于自建设备的功能扩展。</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="as_relock_title">重新上锁实验室</string>
+    <string name="as_relock_msg">上锁后「实验室设置」入口将隐藏，直到再次输入解锁序列。</string>
+    <string name="lab_unlocked_toast">实验室设置已解锁</string>
+    <string name="mode_switched">已切换为「%1$s」</string>
+    <string name="no_browser">未找到可用的浏览器</string>
+    <string name="bri_floor_title">最低亮度阈值</string>
+    <string name="bri_floor_hint">输入 0–50 的整数</string>
 </resources>

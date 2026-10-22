@@ -38,6 +38,16 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ModeSelectActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+
+        <activity
+            android:name=".AppSettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
     </application>
 
 </manifest>
