@@ -33,7 +33,8 @@
 │   ├── install-limit.md    # 第三方应用安装数量限制的分析与修复
 │   ├── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析
 │   ├── pkg-format.md       # upgrade.pkg 包格式逆向（MTK DLM 容器）
-│   └── settings-api.md     # 设置项 API 逆向（自开发设置 App 指南）
+│   ├── settings-api.md     # 设置项 API 逆向（自开发设置 App 指南）
+│   └── remote-control.md   # 局域网遥控协议逆向（坚果控 App ↔ Anymote）
 ├── tools/                  # 已验证的 Python 工具链（详见 docs）
 ├── artifacts/              # 小体积原始件：prop、fstab、证书、清单、校验值
 └── apks/                   # JMGO 官方 APK 备份（用于解包/修改溯源）
@@ -73,6 +74,10 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
   （`getSystemService("holatekos_mananger")`，命令表见 [设置项 API 文档](docs/settings-api.md)），
   亮度/风扇/投影方式/梯形校正/对焦/光机电源等全部可编程；系统杂项走
   `com.jmgo.systemapi.SettingService`；WiFi/蓝牙用标准 Android API。
+- **局域网遥控协议已完整逆向**（坚果控 App ↔ 预装 GoogleRemote/Anymote）：
+  UDP 9101 发现 + TCP 9005 protobuf（length-delimited）按键注入，无鉴权；
+  设备端取 SN 用 `HolatekOSManager.getString(0, 147)`，与设置 API 命令表相互印证。
+  见 [局域网遥控协议逆向](docs/remote-control.md)（含最小 Python 客户端）。
 
 ## 文档索引
 
@@ -86,6 +91,7 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - [U 盘救砖机制分析（upgrade.pkg）](docs/usb-rescue.md)
 - [upgrade.pkg 包格式逆向（MTK DLM 容器）](docs/pkg-format.md)
 - [设置项 API 逆向（自开发设置 App 指南）](docs/settings-api.md)
+- [局域网遥控协议逆向（Anymote 发现/控制/最小客户端）](docs/remote-control.md)
 
 ## 免责声明
 
