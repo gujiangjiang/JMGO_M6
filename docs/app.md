@@ -1,0 +1,93 @@
+# 坚果控制台 App（自研设置与遥控工具）
+
+针对 JMGO M6（Android 7 / mt5863）的自研 Android 应用，一个 APK 同时提供
+**本机模式**（在投影仪上替代原生设置界面）与**遥控模式**（在手机上遥控投影仪）。
+源码位于本仓库 [`app/`](../app/)，由 GitHub Actions 自动构建（纯 Java/Kotlin，无原生库，
+**单一 universal APK 适配全部架构**）。
+
+## 1. 功能总览
+
+### 本机模式（投影仪端）
+- **一般设置**：光机亮度（0–100，带最低亮度阈值保护）、对比度、图像模式、自动梯形校正、
+  投影方式（正投/吊装/背投/吊装背投）、开机自动对焦、声音模式、媒体音量/静音、信号源、
+  定时关机、一键自动校正/对焦。
+- **高级设置**：数码变焦、手动梯形校正、画面比例、开机默认信号源、SPDIF、声音输出通道、
+  低功耗模式、蓝牙工作模式（只读）。
+- **实验室设置**（默认隐藏）：
+  - 解锁方式：遥控器按键序列 **上上下下左右左右 OK**，或快速连点「实验室解锁状态」行 7 次
+    （见 应用设置）。重新上锁后入口再次隐藏。
+  - 内容：RGB 增益（数组 109）、进入工厂模式、恢复默认设置、陀螺仪校准、立即关机、
+    DLP/MCU 版本、SN、电池电量、供电状态。
+  - **每一项操作前都有高风险二次确认**。
+- **安全机制**：
+  - 光机亮度永不写 0（最低亮度阈值可在应用设置中调整，默认 8）；
+  - 可能导致黑屏/画面异常的设置（投影方式、梯形、信号源、画面比例、数码变焦、低功耗等）
+    应用后弹出 **15 秒倒计时确认框**，超时不确认自动恢复原值。
+
+### 遥控模式（手机端）
+- **连接设备**：UDP 9101 局域网自动发现 + 手动 IP 直连，记住上次设备。
+- **遥控面板**：方向键/确定（触摸板支持滑动与点击）、返回/主页/菜单、音量±/静音、电源、
+  文本输入（commitText）、投屏/自动对焦/手动对焦±/坚果键等自定义键。
+- **工具箱**（需投影仪端「远程助手」开启）：
+  - 光机亮度滑块（实时读取范围与当前值，阈值保护）；
+  - 截取投影仪画面（保存到手机）；
+  - 推送安装 APK（选择手机中的 APK → 上传到投影仪静默安装）；
+  - 一键重置安装数量限制（清除系统安装器数据，详见 [install-limit.md](install-limit.md)）；
+  - 远程文件管理（浏览投影仪目录、下载文件到手机、从手机上传文件）。
+
+## 2. 安装与使用
+
+### 2.1 选择哪个 APK
+
+CI/Release 中产出两个 APK（均使用与官方 ROM 相同的 AOSP testkey 平台签名）：
+
+| 文件 | 用途 | 说明 |
+|---|---|---|
+| `JMGOControl-x.y.z-system.apk` | **投影仪**（本机模式 + 远程助手） | 声明系统级权限；在投影仪上与平台证书匹配 → 授予 INSTALL_PACKAGES、截屏、注入按键等 |
+| `JMGOControl-x.y.z-standard.apk` | **手机**（遥控模式） | 不含系统级权限声明；普通 App |
+
+> 两者同签名，可互相覆盖升级（同 applicationId）。
+
+### 2.2 安装
+
+1. 从 Releases 或 Actions 构件下载 APK；
+2. 投影仪：U 盘拷贝后用文件管理器安装（或 `adb install -r JMGOControl-x.y.z-system.apk`）；
+3. 手机：直接安装 `standard` 变体；
+4. 首次启动选择模式；投影仪选「本机模式」，手机选「遥控模式」（可随时在应用设置中切换）；
+5. 投影仪端进入 应用设置 → 开启「远程助手服务」，记下 PIN；
+6. 手机端首次打开工具箱时输入 PIN（一次保存）。
+
+### 2.3 权限说明
+
+- 投影仪首次进入本机模式会请求存储权限（远程文件管理/APK 推送需要）；
+- system 变体额外声明：INSTALL_PACKAGES、READ_FRAME_BUFFER、INJECT_EVENTS、
+  WRITE_SECURE_SETTINGS、REBOOT 等（平台签名自动授予，无需手动授权）；
+- 远程助手无云端依赖，仅在局域网内使用 PIN 鉴权；请勿在不受信任的网络中开启。
+
+## 3. 构建
+
+- 本机无 Android 环境也可构建：推送到 `main`（改动 `app/**`）自动触发
+  [Build APK](../.github/workflows/android.yml) 工作流；
+- 打 tag（形如 `app-v0.2.0`）会自动创建 GitHub Release 并附上两个 APK；
+- 工作流会拉取 AOSP 公开 testkey 并与仓库内 `artifacts/certs/testkey.x509.pem`
+  做公钥比对，确保与官方 ROM 平台证书一致后才签名；
+- 手动本地构建：`cd app && gradle assembleStandardRelease assembleSystemRelease`
+  （需 JDK 17 + Android SDK 34；APK 为未签名产物，用 `apksigner` + testkey 签名）。
+- 最低支持 **Android 7.0（API 24）**；无原生库，单 APK 适配 arm64/arm32/x86_64。
+
+## 4. 实现要点（与固件逆向结论的对应）
+
+| 功能 | 依据 |
+|---|---|
+| 本机设置读写 | `android.app.HolatekOSManager` 反射（[settings-api.md](settings-api.md)） |
+| 命令码/取值 | 实测命令表（[holatek-commands.txt](../artifacts/settings/holatek-commands.txt)） |
+| 遥控协议 | Anymote（UDP 9101 发现 + TCP 9005，protobuf length-delimited，[remote-control.md](remote-control.md)） |
+| 远程助手 | 自研 HTTP（9399，PIN 鉴权）+ UDP 9188 发现；截屏走 `SurfaceControl.screenshot`（系统权限） |
+| 重置安装限制 | `pm clear com.android.packageinstaller`（[install-limit.md](install-limit.md)） |
+
+## 5. 风险与限制
+
+- 实验室设置为工厂级参数，误操作可能影响设备稳定；应用已做二次确认，仍请谨慎；
+- 部分未实测命令（画面比例枚举序、定时关机单位等）以真机读回值为准，文档中已标注；
+- 遥控面板的「对焦±/自动对焦/坚果键」等自定义键码语义依赖设备端 JmGoOS 实现，
+  如个别键无效属预期（可反馈设备型号与固件版本）。

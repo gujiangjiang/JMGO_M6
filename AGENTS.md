@@ -26,7 +26,19 @@
 | `tools/` | 已验证的 Python 工具链 | 是 |
 | `artifacts/` | 小体积原始件（prop/证书/清单/校验值） | 是（单文件 <5MB） |
 | `apks/` | 需要溯源/修改的官方 APK 备份 | 是（单文件 <20MB） |
+| `app/` | 自研 Android 应用（Kotlin，Gradle 8/AGP 8，minSdk 24，双 flavor：standard/system） | 是（源码；构建产物不入库） |
 | `work/`（仓库外） | 解包中间产物、镜像等大文件 | 否 |
+
+## 2.1 App 构建约定（改 `app/` 前必读）
+
+- **无本地 Android SDK 环境**：依赖 GitHub Actions 构建（`.github/workflows/android.yml`）。
+  推送到 `main` 且改动 `app/**` 自动构建并签名（AOSP testkey，CI 会校验其与
+  `artifacts/certs/testkey.x509.pem` 公钥一致）；打 `app-v*` tag 自动发 Release。
+- **无法登录 GitHub 时**：CI 失败会把日志推到 `ci-err` 分支（`git fetch origin ci-err` 查看），
+  用于排查编译错误。
+- 修改 app 代码前请在本地做「XML 可解析 + @string/@drawable 引用存在 + Kotlin 括号平衡」自检；
+  提交信息前缀用 `app:` / `fix:` / `ci:`；版本号在 `app/app/build.gradle`（versionCode 递增）。
+- 严禁向 App 添加广告/统计/云依赖；图标一律使用 `res/drawable` 下自绘矢量图（不得使用 emoji）。
 
 ## 3. 工具链要点（改工具前先读）
 

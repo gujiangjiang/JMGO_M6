@@ -34,7 +34,9 @@
 │   ├── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析
 │   ├── pkg-format.md       # upgrade.pkg 包格式逆向（MTK DLM 容器）
 │   ├── settings-api.md     # 设置项 API 逆向（自开发设置 App 指南）
-│   └── remote-control.md   # 局域网遥控协议逆向（坚果控 App ↔ Anymote）
+│   ├── remote-control.md   # 局域网遥控协议逆向（坚果控 App ↔ Anymote）
+│   └── app.md              # 自研 App「坚果控制台」使用与实现说明
+├── app/                    # 自研 Android 应用（本机设置 + 局域网遥控，CI 构建）
 ├── tools/                  # 已验证的 Python 工具链（详见 docs）
 ├── artifacts/              # 小体积原始件：prop、fstab、证书、清单、校验值
 └── apks/                   # JMGO 官方 APK 备份（用于解包/修改溯源）
@@ -78,6 +80,9 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
   UDP 9101 发现 + TCP 9005 protobuf（length-delimited）按键注入，无鉴权；
   设备端取 SN 用 `HolatekOSManager.getString(0, 147)`，与设置 API 命令表相互印证。
   见 [局域网遥控协议逆向](docs/remote-control.md)（含最小 Python 客户端）。
+- **已基于上述结论开发自研 App**（`app/`，本机设置 + 手机遥控 + 远程工具箱）：
+  单 universal APK、minSdk 24、AOSP testkey 平台签名（与官方 ROM 同证书，解锁系统级能力），
+  GitHub Actions 自动构建并在打 tag 时发布 Release。见 [自研 App 文档](docs/app.md)。
 
 ## 文档索引
 
@@ -92,6 +97,7 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - [upgrade.pkg 包格式逆向（MTK DLM 容器）](docs/pkg-format.md)
 - [设置项 API 逆向（自开发设置 App 指南）](docs/settings-api.md)
 - [局域网遥控协议逆向（Anymote 发现/控制/最小客户端）](docs/remote-control.md)
+- [自研 App「坚果控制台」](docs/app.md)（本机设置 + 遥控 + 工具箱，CI 构建）
 
 ## 免责声明
 

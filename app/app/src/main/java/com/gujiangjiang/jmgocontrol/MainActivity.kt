@@ -44,6 +44,22 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (!::b.isInitialized) return
         render()
+        requestStorageIfNeeded()
+    }
+
+    private fun requestStorageIfNeeded() {
+        if (prefs.mode != AppPrefs.MODE_LOCAL) return
+        val granted = checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+            android.content.pm.PackageManager.PERMISSION_GRANTED
+        if (!granted) {
+            requestPermissions(
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                REQ_STORAGE
+            )
+        }
     }
 
     private fun render() {
@@ -132,5 +148,9 @@ class MainActivity : AppCompatActivity() {
             Intent(this, LocalSettingsActivity::class.java)
                 .putExtra(LocalSettingsActivity.EXTRA_PAGE, page)
         )
+    }
+
+    companion object {
+        private const val REQ_STORAGE = 1001
     }
 }

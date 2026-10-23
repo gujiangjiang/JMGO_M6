@@ -3,6 +3,7 @@ name: Build APK
 on:
   push:
     branches: [ main ]
+    tags: [ 'app-v*' ]
     paths:
       - 'app/**'
       - '.github/workflows/android.yml'
@@ -98,6 +99,13 @@ jobs:
             /tmp/out/*.apk
             /tmp/out/SHA256SUMS.txt
           if-no-files-found: error
+
+      - name: Create Release (tags app-v*)
+        if: startsWith(github.ref, 'refs/tags/app-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/out/*.apk
+          generate_release_notes: true
 
       - name: Upload error log to ci-err branch
         if: failure()
