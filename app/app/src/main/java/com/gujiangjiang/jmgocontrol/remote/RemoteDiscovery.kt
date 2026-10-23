@@ -45,7 +45,7 @@ class RemoteDiscovery(
         } catch (t: Throwable) {
             null
         }
-        thread = Thread {
+        val t = Thread {
             var sock: DatagramSocket? = null
             try {
                 sock = DatagramSocket()
@@ -92,7 +92,10 @@ class RemoteDiscovery(
                 } catch (t: Throwable) {
                 }
             }
-        }.apply { isDaemon = true }.start()
+        }
+        t.isDaemon = true
+        t.start()
+        thread = t
     }
 
     fun stop() {
