@@ -57,4 +57,16 @@
     <string name="no_browser">未找到可用的浏览器</string>
     <string name="bri_floor_title">最低亮度阈值</string>
     <string name="bri_floor_hint">输入 0–50 的整数</string>
+
+    <!-- 本地设置页 -->
+    <string name="holatek_unavailable">未检测到本机 JMGO 系统服务（HolatekOSManager）。本机模式设置不可用：请确认在坚果投影仪上安装并使用了 system 变体；手机/模拟器上属于正常现象。</string>
+    <string name="cd_title">确认「%1$s」变更</string>
+    <string name="cd_msg">%1$d 秒内未确认将自动恢复原设置</string>
+    <string name="cd_keep">保留此设置</string>
+    <string name="cd_reverted">已自动恢复原设置</string>
+    <string name="lab_warn_title">高风险操作确认</string>
+    <string name="lab_warn_msg">「%1$s」属于实验室/工厂级设置，可能影响设备正常工作与稳定性。确定继续吗？</string>
+    <string name="bri_floor_toast">已限制为最低亮度阈值 %1$d</string>
+    <string name="lab_locked_toast">实验室尚未解锁</string>
+    <string name="action_done">已执行</string>
 </resources>

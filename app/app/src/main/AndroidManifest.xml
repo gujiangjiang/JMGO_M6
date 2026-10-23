@@ -48,6 +48,11 @@
             android:name=".AppSettingsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
+
+        <activity
+            android:name=".LocalSettingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
     </application>
 
 </manifest>

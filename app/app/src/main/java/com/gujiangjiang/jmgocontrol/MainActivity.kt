@@ -94,7 +94,17 @@ class MainActivity : AppCompatActivity() {
     private fun onEntry(e: Entry) {
         when (e.id) {
             "appsettings" -> startActivity(Intent(this, AppSettingsActivity::class.java))
+            "general" -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
+            "advanced" -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
+            "lab" -> openLocalPage(LocalSettingsActivity.PAGE_LAB)
             else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun openLocalPage(page: String) {
+        startActivity(
+            Intent(this, LocalSettingsActivity::class.java)
+                .putExtra(LocalSettingsActivity.EXTRA_PAGE, page)
+        )
     }
 }
