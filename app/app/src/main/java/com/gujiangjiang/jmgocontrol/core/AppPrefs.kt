@@ -44,6 +44,13 @@ class AppPrefs(context: Context) {
             sp.edit().putString(KEY_LAST_NAME, v).apply()
         }
 
+    /** 手机端保存的 Agent PIN（连接投影仪远程助手时使用） */
+    var agentClientPin: String
+        get() = sp.getString(KEY_AGENT_CLIENT_PIN, "") ?: ""
+        set(v) {
+            sp.edit().putString(KEY_AGENT_CLIENT_PIN, v).apply()
+        }
+
     /** 远程助手 PIN（首次访问时自动生成 6 位数字） */
     val agentPin: String
         get() {
@@ -74,5 +81,6 @@ class AppPrefs(context: Context) {
         private const val KEY_LAST_IP = "last_remote_ip"
         private const val KEY_LAST_NAME = "last_remote_name"
         private const val KEY_AGENT_PIN = "agent_pin"
+        private const val KEY_AGENT_CLIENT_PIN = "agent_client_pin"
     }
 }

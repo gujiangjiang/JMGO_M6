@@ -115,4 +115,46 @@
     <string name="agent_pin_msg">当前 PIN：%1$s\n手机端连接本机高级功能时需要输入此 PIN。重新生成后，已保存旧 PIN 的手机需重新输入。</string>
     <string name="agent_regen">重新生成</string>
     <string name="agent_pin_new">新 PIN：%1$s</string>
+
+    <!-- 工具箱 -->
+    <string name="tb_device_line">%1$s · %2$s</string>
+    <string name="tb_connecting">连接中…</string>
+    <string name="tb_ready">已连接</string>
+    <string name="tb_offline">未连接</string>
+    <string name="tb_offline_hint">无法连接远程助手：请确认投影仪上「坚果控制台」已安装 system 变体、处于本机模式且「远程助手服务」已开启。</string>
+    <string name="tb_need_pin">需要 PIN</string>
+    <string name="tb_pin_title">输入远程助手 PIN</string>
+    <string name="tb_pin_msg">PIN 显示在投影仪端「应用设置 → 远程助手服务」中（本机模式）。</string>
+    <string name="tb_pin_hint">6 位数字 PIN</string>
+    <string name="tb_brightness">光机亮度</string>
+    <string name="tb_brightness_set">亮度已设置为 %1$d</string>
+    <string name="tb_fail">失败：%1$s</string>
+    <string name="tb_working">处理中…</string>
+    <string name="tb_screenshot">截取投影仪画面</string>
+    <string name="tb_screenshot_sub">保存投影仪当前屏幕截图到手机</string>
+    <string name="tb_shot_working">正在截屏…</string>
+    <string name="tb_shot_saved">已保存到 %1$s</string>
+    <string name="tb_shot_preview">投影仪屏幕截图</string>
+    <string name="tb_install">推送安装 APK</string>
+    <string name="tb_install_sub">选择手机中的 APK，推送到投影仪并静默安装</string>
+    <string name="tb_install_working">正在上传并安装…</string>
+    <string name="tb_install_ok">安装成功：%1$s</string>
+    <string name="tb_pkgreset">重置安装数量限制</string>
+    <string name="tb_pkgreset_sub">清除系统安装器记录，解除约 10 个应用的安装数量限制</string>
+    <string name="tb_pkgreset_msg">将清除系统包安装器（com.android.packageinstaller）的应用数据，用于重置安装数量计数。投影仪上已安装的应用不受影响。确定继续吗？</string>
+    <string name="tb_pkgreset_ok">已重置：%1$s</string>
+    <string name="tb_files">远程文件管理</string>
+    <string name="tb_files_sub">浏览投影仪文件、上传与下载</string>
+    <string name="tb_pick_fail">无法打开文件选择器</string>
+
+    <!-- 文件管理 -->
+    <string name="fs_up">上级目录</string>
+    <string name="fs_upload">上传到当前目录</string>
+    <string name="fs_refresh">刷新</string>
+    <string name="fs_empty">目录为空</string>
+    <string name="fs_fail">操作失败：%1$s</string>
+    <string name="fs_downloading">正在下载 %1$s …</string>
+    <string name="fs_saved">已保存到 %1$s</string>
+    <string name="fs_uploading">正在上传…</string>
+    <string name="fs_upload_ok">上传成功：%1$s</string>
 </resources>

@@ -116,6 +116,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, RemotePadActivity::class.java))
                 }
             }
+            "toolbox" -> {
+                if (prefs.lastRemoteIp.isEmpty()) {
+                    startActivity(Intent(this, RemoteConnectActivity::class.java))
+                } else {
+                    startActivity(Intent(this, RemoteToolboxActivity::class.java))
+                }
+            }
             else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
         }
     }
