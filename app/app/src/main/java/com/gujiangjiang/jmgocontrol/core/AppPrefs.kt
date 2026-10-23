@@ -32,6 +32,18 @@ class AppPrefs(context: Context) {
             sp.edit().putBoolean(KEY_AGENT, v).apply()
         }
 
+    var lastRemoteIp: String
+        get() = sp.getString(KEY_LAST_IP, "") ?: ""
+        set(v) {
+            sp.edit().putString(KEY_LAST_IP, v).apply()
+        }
+
+    var lastRemoteName: String
+        get() = sp.getString(KEY_LAST_NAME, "") ?: ""
+        set(v) {
+            sp.edit().putString(KEY_LAST_NAME, v).apply()
+        }
+
     companion object {
         const val MODE_UNSET = "unset"
         const val MODE_LOCAL = "local"
@@ -42,5 +54,7 @@ class AppPrefs(context: Context) {
         private const val KEY_LAB = "lab_unlocked"
         private const val KEY_BRI_FLOOR = "brightness_floor"
         private const val KEY_AGENT = "agent_enabled"
+        private const val KEY_LAST_IP = "last_remote_ip"
+        private const val KEY_LAST_NAME = "last_remote_name"
     }
 }

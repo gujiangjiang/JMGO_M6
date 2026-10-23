@@ -69,4 +69,40 @@
     <string name="bri_floor_toast">已限制为最低亮度阈值 %1$d</string>
     <string name="lab_locked_toast">实验室尚未解锁</string>
     <string name="action_done">已执行</string>
+
+    <!-- 连接设备（遥控发现） -->
+    <string name="connect_manual_hint">手动输入设备 IP</string>
+    <string name="connect_button">连接</string>
+    <string name="connect_scan">重新扫描</string>
+    <string name="connect_last">上次设备</string>
+    <string name="connect_scanning">正在扫描局域网内的投影仪…</string>
+    <string name="connect_found">已发现 %1$d 台设备</string>
+    <string name="connect_none">暂未发现设备：请确认手机与投影仪处于同一局域网，且投影仪已开机</string>
+    <string name="connect_last_none">暂无可用的上次设备</string>
+    <string name="connect_bad_ip">请输入有效的 IP 地址</string>
+
+    <!-- 遥控面板 -->
+    <string name="pad_reconnect">重连</string>
+    <string name="pad_touchpad_hint">滑动切换方向 · 点击确定</string>
+    <string name="pad_connecting">正在连接 %1$s …</string>
+    <string name="pad_ready">已连接</string>
+    <string name="pad_volume">已连接 · 音量 %1$s</string>
+    <string name="pad_closed">已断开：%1$s</string>
+    <string name="pad_text_title">发送文本</string>
+    <string name="pad_text_hint">输入要发送到投影仪当前输入框的文本</string>
+    <string name="pad_text_sent">已发送</string>
+    <string name="pad_text_fail">发送失败（连接不可用）</string>
+    <string name="key_back">返回</string>
+    <string name="key_home">主页</string>
+    <string name="key_menu">菜单</string>
+    <string name="key_vol_down">音量−</string>
+    <string name="key_mute">静音</string>
+    <string name="key_vol_up">音量+</string>
+    <string name="key_power">电源</string>
+    <string name="key_keyboard">输入</string>
+    <string name="key_focus_minus">对焦−</string>
+    <string name="key_focus_plus">对焦+</string>
+    <string name="key_autofocus">自动对焦</string>
+    <string name="key_cast">投屏</string>
+    <string name="key_jmgo">坚果键</string>
 </resources>

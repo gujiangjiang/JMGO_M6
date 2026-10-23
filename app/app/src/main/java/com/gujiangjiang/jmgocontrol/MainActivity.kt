@@ -97,6 +97,14 @@ class MainActivity : AppCompatActivity() {
             "general" -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
             "advanced" -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
             "lab" -> openLocalPage(LocalSettingsActivity.PAGE_LAB)
+            "connect" -> startActivity(Intent(this, RemoteConnectActivity::class.java))
+            "remote" -> {
+                if (prefs.lastRemoteIp.isEmpty()) {
+                    startActivity(Intent(this, RemoteConnectActivity::class.java))
+                } else {
+                    startActivity(Intent(this, RemotePadActivity::class.java))
+                }
+            }
             else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
         }
     }
