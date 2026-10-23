@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityAppSettingsBinding
 
@@ -44,7 +45,16 @@ class AppSettingsActivity : AppCompatActivity() {
         b.rowLab.setOnClickListener { onLabRowClick() }
         b.rowAgent.setOnClickListener {
             prefs.agentEnabled = !prefs.agentEnabled
+            if (prefs.agentEnabled) {
+                AgentService.start(this)
+            } else {
+                AgentService.stop(this)
+            }
             render()
+        }
+        b.rowAgent.setOnLongClickListener {
+            showPinDialog()
+            true
         }
         b.rowRepo.setOnClickListener { openRepo() }
         render()
@@ -90,6 +100,11 @@ class AppSettingsActivity : AppCompatActivity() {
         b.labValue.text =
             getString(if (prefs.labUnlocked) R.string.as_lab_unlocked else R.string.as_lab_locked)
         b.agentValue.text = getString(if (prefs.agentEnabled) R.string.on else R.string.off)
+        b.agentSub.text = if (prefs.agentEnabled) {
+            getString(R.string.agent_sub_on, prefs.agentPin)
+        } else {
+            getString(R.string.as_agent_sub)
+        }
         b.versionValue.text = getString(
             R.string.build_info,
             BuildConfig.VERSION_NAME,
@@ -155,6 +170,27 @@ class AppSettingsActivity : AppCompatActivity() {
         prefs.labUnlocked = true
         render()
         Toast.makeText(this, R.string.lab_unlocked_toast, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showPinDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.agent_pin_title)
+            .setMessage(getString(R.string.agent_pin_msg, prefs.agentPin))
+            .setPositiveButton(R.string.agent_regen) { _, _ ->
+                val newPin = prefs.regenerateAgentPin()
+                if (prefs.agentEnabled) {
+                    AgentService.stop(this)
+                    AgentService.start(this)
+                }
+                Toast.makeText(
+                    this,
+                    getString(R.string.agent_pin_new, newPin),
+                    Toast.LENGTH_LONG
+                ).show()
+                render()
+            }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .show()
     }
 
     private fun openRepo() {

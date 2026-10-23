@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityMainBinding
 import com.gujiangjiang.jmgocontrol.ui.Entry
@@ -27,6 +28,16 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         b.list.layoutManager = LinearLayoutManager(this)
+        maybeStartAgent()
+    }
+
+    private fun maybeStartAgent() {
+        if (prefs.mode == AppPrefs.MODE_LOCAL && prefs.agentEnabled) {
+            try {
+                AgentService.start(this)
+            } catch (t: Throwable) {
+            }
+        }
     }
 
     override fun onResume() {

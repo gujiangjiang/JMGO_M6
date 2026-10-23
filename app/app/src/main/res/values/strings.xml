@@ -105,4 +105,14 @@
     <string name="key_autofocus">自动对焦</string>
     <string name="key_cast">投屏</string>
     <string name="key_jmgo">坚果键</string>
+
+    <!-- 远程助手 Agent -->
+    <string name="agent_channel_name">远程助手</string>
+    <string name="agent_notif_title">远程助手运行中</string>
+    <string name="agent_notif_text">PIN %1$s · 端口 %2$d</string>
+    <string name="agent_sub_on">PIN %1$s · 端口 9399 · 长按可管理 PIN</string>
+    <string name="agent_pin_title">远程助手 PIN</string>
+    <string name="agent_pin_msg">当前 PIN：%1$s\n手机端连接本机高级功能时需要输入此 PIN。重新生成后，已保存旧 PIN 的手机需重新输入。</string>
+    <string name="agent_regen">重新生成</string>
+    <string name="agent_pin_new">新 PIN：%1$s</string>
 </resources>

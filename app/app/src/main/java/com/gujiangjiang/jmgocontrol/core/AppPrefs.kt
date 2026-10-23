@@ -44,6 +44,23 @@ class AppPrefs(context: Context) {
             sp.edit().putString(KEY_LAST_NAME, v).apply()
         }
 
+    /** 远程助手 PIN（首次访问时自动生成 6 位数字） */
+    val agentPin: String
+        get() {
+            var p = sp.getString(KEY_AGENT_PIN, "") ?: ""
+            if (p.isEmpty()) {
+                p = (100000 + (Math.random() * 900000).toInt()).toString()
+                sp.edit().putString(KEY_AGENT_PIN, p).apply()
+            }
+            return p
+        }
+
+    fun regenerateAgentPin(): String {
+        val p = (100000 + (Math.random() * 900000).toInt()).toString()
+        sp.edit().putString(KEY_AGENT_PIN, p).apply()
+        return p
+    }
+
     companion object {
         const val MODE_UNSET = "unset"
         const val MODE_LOCAL = "local"
@@ -56,5 +73,6 @@ class AppPrefs(context: Context) {
         private const val KEY_AGENT = "agent_enabled"
         private const val KEY_LAST_IP = "last_remote_ip"
         private const val KEY_LAST_NAME = "last_remote_name"
+        private const val KEY_AGENT_PIN = "agent_pin"
     }
 }

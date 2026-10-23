@@ -146,6 +146,7 @@
                     android:text="@string/as_agent" />
 
                 <TextView
+                    android:id="@+id/agentSub"
                     style="@style/SettingRowSub"
                     android:text="@string/as_agent_sub" />
             </LinearLayout>
