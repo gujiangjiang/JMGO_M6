@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -46,7 +46,9 @@ jobs:
 
       - name: Build unsigned APKs
         working-directory: app
-        run: gradle assembleStandardRelease assembleSystemRelease --no-daemon --stacktrace
+        run: |
+          set -o pipefail
+          gradle assembleStandardRelease assembleSystemRelease --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
 
       - name: Fetch AOSP testkey and verify against ROM platform cert
         run: |
@@ -96,3 +98,25 @@ jobs:
             /tmp/out/*.apk
             /tmp/out/SHA256SUMS.txt
           if-no-files-found: error
+
+      - name: Upload error log to ci-err branch
+        if: failure()
+        continue-on-error: true
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          mkdir -p /tmp/errlog
+          {
+            echo "run=$GITHUB_RUN_ID sha=$GITHUB_SHA ref=$GITHUB_REF"
+            echo
+            if [ -f /tmp/build.log ]; then tail -c 200000 /tmp/build.log; else echo "(build log missing)"; fi
+          } > /tmp/errlog/err.txt
+          cd /tmp/errlog
+          git init -q
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          git checkout -q -b ci-err
+          git add err.txt
+          git commit -qm "ci error log for ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" ci-err
