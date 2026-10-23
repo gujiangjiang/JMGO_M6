@@ -67,6 +67,39 @@
 
         <TextView
             style="@style/SectionLabel"
+            android:text="@string/as_general_section" />
+
+        <LinearLayout
+            android:id="@+id/rowLang"
+            style="@style/SettingRow">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_settings" />
+
+            <LinearLayout style="@style/SettingRowTexts">
+
+                <TextView
+                    style="@style/SettingRowTitle"
+                    android:text="@string/as_lang" />
+
+                <TextView
+                    style="@style/SettingRowSub"
+                    android:text="@string/as_lang_sub" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/langValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/accent"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/SectionLabel"
             android:text="@string/as_local_section" />
 
         <LinearLayout

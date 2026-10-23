@@ -32,6 +32,13 @@ class AppPrefs(context: Context) {
             sp.edit().putBoolean(KEY_AGENT, v).apply()
         }
 
+    /** 界面语言：system / zh / en */
+    var lang: String
+        get() = sp.getString(KEY_LANG, LANG_SYSTEM) ?: LANG_SYSTEM
+        set(v) {
+            sp.edit().putString(KEY_LANG, v).apply()
+        }
+
     var lastRemoteIp: String
         get() = sp.getString(KEY_LAST_IP, "") ?: ""
         set(v) {
@@ -73,6 +80,9 @@ class AppPrefs(context: Context) {
         const val MODE_LOCAL = "local"
         const val MODE_REMOTE = "remote"
         const val DEFAULT_BRI_FLOOR = 8
+        const val LANG_SYSTEM = "system"
+        const val LANG_ZH = "zh"
+        const val LANG_EN = "en"
 
         private const val KEY_MODE = "mode"
         private const val KEY_LAB = "lab_unlocked"
@@ -82,5 +92,6 @@ class AppPrefs(context: Context) {
         private const val KEY_LAST_NAME = "last_remote_name"
         private const val KEY_AGENT_PIN = "agent_pin"
         private const val KEY_AGENT_CLIENT_PIN = "agent_client_pin"
+        private const val KEY_LANG = "lang"
     }
 }

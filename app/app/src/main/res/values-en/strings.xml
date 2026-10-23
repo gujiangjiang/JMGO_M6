@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JMGO Control</string>
+    <string name="app_slogan">Settings &amp; remote tool for JMGO M6</string>
+    <string name="build_info">Version %1$s (%2$d)</string>
+
+    <!-- Mode selection -->
+    <string name="mode_select_title">Choose a mode</string>
+    <string name="mode_select_desc">Local mode: configure this projector directly.\nRemote mode: control the projector from your phone (same LAN required).</string>
+    <string name="mode_local">Local mode</string>
+    <string name="mode_remote">Remote mode</string>
+    <string name="mode_local_desc">Control projector hardware: brightness, projection mode, focus, fan, etc.</string>
+    <string name="mode_remote_desc">LAN remote: D-pad, volume, cast and toolbox extras</string>
+    <string name="mode_select_hint">You can switch modes anytime in App settings</string>
+
+    <!-- Main screen -->
+    <string name="device_line">%1$s · Android %2$s</string>
+    <string name="entry_general">General settings</string>
+    <string name="entry_general_sub">Brightness, picture, sound, input source and more</string>
+    <string name="entry_advanced">Advanced settings</string>
+    <string name="entry_advanced_sub">Keystone, digital zoom, color tuning, etc.</string>
+    <string name="entry_lab">Lab settings</string>
+    <string name="entry_lab_sub_unlocked">Caution: factory-level parameters, each action needs double confirmation</string>
+    <string name="entry_connect">Connect device</string>
+    <string name="entry_connect_sub">Discover projectors on your LAN</string>
+    <string name="entry_remote_pad">Remote pad</string>
+    <string name="entry_remote_pad_sub">Keys, mouse pad, text input</string>
+    <string name="entry_toolbox">Toolbox</string>
+    <string name="entry_toolbox_sub">Brightness, screenshot, APK push, file manager</string>
+    <string name="entry_app_settings">App settings</string>
+    <string name="wip">This feature is under development</string>
+
+    <!-- App settings -->
+    <string name="as_mode_section">Usage mode</string>
+    <string name="as_mode_current">Currently in use</string>
+    <string name="as_local_section">Local mode options</string>
+    <string name="as_bri_floor">Minimum brightness floor</string>
+    <string name="as_bri_floor_sub">Prevents setting brightness to 0 (lamp off). Range 0–50</string>
+    <string name="as_lab">Lab unlock status</string>
+    <string name="as_lab_sub">Unlock sequence: Up Up Down Down Left Right Left Right OK; or tap this row 7 times quickly</string>
+    <string name="as_lab_unlocked">Unlocked</string>
+    <string name="as_lab_locked">Locked</string>
+    <string name="as_agent">Remote assistant service</string>
+    <string name="as_agent_sub">Allow the phone app to use advanced remote features (app must keep running)</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="as_about_section">About</string>
+    <string name="as_version">Version</string>
+    <string name="as_repo">Project homepage</string>
+    <string name="as_footnote">This app is signed with the AOSP test key (same as the official ROM platform certificate) for self-built device extensions.</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="as_relock_title">Re-lock lab settings</string>
+    <string name="as_relock_msg">The Lab settings entry will be hidden until the unlock sequence is entered again.</string>
+    <string name="lab_unlocked_toast">Lab settings unlocked</string>
+    <string name="mode_switched">Switched to "%1$s"</string>
+    <string name="no_browser">No browser available</string>
+    <string name="bri_floor_title">Minimum brightness floor</string>
+    <string name="bri_floor_hint">Enter an integer 0–50</string>
+    <string name="holatek_unavailable">JMGO system service (HolatekOSManager) not found. Local settings are unavailable: make sure this is the system variant installed on a JMGO projector. This is normal on phones/emulators.</string>
+    <string name="cd_title">Confirm "%1$s" change</string>
+    <string name="cd_msg">Reverting automatically in %1$d s unless confirmed</string>
+    <string name="cd_keep">Keep this setting</string>
+    <string name="cd_reverted">Previous setting restored automatically</string>
+    <string name="lab_warn_title">High-risk action</string>
+    <string name="lab_warn_msg">"%1$s" is a lab/factory-level setting and may affect device stability. Continue?</string>
+    <string name="bri_floor_toast">Clamped to the minimum brightness floor: %1$d</string>
+    <string name="lab_locked_toast">Lab settings are locked</string>
+    <string name="action_done">Done</string>
+
+    <!-- Connect device -->
+    <string name="connect_manual_hint">Enter device IP manually</string>
+    <string name="connect_button">Connect</string>
+    <string name="connect_scan">Rescan</string>
+    <string name="connect_last">Last device</string>
+    <string name="connect_scanning">Scanning for projectors on your LAN…</string>
+    <string name="connect_found">%1$d device(s) found</string>
+    <string name="connect_none">No devices found. Make sure the phone and projector are on the same LAN and the projector is powered on.</string>
+    <string name="connect_last_none">No previous device</string>
+    <string name="connect_bad_ip">Please enter a valid IP address</string>
+
+    <!-- Remote pad -->
+    <string name="pad_reconnect">Reconnect</string>
+    <string name="pad_touchpad_hint">Swipe for direction · tap for OK</string>
+    <string name="pad_connecting">Connecting to %1$s …</string>
+    <string name="pad_ready">Connected</string>
+    <string name="pad_volume">Connected · volume %1$s</string>
+    <string name="pad_closed">Disconnected: %1$s</string>
+    <string name="pad_text_title">Send text</string>
+    <string name="pad_text_hint">Text will be typed into the focused input field on the projector</string>
+    <string name="pad_text_sent">Sent</string>
+    <string name="pad_text_fail">Send failed (not connected)</string>
+    <string name="key_back">Back</string>
+    <string name="key_home">Home</string>
+    <string name="key_menu">Menu</string>
+    <string name="key_vol_down">Vol−</string>
+    <string name="key_mute">Mute</string>
+    <string name="key_vol_up">Vol+</string>
+    <string name="key_power">Power</string>
+    <string name="key_keyboard">Input</string>
+    <string name="key_focus_minus">Focus−</string>
+    <string name="key_focus_plus">Focus+</string>
+    <string name="key_autofocus">Auto focus</string>
+    <string name="key_cast">Cast</string>
+    <string name="key_jmgo">JMGO key</string>
+
+    <!-- Agent -->
+    <string name="agent_channel_name">Remote assistant</string>
+    <string name="agent_notif_title">Remote assistant is running</string>
+    <string name="agent_notif_text">PIN %1$s · port %2$d</string>
+    <string name="agent_sub_on">PIN %1$s · port 9399 · long-press to manage PIN</string>
+    <string name="agent_pin_title">Remote assistant PIN</string>
+    <string name="agent_pin_msg">Current PIN: %1$s\nThe phone must enter this PIN to use advanced local features. Regenerating requires re-entering it on paired phones.</string>
+    <string name="agent_regen">Regenerate</string>
+    <string name="agent_pin_new">New PIN: %1$s</string>
+
+    <!-- Toolbox -->
+    <string name="tb_device_line">%1$s · %2$s</string>
+    <string name="tb_connecting">Connecting…</string>
+    <string name="tb_ready">Connected</string>
+    <string name="tb_offline">Not connected</string>
+    <string name="tb_offline_hint">Remote assistant unavailable. The remote pad needs no app on the projector; toolbox features (screenshot / APK push / file manager / install-limit reset) require this app running on the projector (system variant, local mode) with "Remote assistant service" enabled.</string>
+    <string name="tb_need_pin">PIN required</string>
+    <string name="tb_pin_title">Enter remote assistant PIN</string>
+    <string name="tb_pin_msg">The PIN is shown on the projector under App settings → Remote assistant service (local mode).</string>
+    <string name="tb_pin_hint">6-digit PIN</string>
+    <string name="tb_brightness">Lamp brightness</string>
+    <string name="tb_brightness_set">Brightness set to %1$d</string>
+    <string name="tb_fail">Failed: %1$s</string>
+    <string name="tb_working">Working…</string>
+    <string name="tb_screenshot">Capture projector screen</string>
+    <string name="tb_screenshot_sub">Save the projector screen image to your phone</string>
+    <string name="tb_shot_working">Capturing…</string>
+    <string name="tb_shot_saved">Saved to %1$s</string>
+    <string name="tb_shot_preview">Projector screenshot</string>
+    <string name="tb_install">Push APK install</string>
+    <string name="tb_install_sub">Pick an APK on your phone and install it on the projector</string>
+    <string name="tb_install_working">Uploading and installing…</string>
+    <string name="tb_install_ok">Installed: %1$s</string>
+    <string name="tb_pkgreset">Reset install limit</string>
+    <string name="tb_pkgreset_sub">Clear the system installer records to lift the ~10-app install limit</string>
+    <string name="tb_pkgreset_msg">This clears app data of com.android.packageinstaller to reset the install counter. Installed apps are not affected. Continue?</string>
+    <string name="tb_pkgreset_ok">Reset done: %1$s</string>
+    <string name="tb_files">Remote file manager</string>
+    <string name="tb_files_sub">Browse, upload and download files on the projector</string>
+    <string name="tb_pick_fail">No file picker available</string>
+
+    <!-- File manager -->
+    <string name="fs_up">Parent</string>
+    <string name="fs_upload">Upload here</string>
+    <string name="fs_refresh">Refresh</string>
+    <string name="fs_empty">Empty folder</string>
+    <string name="fs_fail">Failed: %1$s</string>
+    <string name="fs_downloading">Downloading %1$s …</string>
+    <string name="fs_saved">Saved to %1$s</string>
+    <string name="fs_uploading">Uploading…</string>
+    <string name="fs_upload_ok">Uploaded: %1$s</string>
+
+    <!-- Connection status & flow -->
+    <string name="status_no_device">No device</string>
+    <string name="status_no_device_hint">Tap to discover or add a projector</string>
+    <string name="status_checking">Checking…</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_offline">Offline</string>
+    <string name="entry_need_connect">Connect a device first</string>
+    <string name="entry_need_connect_toast">Please connect a projector first</string>
+    <string name="connect_testing">Connecting to %1$s …</string>
+    <string name="connect_ok">Connected: %1$s (%2$s)</string>
+    <string name="connect_test_fail">Connection failed: make sure the projector is on, on the same LAN, and its remote service is running</string>
+
+    <!-- General / language -->
+    <string name="as_general_section">General</string>
+    <string name="as_lang">Language</string>
+    <string name="as_lang_sub">Interface language, follows the system by default</string>
+    <string name="lang_system">System default</string>
+    <string name="lang_zh">简体中文</string>
+    <string name="lang_en">English</string>
+    <string name="lang_switched">Language changed</string>
+
+    <!-- About -->
+    <string name="as_about_title">About</string>
+    <string name="about_title">About JMGO Control</string>
+    <string name="about_repo">Project homepage</string>
+    <string name="about_msg">JMGO Control · settings &amp; remote tool for JMGO M6\n\nVersion: %1$s (%2$d)\nPackage: com.gujiangjiang.jmgocontrol\n\nA personal research project: local mode talks to the system HolatekOSManager service; remote mode uses the official Anymote protocol (UDP 9101 discovery / TCP 9005 control) over your LAN and requires NO extra app on the projector. Toolbox extras (screenshot, APK push, file manager, install-limit reset) need this app running on the projector with the remote assistant enabled.\n\nSigning: AOSP test key (matches the official ROM platform certificate)\n\nFor study and research only.</string>
+</resources>

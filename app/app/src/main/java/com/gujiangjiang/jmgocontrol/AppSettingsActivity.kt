@@ -11,12 +11,12 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityAppSettingsBinding
 
-class AppSettingsActivity : AppCompatActivity() {
+class AppSettingsActivity : BaseActivity() {
 
     private lateinit var b: ActivityAppSettingsBinding
     private lateinit var prefs: AppPrefs
@@ -47,7 +47,30 @@ class AppSettingsActivity : AppCompatActivity() {
         }
         b.rowRepo.setOnClickListener { openRepo() }
         b.rowAbout.setOnClickListener { showAboutDialog() }
+        b.rowLang.setOnClickListener { showLangDialog() }
         render()
+    }
+
+    private fun showLangDialog() {
+        val values = arrayOf(AppPrefs.LANG_SYSTEM, AppPrefs.LANG_ZH, AppPrefs.LANG_EN)
+        val labels = arrayOf(
+            getString(R.string.lang_system),
+            getString(R.string.lang_zh),
+            getString(R.string.lang_en)
+        )
+        val checked = values.indexOf(prefs.lang).coerceAtLeast(0)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.as_lang)
+            .setSingleChoiceItems(labels, checked) { d, which ->
+                d.dismiss()
+                if (prefs.lang != values[which]) {
+                    prefs.lang = values[which]
+                    Toast.makeText(this, R.string.lang_switched, Toast.LENGTH_SHORT).show()
+                    recreate()
+                }
+            }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .show()
     }
 
     private fun showAboutDialog() {
@@ -106,6 +129,11 @@ class AppSettingsActivity : AppCompatActivity() {
             BuildConfig.VERSION_NAME,
             BuildConfig.VERSION_CODE
         )
+        b.langValue.text = when (prefs.lang) {
+            AppPrefs.LANG_ZH -> getString(R.string.lang_zh)
+            AppPrefs.LANG_EN -> getString(R.string.lang_en)
+            else -> getString(R.string.lang_system)
+        }
     }
 
     private fun switchMode(mode: String) {

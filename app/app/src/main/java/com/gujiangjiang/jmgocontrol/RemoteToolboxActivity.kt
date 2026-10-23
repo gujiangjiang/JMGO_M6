@@ -12,14 +12,14 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityRemoteToolboxBinding
 import com.gujiangjiang.jmgocontrol.remote.AgentClient
 import java.io.File
 import java.net.URLEncoder
 
-class RemoteToolboxActivity : AppCompatActivity() {
+class RemoteToolboxActivity : BaseActivity() {
 
     private lateinit var b: ActivityRemoteToolboxBinding
     private lateinit var prefs: AppPrefs

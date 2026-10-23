@@ -15,7 +15,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.core.HolatekApi
 import com.gujiangjiang.jmgocontrol.core.HolatekCmd
@@ -25,7 +25,7 @@ import com.gujiangjiang.jmgocontrol.local.Kind
 import com.gujiangjiang.jmgocontrol.local.SettingSpec
 import com.gujiangjiang.jmgocontrol.local.SettingsPages
 
-class LocalSettingsActivity : AppCompatActivity() {
+class LocalSettingsActivity : BaseActivity() {
 
     private lateinit var b: ActivityLocalSettingsBinding
     private lateinit var prefs: AppPrefs

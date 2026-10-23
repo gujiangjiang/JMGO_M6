@@ -9,14 +9,14 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityRemotePadBinding
 import com.gujiangjiang.jmgocontrol.databinding.ItemKeyBinding
 import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
 import kotlin.math.abs
 
-class RemotePadActivity : AppCompatActivity() {
+class RemotePadActivity : BaseActivity() {
 
     private lateinit var b: ActivityRemotePadBinding
     private lateinit var prefs: AppPrefs

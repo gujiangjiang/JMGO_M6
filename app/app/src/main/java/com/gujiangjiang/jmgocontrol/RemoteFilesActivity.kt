@@ -7,7 +7,7 @@ import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class RemoteFilesActivity : AppCompatActivity() {
+class RemoteFilesActivity : BaseActivity() {
 
     private lateinit var b: ActivityRemoteFilesBinding
     private lateinit var prefs: AppPrefs

@@ -2,11 +2,11 @@ package com.gujiangjiang.jmgocontrol
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityModeSelectBinding
 
-class ModeSelectActivity : AppCompatActivity() {
+class ModeSelectActivity : BaseActivity() {
 
     private lateinit var b: ActivityModeSelectBinding
 

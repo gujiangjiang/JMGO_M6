@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
@@ -16,7 +16,7 @@ import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
 import com.gujiangjiang.jmgocontrol.ui.Entry
 import com.gujiangjiang.jmgocontrol.ui.EntryAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var b: ActivityMainBinding
     private lateinit var prefs: AppPrefs
@@ -50,9 +50,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private var seenLang = ""
+
     override fun onResume() {
         super.onResume()
         if (!::b.isInitialized) return
+        if (seenLang.isEmpty()) {
+            seenLang = prefs.lang
+        } else if (seenLang != prefs.lang) {
+            seenLang = prefs.lang
+            recreate()
+            return
+        }
         render()
         requestStorageIfNeeded()
         refreshDeviceStatus()

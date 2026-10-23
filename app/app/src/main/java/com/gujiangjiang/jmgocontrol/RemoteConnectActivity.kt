@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
@@ -14,7 +14,7 @@ import com.gujiangjiang.jmgocontrol.databinding.ItemRemoteDeviceBinding
 import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
 import com.gujiangjiang.jmgocontrol.remote.RemoteDiscovery
 
-class RemoteConnectActivity : AppCompatActivity() {
+class RemoteConnectActivity : BaseActivity() {
 
     private lateinit var b: ActivityRemoteConnectBinding
     private lateinit var prefs: AppPrefs
