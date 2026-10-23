@@ -46,7 +46,23 @@ class AppSettingsActivity : AppCompatActivity() {
             true
         }
         b.rowRepo.setOnClickListener { openRepo() }
+        b.rowAbout.setOnClickListener { showAboutDialog() }
         render()
+    }
+
+    private fun showAboutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.about_title)
+            .setMessage(
+                getString(
+                    R.string.about_msg,
+                    BuildConfig.VERSION_NAME,
+                    BuildConfig.VERSION_CODE
+                )
+            )
+            .setPositiveButton(R.string.about_repo) { _, _ -> openRepo() }
+            .setNegativeButton(R.string.dialog_ok, null)
+            .show()
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {

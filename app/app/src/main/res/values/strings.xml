@@ -121,7 +121,7 @@
     <string name="tb_connecting">连接中…</string>
     <string name="tb_ready">已连接</string>
     <string name="tb_offline">未连接</string>
-    <string name="tb_offline_hint">无法连接远程助手：请确认投影仪上「坚果控制台」已安装 system 变体、处于本机模式且「远程助手服务」已开启。</string>
+    <string name="tb_offline_hint">无法连接远程助手。基本遥控（遥控面板）无需在投影仪安装任何应用；工具箱中的截屏 / APK 推送 / 文件管理 / 安装限制重置需要投影仪端运行本应用（system 变体、本机模式）并开启「远程助手服务」。</string>
     <string name="tb_need_pin">需要 PIN</string>
     <string name="tb_pin_title">输入远程助手 PIN</string>
     <string name="tb_pin_msg">PIN 显示在投影仪端「应用设置 → 远程助手服务」中（本机模式）。</string>
@@ -157,4 +157,22 @@
     <string name="fs_saved">已保存到 %1$s</string>
     <string name="fs_uploading">正在上传…</string>
     <string name="fs_upload_ok">上传成功：%1$s</string>
+
+    <!-- 连接状态与流程 -->
+    <string name="status_no_device">未连接设备</string>
+    <string name="status_no_device_hint">点击本卡片发现或手动添加投影仪</string>
+    <string name="status_checking">检测中…</string>
+    <string name="status_connected">已连接</string>
+    <string name="status_offline">未连接</string>
+    <string name="entry_need_connect">请先连接设备</string>
+    <string name="entry_need_connect_toast">请先连接投影仪</string>
+    <string name="connect_testing">正在连接 %1$s …</string>
+    <string name="connect_ok">已连接：%1$s（%2$s）</string>
+    <string name="connect_test_fail">连接失败：请确认投影仪已开机、与本机处于同一局域网，且遥控服务正常</string>
+
+    <!-- 关于 -->
+    <string name="as_about_title">关于</string>
+    <string name="about_title">关于坚果控制台</string>
+    <string name="about_repo">项目主页</string>
+    <string name="about_msg">坚果控制台 · JMGO M6 设置与遥控工具\n\n版本：%1$s (%2$d)\n包名：com.gujiangjiang.jmgocontrol\n\n本应用为个人研究项目：本机模式直接调用系统 HolatekOSManager 服务读写投影仪硬件参数；遥控模式通过官方 Anymote 协议（UDP 9101 发现 / TCP 9005 控制）进行局域网遥控，无需在投影仪端安装任何附加应用；工具箱的高级功能（截屏、APK 推送安装、文件管理、安装数量限制重置）需要投影仪端运行本应用并开启「远程助手」。\n\n签名：AOSP 测试密钥（与官方 ROM 平台证书一致）\n\n仅供学习研究使用，请遵守当地法律法规。</string>
 </resources>

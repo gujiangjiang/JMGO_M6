@@ -163,7 +163,9 @@
             style="@style/SectionLabel"
             android:text="@string/as_about_section" />
 
-        <LinearLayout style="@style/SettingRow">
+        <LinearLayout
+            android:id="@+id/rowAbout"
+            style="@style/SettingRow">
 
             <ImageView
                 android:layout_width="30dp"
@@ -175,7 +177,7 @@
 
                 <TextView
                     style="@style/SettingRowTitle"
-                    android:text="@string/as_version" />
+                    android:text="@string/as_about_title" />
 
                 <TextView
                     android:id="@+id/versionValue"

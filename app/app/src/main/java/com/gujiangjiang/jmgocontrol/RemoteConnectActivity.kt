@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.databinding.ActivityRemoteConnectBinding
 import com.gujiangjiang.jmgocontrol.databinding.ItemRemoteDeviceBinding
+import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
 import com.gujiangjiang.jmgocontrol.remote.RemoteDiscovery
 
 class RemoteConnectActivity : AppCompatActivity() {
@@ -20,6 +21,7 @@ class RemoteConnectActivity : AppCompatActivity() {
     private var discovery: RemoteDiscovery? = null
     private val devices = ArrayList<RemoteDiscovery.RemoteDevice>()
     private lateinit var adapter: DeviceAdapter
+    private var checking = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,14 +102,35 @@ class RemoteConnectActivity : AppCompatActivity() {
         openPad(RemoteDiscovery.RemoteDevice(ip = ip, model = name, mac = "", sn = ""))
     }
 
+    /**
+     * 连接设备（前置条件流程）：连通性测试通过后保存设备并返回主菜单，
+     * 由主菜单展示设备名与 IP，用户再选择「遥控面板 / 工具箱」。
+     */
     private fun openPad(dev: RemoteDiscovery.RemoteDevice) {
-        prefs.lastRemoteIp = dev.ip
-        prefs.lastRemoteName = if (dev.model.isNotEmpty()) dev.model else dev.ip
-        startActivity(
-            Intent(this, RemotePadActivity::class.java)
-                .putExtra(RemotePadActivity.EXTRA_IP, dev.ip)
-                .putExtra(RemotePadActivity.EXTRA_NAME, prefs.lastRemoteName)
-        )
+        val name = if (dev.model.isNotEmpty()) dev.model else dev.ip
+        b.scanStatus.text = getString(R.string.connect_testing, name)
+        if (checking) return
+        checking = true
+        Thread {
+            val ok = AnymoteClient.test(dev.ip)
+            runOnUiThread {
+                checking = false
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                if (ok) {
+                    prefs.lastRemoteIp = dev.ip
+                    prefs.lastRemoteName = name
+                    Toast.makeText(
+                        this,
+                        getString(R.string.connect_ok, name, dev.ip),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } else {
+                    b.scanStatus.text = getString(R.string.connect_test_fail)
+                    Toast.makeText(this, R.string.connect_test_fail, Toast.LENGTH_LONG).show()
+                }
+            }
+        }.apply { isDaemon = true }.start()
     }
 
     private fun isValidIp(ip: String): Boolean {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
 import com.gujiangjiang.jmgocontrol.core.LabUnlockTracker
 import com.gujiangjiang.jmgocontrol.databinding.ActivityMainBinding
+import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
 import com.gujiangjiang.jmgocontrol.ui.Entry
 import com.gujiangjiang.jmgocontrol.ui.EntryAdapter
 
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var b: ActivityMainBinding
     private lateinit var prefs: AppPrefs
     private val labTracker = LabUnlockTracker()
+    private var deviceReachable: Boolean? = null
+    private var checking = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,9 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         b.list.layoutManager = LinearLayoutManager(this)
+        b.statusCard.setOnClickListener {
+            startActivity(Intent(this, RemoteConnectActivity::class.java))
+        }
         maybeStartAgent()
     }
 
@@ -48,6 +55,31 @@ class MainActivity : AppCompatActivity() {
         if (!::b.isInitialized) return
         render()
         requestStorageIfNeeded()
+        refreshDeviceStatus()
+    }
+
+    private fun refreshDeviceStatus() {
+        if (prefs.mode != AppPrefs.MODE_REMOTE) return
+        val ip = prefs.lastRemoteIp
+        if (ip.isEmpty()) {
+            deviceReachable = null
+            render()
+            return
+        }
+        if (checking) return
+        checking = true
+        deviceReachable = null
+        render()
+        Thread {
+            val ok = AnymoteClient.test(ip)
+            runOnUiThread {
+                checking = false
+                if (!isFinishing) {
+                    deviceReachable = ok
+                    render()
+                }
+            }
+        }.apply { isDaemon = true }.start()
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
@@ -82,6 +114,23 @@ class MainActivity : AppCompatActivity() {
         b.modeChip.text = getString(if (local) R.string.mode_local else R.string.mode_remote)
         b.deviceInfo.text = getString(R.string.device_line, Build.MODEL, Build.VERSION.RELEASE)
 
+        b.statusCard.visibility = if (local) View.GONE else View.VISIBLE
+        if (!local) {
+            val has = prefs.lastRemoteIp.isNotEmpty()
+            val name = prefs.lastRemoteName.ifEmpty { prefs.lastRemoteIp }
+            b.statusName.text =
+                if (has) name else getString(R.string.status_no_device)
+            b.statusSub.text =
+                if (has) prefs.lastRemoteIp else getString(R.string.status_no_device_hint)
+            b.statusState.text = when {
+                !has -> ""
+                checking -> getString(R.string.status_checking)
+                deviceReachable == true -> getString(R.string.status_connected)
+                deviceReachable == false -> getString(R.string.status_offline)
+                else -> ""
+            }
+        }
+
         val entries = mutableListOf<Entry>()
         if (local) {
             entries += Entry(
@@ -105,23 +154,20 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         } else {
-            entries += Entry(
-                "connect",
-                R.drawable.ic_wifi,
-                getString(R.string.entry_connect),
-                getString(R.string.entry_connect_sub)
-            )
+            val reachable = deviceReachable == true
             entries += Entry(
                 "remote",
                 R.drawable.ic_remote,
                 getString(R.string.entry_remote_pad),
-                getString(R.string.entry_remote_pad_sub)
+                if (reachable) getString(R.string.entry_remote_pad_sub)
+                else getString(R.string.entry_need_connect)
             )
             entries += Entry(
                 "toolbox",
                 R.drawable.ic_toolbox,
                 getString(R.string.entry_toolbox),
-                getString(R.string.entry_toolbox_sub)
+                if (reachable) getString(R.string.entry_toolbox_sub)
+                else getString(R.string.entry_need_connect)
             )
         }
         entries += Entry(
@@ -141,21 +187,26 @@ class MainActivity : AppCompatActivity() {
             "lab" -> openLocalPage(LocalSettingsActivity.PAGE_LAB)
             "connect" -> startActivity(Intent(this, RemoteConnectActivity::class.java))
             "remote" -> {
-                if (prefs.lastRemoteIp.isEmpty()) {
-                    startActivity(Intent(this, RemoteConnectActivity::class.java))
-                } else {
+                if (deviceReachable == true) {
                     startActivity(Intent(this, RemotePadActivity::class.java))
+                } else {
+                    needConnect()
                 }
             }
             "toolbox" -> {
-                if (prefs.lastRemoteIp.isEmpty()) {
-                    startActivity(Intent(this, RemoteConnectActivity::class.java))
-                } else {
+                if (deviceReachable == true) {
                     startActivity(Intent(this, RemoteToolboxActivity::class.java))
+                } else {
+                    needConnect()
                 }
             }
             else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun needConnect() {
+        Toast.makeText(this, R.string.entry_need_connect_toast, Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, RemoteConnectActivity::class.java))
     }
 
     private fun openLocalPage(page: String) {
