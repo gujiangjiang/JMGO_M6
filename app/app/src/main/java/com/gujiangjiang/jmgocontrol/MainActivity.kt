@@ -3,11 +3,13 @@ package com.gujiangjiang.jmgocontrol
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
+import com.gujiangjiang.jmgocontrol.core.LabUnlockTracker
 import com.gujiangjiang.jmgocontrol.databinding.ActivityMainBinding
 import com.gujiangjiang.jmgocontrol.ui.Entry
 import com.gujiangjiang.jmgocontrol.ui.EntryAdapter
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
     private lateinit var prefs: AppPrefs
+    private val labTracker = LabUnlockTracker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,18 @@ class MainActivity : AppCompatActivity() {
         if (!::b.isInitialized) return
         render()
         requestStorageIfNeeded()
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0 && !prefs.labUnlocked) {
+            if (labTracker.onKey(event.keyCode)) {
+                prefs.labUnlocked = true
+                render()
+                Toast.makeText(this, R.string.lab_unlocked_toast, Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+        return super.dispatchKeyEvent(event)
     }
 
     private fun requestStorageIfNeeded() {

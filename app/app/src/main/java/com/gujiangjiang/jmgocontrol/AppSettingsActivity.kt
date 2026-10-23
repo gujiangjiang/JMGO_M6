@@ -20,18 +20,7 @@ class AppSettingsActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityAppSettingsBinding
     private lateinit var prefs: AppPrefs
-
-    private val seq = intArrayOf(
-        KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_UP,
-        KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_DPAD_DOWN,
-        KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT,
-        KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT,
-        KeyEvent.KEYCODE_DPAD_CENTER
-    )
-    private var seqPos = 0
-    private var seqAt = 0L
-    private var labTaps = 0
-    private var labTapAt = 0L
+    private val labTracker = com.gujiangjiang.jmgocontrol.core.LabUnlockTracker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,19 +50,10 @@ class AppSettingsActivity : AppCompatActivity() {
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
-            val now = System.currentTimeMillis()
-            if (now - seqAt > 4000) seqPos = 0
-            seqAt = now
-            if (event.keyCode == seq[seqPos]) {
-                seqPos++
-                if (seqPos == seq.size) {
-                    seqPos = 0
-                    if (!prefs.labUnlocked) unlockLab()
-                    return true
-                }
-            } else {
-                seqPos = if (event.keyCode == seq[0]) 1 else 0
+        if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0 && !prefs.labUnlocked) {
+            if (labTracker.onKey(event.keyCode)) {
+                unlockLab()
+                return true
             }
         }
         return super.dispatchKeyEvent(event)
@@ -156,14 +136,7 @@ class AppSettingsActivity : AppCompatActivity() {
                 .show()
             return
         }
-        val now = System.currentTimeMillis()
-        if (now - labTapAt > 2000) labTaps = 0
-        labTapAt = now
-        labTaps++
-        if (labTaps >= 7) {
-            labTaps = 0
-            unlockLab()
-        }
+        if (labTracker.onTap()) unlockLab()
     }
 
     private fun unlockLab() {
