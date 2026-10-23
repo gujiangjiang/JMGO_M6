@@ -115,4 +115,15 @@
             android:textColor="@color/text_primary"
             android:textSize="13sp" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="2dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="14dp"
+        android:text="@string/connect_hint"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp" />
 </LinearLayout>

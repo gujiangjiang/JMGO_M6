@@ -184,4 +184,5 @@
     <string name="about_title">关于坚果控制台</string>
     <string name="about_repo">项目主页</string>
     <string name="about_msg">坚果控制台 · JMGO M6 设置与遥控工具\n\n版本：%1$s (%2$d)\n包名：com.gujiangjiang.jmgocontrol\n\n本应用为个人研究项目：本机模式直接调用系统 HolatekOSManager 服务读写投影仪硬件参数；遥控模式通过官方 Anymote 协议（UDP 9101 发现 / TCP 9005 控制）进行局域网遥控，无需在投影仪端安装任何附加应用；工具箱的高级功能（截屏、APK 推送安装、文件管理、安装数量限制重置）需要投影仪端运行本应用并开启「远程助手」。\n\n签名：AOSP 测试密钥（与官方 ROM 平台证书一致）\n\n仅供学习研究使用，请遵守当地法律法规。</string>
+    <string name="connect_hint">遥控面板无需在投影仪安装任何应用（直接使用官方预装遥控服务）。工具箱中的截屏 / APK 推送 / 文件管理 / 安装限制重置需要投影仪端运行本应用（system 变体、本机模式）并开启「远程助手服务」。</string>
 </resources>

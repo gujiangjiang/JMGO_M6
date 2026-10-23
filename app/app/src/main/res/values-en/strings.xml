@@ -182,4 +182,5 @@
     <string name="about_title">About JMGO Control</string>
     <string name="about_repo">Project homepage</string>
     <string name="about_msg">JMGO Control · settings &amp; remote tool for JMGO M6\n\nVersion: %1$s (%2$d)\nPackage: com.gujiangjiang.jmgocontrol\n\nA personal research project: local mode talks to the system HolatekOSManager service; remote mode uses the official Anymote protocol (UDP 9101 discovery / TCP 9005 control) over your LAN and requires NO extra app on the projector. Toolbox extras (screenshot, APK push, file manager, install-limit reset) need this app running on the projector with the remote assistant enabled.\n\nSigning: AOSP test key (matches the official ROM platform certificate)\n\nFor study and research only.</string>
+    <string name="connect_hint">The remote pad needs no app on the projector (it uses the preinstalled remote service). Toolbox features (screenshot / APK push / file manager / install-limit reset) require this app running on the projector (system variant, local mode) with the remote assistant enabled.</string>
 </resources>
