@@ -147,11 +147,15 @@ class AppSettingsActivity : BaseActivity() {
             BuildConfig.VERSION_NAME,
             BuildConfig.VERSION_CODE
         )
-        b.langValue.text = when (prefs.lang) {
+        val langLabel = when (prefs.lang) {
             AppPrefs.LANG_ZH -> getString(R.string.lang_zh)
             AppPrefs.LANG_EN -> getString(R.string.lang_en)
             else -> getString(R.string.lang_system)
         }
+        val resolved = androidx.core.os.ConfigurationCompat
+            .getLocales(resources.configuration).get(0)
+        b.langValue.text =
+            if (resolved == null) langLabel else "$langLabel · ${resolved.language}"
     }
 
     private fun switchMode(mode: String) {

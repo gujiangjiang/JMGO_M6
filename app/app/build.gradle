@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId "com.gujiangjiang.jmgocontrol"
-        minSdk 24
+        minSdk 23
         targetSdk 33
-        versionCode 4
-        versionName "0.2.2"
+        versionCode 5
+        versionName "0.2.3"
         resourceConfigurations.addAll(["zh", "en"])
     }
 
