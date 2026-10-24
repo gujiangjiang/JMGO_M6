@@ -58,19 +58,37 @@ class AppSettingsActivity : BaseActivity() {
             getString(R.string.lang_zh),
             getString(R.string.lang_en)
         )
-        val checked = values.indexOf(prefs.lang).coerceAtLeast(0)
-        AlertDialog.Builder(this)
+        val pad = (8 * resources.displayMetrics.density).toInt()
+        val box = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(pad, pad, pad, pad)
+        }
+        val dialog = AlertDialog.Builder(this)
             .setTitle(R.string.as_lang)
-            .setSingleChoiceItems(labels, checked) { d, which ->
-                d.dismiss()
-                if (prefs.lang != values[which]) {
-                    prefs.lang = values[which]
-                    Toast.makeText(this, R.string.lang_switched, Toast.LENGTH_SHORT).show()
+            .setView(box)
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .create()
+        for (i in values.indices) {
+            val tv = android.widget.TextView(this).apply {
+                text = labels[i]
+                textSize = 16f
+                val selected = prefs.lang == values[i]
+                setTextColor(getColor(if (selected) R.color.accent else R.color.text_primary))
+                setPadding(pad * 2, pad * 2, pad * 2, pad * 2)
+                isClickable = true
+                isFocusable = true
+                setOnClickListener {
+                    dialog.dismiss()
+                    prefs.lang = values[i]
+                    App.applyLang(values[i])
+                    Toast.makeText(this@AppSettingsActivity, R.string.lang_switched, Toast.LENGTH_SHORT)
+                        .show()
                     recreate()
                 }
             }
-            .setNegativeButton(R.string.dialog_cancel, null)
-            .show()
+            box.addView(tv)
+        }
+        dialog.show()
     }
 
     private fun showAboutDialog() {

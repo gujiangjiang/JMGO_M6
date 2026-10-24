@@ -21,6 +21,10 @@
     <string name="entry_advanced_sub">梯形校正、数码变焦、色彩微调等</string>
     <string name="entry_lab">实验室设置</string>
     <string name="entry_lab_sub_unlocked">谨慎操作：工厂级参数，每项操作均有二次确认</string>
+    <string name="entry_lab_sub_remote">仅限本机模式，点按查看说明</string>
+    <string name="lab_remote_title">实验室设置需要本机模式</string>
+    <string name="lab_remote_msg">实验室设置直接读写投影仪硬件参数，只能在投影仪本机模式下使用。是否切换到本机模式并打开实验室设置？</string>
+    <string name="lab_remote_switch">切换并打开</string>
     <string name="entry_connect">连接设备</string>
     <string name="entry_connect_sub">发现局域网内的投影仪</string>
     <string name="entry_remote_pad">遥控面板</string>

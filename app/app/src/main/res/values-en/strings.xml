@@ -21,6 +21,10 @@
     <string name="entry_advanced_sub">Keystone, digital zoom, color tuning, etc.</string>
     <string name="entry_lab">Lab settings</string>
     <string name="entry_lab_sub_unlocked">Caution: factory-level parameters, each action needs double confirmation</string>
+    <string name="entry_lab_sub_remote">Local mode only — tap for details</string>
+    <string name="lab_remote_title">Lab settings require local mode</string>
+    <string name="lab_remote_msg">Lab settings access projector hardware directly and are only available in local mode on the projector. Switch to local mode and open Lab settings?</string>
+    <string name="lab_remote_switch">Switch &amp; open</string>
     <string name="entry_connect">Connect device</string>
     <string name="entry_connect_sub">Discover projectors on your LAN</string>
     <string name="entry_remote_pad">Remote pad</string>

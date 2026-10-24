@@ -178,6 +178,14 @@ class MainActivity : BaseActivity() {
                 if (reachable) getString(R.string.entry_toolbox_sub)
                 else getString(R.string.entry_need_connect)
             )
+            if (prefs.labUnlocked) {
+                entries += Entry(
+                    "lab",
+                    R.drawable.ic_lab,
+                    getString(R.string.entry_lab),
+                    getString(R.string.entry_lab_sub_remote)
+                )
+            }
         }
         entries += Entry(
             "appsettings",
@@ -193,7 +201,13 @@ class MainActivity : BaseActivity() {
             "appsettings" -> startActivity(Intent(this, AppSettingsActivity::class.java))
             "general" -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
             "advanced" -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
-            "lab" -> openLocalPage(LocalSettingsActivity.PAGE_LAB)
+            "lab" -> {
+                if (prefs.mode == AppPrefs.MODE_LOCAL) {
+                    openLocalPage(LocalSettingsActivity.PAGE_LAB)
+                } else {
+                    showLabRemoteDialog()
+                }
+            }
             "connect" -> startActivity(Intent(this, RemoteConnectActivity::class.java))
             "remote" -> {
                 if (deviceReachable == true) {
@@ -216,6 +230,19 @@ class MainActivity : BaseActivity() {
     private fun needConnect() {
         Toast.makeText(this, R.string.entry_need_connect_toast, Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, RemoteConnectActivity::class.java))
+    }
+
+    private fun showLabRemoteDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.lab_remote_title)
+            .setMessage(R.string.lab_remote_msg)
+            .setPositiveButton(R.string.lab_remote_switch) { _, _ ->
+                prefs.mode = AppPrefs.MODE_LOCAL
+                render()
+                openLocalPage(LocalSettingsActivity.PAGE_LAB)
+            }
+            .setNegativeButton(R.string.dialog_cancel, null)
+            .show()
     }
 
     private fun openLocalPage(page: String) {

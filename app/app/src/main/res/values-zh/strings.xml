@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">坚果控制台</string>
+    <string name="app_slogan">JMGO M6 设置与遥控工具</string>
+    <string name="build_info">版本 %1$s (%2$d)</string>
+
+    <!-- 模式选择 -->
+    <string name="mode_select_title">选择使用模式</string>
+    <string name="mode_select_desc">本机模式：在这台投影仪上设置各类参数。\n遥控模式：在手机上遥控投影仪（需与本机处于同一局域网）。</string>
+    <string name="mode_local">本机模式</string>
+    <string name="mode_remote">遥控模式</string>
+    <string name="mode_local_desc">直接控制本机硬件设置：亮度、投影方式、对焦、风扇等</string>
+    <string name="mode_remote_desc">局域网遥控：方向键、音量、投屏与工具箱扩展</string>
+    <string name="mode_select_hint">稍后可在「应用设置」中随时切换模式</string>
+
+    <!-- 主界面 -->
+    <string name="device_line">%1$s · Android %2$s</string>
+    <string name="entry_general">一般设置</string>
+    <string name="entry_general_sub">亮度、画面、声音、信号源等常用项</string>
+    <string name="entry_advanced">高级设置</string>
+    <string name="entry_advanced_sub">梯形校正、数码变焦、色彩微调等</string>
+    <string name="entry_lab">实验室设置</string>
+    <string name="entry_lab_sub_unlocked">谨慎操作：工厂级参数，每项操作均有二次确认</string>
+    <string name="entry_lab_sub_remote">仅限本机模式，点按查看说明</string>
+    <string name="lab_remote_title">实验室设置需要本机模式</string>
+    <string name="lab_remote_msg">实验室设置直接读写投影仪硬件参数，只能在投影仪本机模式下使用。是否切换到本机模式并打开实验室设置？</string>
+    <string name="lab_remote_switch">切换并打开</string>
+    <string name="entry_connect">连接设备</string>
+    <string name="entry_connect_sub">发现局域网内的投影仪</string>
+    <string name="entry_remote_pad">遥控面板</string>
+    <string name="entry_remote_pad_sub">按键、鼠标、文本输入</string>
+    <string name="entry_toolbox">工具箱</string>
+    <string name="entry_toolbox_sub">亮度、截屏、应用推送、文件管理</string>
+    <string name="entry_app_settings">应用设置</string>
+    <string name="wip">该功能正在开发中，敬请期待</string>
+
+    <!-- 应用设置 -->
+    <string name="as_mode_section">使用模式</string>
+    <string name="as_mode_current">当前使用中</string>
+    <string name="as_local_section">本机模式选项</string>
+    <string name="as_bri_floor">最低亮度阈值</string>
+    <string name="as_bri_floor_sub">防止把亮度调到 0 导致光机熄灭（范围 0–50）</string>
+    <string name="as_lab">实验室解锁状态</string>
+    <string name="as_lab_sub">解锁序列：上上下下左右左右 OK；或快速连点本行 7 次</string>
+    <string name="as_lab_unlocked">已解锁</string>
+    <string name="as_lab_locked">未解锁</string>
+    <string name="as_agent">远程助手服务</string>
+    <string name="as_agent_sub">允许手机端使用本机的高级遥控功能（需本应用在后台运行）</string>
+    <string name="on">已开启</string>
+    <string name="off">已关闭</string>
+    <string name="as_about_section">关于</string>
+    <string name="as_version">版本</string>
+    <string name="as_repo">项目主页</string>
+    <string name="as_footnote">本应用使用与官方 ROM 相同的 AOSP 测试密钥签名（平台签名），仅用于自建设备的功能扩展。</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="as_relock_title">重新上锁实验室</string>
+    <string name="as_relock_msg">上锁后「实验室设置」入口将隐藏，直到再次输入解锁序列。</string>
+    <string name="lab_unlocked_toast">实验室设置已解锁</string>
+    <string name="mode_switched">已切换为「%1$s」</string>
+    <string name="no_browser">未找到可用的浏览器</string>
+    <string name="bri_floor_title">最低亮度阈值</string>
+    <string name="bri_floor_hint">输入 0–50 的整数</string>
+
+    <!-- 本地设置页 -->
+    <string name="holatek_unavailable">未检测到本机 JMGO 系统服务（HolatekOSManager）。本机模式设置不可用：请确认在坚果投影仪上安装并使用了 system 变体；手机/模拟器上属于正常现象。</string>
+    <string name="cd_title">确认「%1$s」变更</string>
+    <string name="cd_msg">%1$d 秒内未确认将自动恢复原设置</string>
+    <string name="cd_keep">保留此设置</string>
+    <string name="cd_reverted">已自动恢复原设置</string>
+    <string name="lab_warn_title">高风险操作确认</string>
+    <string name="lab_warn_msg">「%1$s」属于实验室/工厂级设置，可能影响设备正常工作与稳定性。确定继续吗？</string>
+    <string name="bri_floor_toast">已限制为最低亮度阈值 %1$d</string>
+    <string name="lab_locked_toast">实验室尚未解锁</string>
+    <string name="action_done">已执行</string>
+
+    <!-- 连接设备（遥控发现） -->
+    <string name="connect_manual_hint">手动输入设备 IP</string>
+    <string name="connect_button">连接</string>
+    <string name="connect_scan">重新扫描</string>
+    <string name="connect_last">上次设备</string>
+    <string name="connect_scanning">正在扫描局域网内的投影仪…</string>
+    <string name="connect_found">已发现 %1$d 台设备</string>
+    <string name="connect_none">暂未发现设备：请确认手机与投影仪处于同一局域网，且投影仪已开机</string>
+    <string name="connect_last_none">暂无可用的上次设备</string>
+    <string name="connect_bad_ip">请输入有效的 IP 地址</string>
+
+    <!-- 遥控面板 -->
+    <string name="pad_reconnect">重连</string>
+    <string name="pad_touchpad_hint">滑动切换方向 · 点击确定</string>
+    <string name="pad_connecting">正在连接 %1$s …</string>
+    <string name="pad_ready">已连接</string>
+    <string name="pad_volume">已连接 · 音量 %1$s</string>
+    <string name="pad_closed">已断开：%1$s</string>
+    <string name="pad_text_title">发送文本</string>
+    <string name="pad_text_hint">输入要发送到投影仪当前输入框的文本</string>
+    <string name="pad_text_sent">已发送</string>
+    <string name="pad_text_fail">发送失败（连接不可用）</string>
+    <string name="key_back">返回</string>
+    <string name="key_home">主页</string>
+    <string name="key_menu">菜单</string>
+    <string name="key_vol_down">音量−</string>
+    <string name="key_mute">静音</string>
+    <string name="key_vol_up">音量+</string>
+    <string name="key_power">电源</string>
+    <string name="key_keyboard">输入</string>
+    <string name="key_focus_minus">对焦−</string>
+    <string name="key_focus_plus">对焦+</string>
+    <string name="key_autofocus">自动对焦</string>
+    <string name="key_cast">投屏</string>
+    <string name="key_jmgo">坚果键</string>
+
+    <!-- 远程助手 Agent -->
+    <string name="agent_channel_name">远程助手</string>
+    <string name="agent_notif_title">远程助手运行中</string>
+    <string name="agent_notif_text">PIN %1$s · 端口 %2$d</string>
+    <string name="agent_sub_on">PIN %1$s · 端口 9399 · 长按可管理 PIN</string>
+    <string name="agent_pin_title">远程助手 PIN</string>
+    <string name="agent_pin_msg">当前 PIN：%1$s\n手机端连接本机高级功能时需要输入此 PIN。重新生成后，已保存旧 PIN 的手机需重新输入。</string>
+    <string name="agent_regen">重新生成</string>
+    <string name="agent_pin_new">新 PIN：%1$s</string>
+
+    <!-- 工具箱 -->
+    <string name="tb_device_line">%1$s · %2$s</string>
+    <string name="tb_connecting">连接中…</string>
+    <string name="tb_ready">已连接</string>
+    <string name="tb_offline">未连接</string>
+    <string name="tb_offline_hint">无法连接远程助手。基本遥控（遥控面板）无需在投影仪安装任何应用；工具箱中的截屏 / APK 推送 / 文件管理 / 安装限制重置需要投影仪端运行本应用（system 变体、本机模式）并开启「远程助手服务」。</string>
+    <string name="tb_need_pin">需要 PIN</string>
+    <string name="tb_pin_title">输入远程助手 PIN</string>
+    <string name="tb_pin_msg">PIN 显示在投影仪端「应用设置 → 远程助手服务」中（本机模式）。</string>
+    <string name="tb_pin_hint">6 位数字 PIN</string>
+    <string name="tb_brightness">光机亮度</string>
+    <string name="tb_brightness_set">亮度已设置为 %1$d</string>
+    <string name="tb_fail">失败：%1$s</string>
+    <string name="tb_working">处理中…</string>
+    <string name="tb_screenshot">截取投影仪画面</string>
+    <string name="tb_screenshot_sub">保存投影仪当前屏幕截图到手机</string>
+    <string name="tb_shot_working">正在截屏…</string>
+    <string name="tb_shot_saved">已保存到 %1$s</string>
+    <string name="tb_shot_preview">投影仪屏幕截图</string>
+    <string name="tb_install">推送安装 APK</string>
+    <string name="tb_install_sub">选择手机中的 APK，推送到投影仪并静默安装</string>
+    <string name="tb_install_working">正在上传并安装…</string>
+    <string name="tb_install_ok">安装成功：%1$s</string>
+    <string name="tb_pkgreset">重置安装数量限制</string>
+    <string name="tb_pkgreset_sub">清除系统安装器记录，解除约 10 个应用的安装数量限制</string>
+    <string name="tb_pkgreset_msg">将清除系统包安装器（com.android.packageinstaller）的应用数据，用于重置安装数量计数。投影仪上已安装的应用不受影响。确定继续吗？</string>
+    <string name="tb_pkgreset_ok">已重置：%1$s</string>
+    <string name="tb_files">远程文件管理</string>
+    <string name="tb_files_sub">浏览投影仪文件、上传与下载</string>
+    <string name="tb_pick_fail">无法打开文件选择器</string>
+
+    <!-- 文件管理 -->
+    <string name="fs_up">上级目录</string>
+    <string name="fs_upload">上传到当前目录</string>
+    <string name="fs_refresh">刷新</string>
+    <string name="fs_empty">目录为空</string>
+    <string name="fs_fail">操作失败：%1$s</string>
+    <string name="fs_downloading">正在下载 %1$s …</string>
+    <string name="fs_saved">已保存到 %1$s</string>
+    <string name="fs_uploading">正在上传…</string>
+    <string name="fs_upload_ok">上传成功：%1$s</string>
+
+    <!-- 连接状态与流程 -->
+    <string name="status_no_device">未连接设备</string>
+    <string name="status_no_device_hint">点击本卡片发现或手动添加投影仪</string>
+    <string name="status_checking">检测中…</string>
+    <string name="status_connected">已连接</string>
+    <string name="status_offline">未连接</string>
+    <string name="entry_need_connect">请先连接设备</string>
+    <string name="entry_need_connect_toast">请先连接投影仪</string>
+    <string name="connect_testing">正在连接 %1$s …</string>
+    <string name="connect_ok">已连接：%1$s（%2$s）</string>
+    <string name="connect_test_fail">连接失败：请确认投影仪已开机、与本机处于同一局域网，且遥控服务正常</string>
+
+    <!-- 通用 / 语言 -->
+    <string name="as_general_section">通用</string>
+    <string name="as_lang">语言</string>
+    <string name="as_lang_sub">界面语言，默认跟随系统</string>
+    <string name="lang_system">跟随系统</string>
+    <string name="lang_zh">简体中文</string>
+    <string name="lang_en">English</string>
+    <string name="lang_switched">语言已切换</string>
+
+    <!-- 关于 -->
+    <string name="as_about_title">关于</string>
+    <string name="about_title">关于坚果控制台</string>
+    <string name="about_repo">项目主页</string>
+    <string name="about_msg">坚果控制台 · JMGO M6 设置与遥控工具\n\n版本：%1$s (%2$d)\n包名：com.gujiangjiang.jmgocontrol\n\n本应用为个人研究项目：本机模式直接调用系统 HolatekOSManager 服务读写投影仪硬件参数；遥控模式通过官方 Anymote 协议（UDP 9101 发现 / TCP 9005 控制）进行局域网遥控，无需在投影仪端安装任何附加应用；工具箱的高级功能（截屏、APK 推送安装、文件管理、安装数量限制重置）需要投影仪端运行本应用并开启「远程助手」。\n\n签名：AOSP 测试密钥（与官方 ROM 平台证书一致）\n\n仅供学习研究使用，请遵守当地法律法规。</string>
+    <string name="connect_hint">遥控面板无需在投影仪安装任何应用（直接使用官方预装遥控服务）。工具箱中的截屏 / APK 推送 / 文件管理 / 安装限制重置需要投影仪端运行本应用（system 变体、本机模式）并开启「远程助手服务」。</string>
+</resources>
