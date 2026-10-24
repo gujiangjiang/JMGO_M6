@@ -74,6 +74,7 @@
 
     <!-- Connect device -->
     <string name="connect_manual_hint">Enter device IP manually</string>
+    <string name="connect_title">Connect projector</string>
     <string name="connect_button">Connect</string>
     <string name="connect_scan">Rescan</string>
     <string name="connect_last">Last device</string>

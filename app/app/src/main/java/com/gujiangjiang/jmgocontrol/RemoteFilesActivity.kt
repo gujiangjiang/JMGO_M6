@@ -41,7 +41,10 @@ class RemoteFilesActivity : BaseActivity() {
         ip = intent.getStringExtra(EXTRA_IP) ?: prefs.lastRemoteIp
 
         adapter = FileAdapter(items) { onItem(it) }
-        b.fsList.layoutManager = LinearLayoutManager(this)
+        b.fsList.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            this,
+            com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+        )
         b.fsList.adapter = adapter
 
         b.fsUp.setOnClickListener { goUp() }

@@ -22,6 +22,7 @@ class RemoteConnectActivity : BaseActivity() {
     private val devices = ArrayList<RemoteDiscovery.RemoteDevice>()
     private lateinit var adapter: DeviceAdapter
     private var checking = false
+    private var pulse: android.animation.ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,10 @@ class RemoteConnectActivity : BaseActivity() {
         prefs = AppPrefs(this)
 
         adapter = DeviceAdapter(devices) { openPad(it) }
-        b.deviceList.layoutManager = LinearLayoutManager(this)
+        b.deviceList.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            this,
+            com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+        )
         b.deviceList.adapter = adapter
         refreshStatus()
 
@@ -51,17 +55,18 @@ class RemoteConnectActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         restartDiscovery()
+        refreshStatus()
     }
 
     override fun onPause() {
         super.onPause()
         discovery?.stop()
         discovery = null
+        stopPulse()
     }
 
     private fun restartDiscovery() {
         discovery?.stop()
-        b.scanStatus.text = getString(R.string.connect_scanning)
         discovery = RemoteDiscovery(this) { dev ->
             runOnUiThread {
                 if (isFinishing || isDestroyed) return@runOnUiThread
@@ -76,11 +81,31 @@ class RemoteConnectActivity : BaseActivity() {
     }
 
     private fun refreshStatus() {
-        b.scanStatus.text = if (devices.isEmpty()) {
-            getString(R.string.connect_none)
+        if (devices.isEmpty()) {
+            b.scanStatus.text = getString(R.string.connect_scanning)
+            b.scanProgress.visibility = android.view.View.VISIBLE
+            startPulse()
         } else {
-            getString(R.string.connect_found, devices.size)
+            b.scanStatus.text = getString(R.string.connect_found, devices.size)
+            b.scanProgress.visibility = android.view.View.GONE
+            stopPulse()
         }
+    }
+
+    private fun startPulse() {
+        if (pulse != null) return
+        val a = android.animation.ObjectAnimator.ofFloat(b.heroIcon, "alpha", 0.55f, 1f)
+        a.duration = 900
+        a.repeatMode = android.animation.ObjectAnimator.REVERSE
+        a.repeatCount = android.animation.ObjectAnimator.INFINITE
+        a.start()
+        pulse = a
+    }
+
+    private fun stopPulse() {
+        pulse?.cancel()
+        pulse = null
+        b.heroIcon.alpha = 1f
     }
 
     private fun manualConnect() {

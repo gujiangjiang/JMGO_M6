@@ -34,7 +34,10 @@ class MainActivity : BaseActivity() {
         }
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
-        b.list.layoutManager = LinearLayoutManager(this)
+        b.list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            this,
+            com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+        )
         b.statusCard.setOnClickListener {
             startActivity(Intent(this, RemoteConnectActivity::class.java))
         }
@@ -120,6 +123,11 @@ class MainActivity : BaseActivity() {
 
     private fun render() {
         val local = prefs.mode == AppPrefs.MODE_LOCAL
+        val span = com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+        val lm = b.list.layoutManager
+        if (lm !is androidx.recyclerview.widget.GridLayoutManager || lm.spanCount != span) {
+            b.list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, span)
+        }
         b.modeChip.text = getString(if (local) R.string.mode_local else R.string.mode_remote)
         b.deviceInfo.text = getString(R.string.device_line, Build.MODEL, Build.VERSION.RELEASE)
 
@@ -164,26 +172,33 @@ class MainActivity : BaseActivity() {
             }
         } else {
             val reachable = deviceReachable == true
-            entries += Entry(
-                "remote",
-                R.drawable.ic_remote,
-                getString(R.string.entry_remote_pad),
-                if (reachable) getString(R.string.entry_remote_pad_sub)
-                else getString(R.string.entry_need_connect)
-            )
-            entries += Entry(
-                "toolbox",
-                R.drawable.ic_toolbox,
-                getString(R.string.entry_toolbox),
-                if (reachable) getString(R.string.entry_toolbox_sub)
-                else getString(R.string.entry_need_connect)
-            )
-            if (prefs.labUnlocked) {
+            if (reachable) {
                 entries += Entry(
-                    "lab",
-                    R.drawable.ic_lab,
-                    getString(R.string.entry_lab),
-                    getString(R.string.entry_lab_sub_remote)
+                    "remote",
+                    R.drawable.ic_remote,
+                    getString(R.string.entry_remote_pad),
+                    getString(R.string.entry_remote_pad_sub)
+                )
+                entries += Entry(
+                    "toolbox",
+                    R.drawable.ic_toolbox,
+                    getString(R.string.entry_toolbox),
+                    getString(R.string.entry_toolbox_sub)
+                )
+                if (prefs.labUnlocked) {
+                    entries += Entry(
+                        "lab",
+                        R.drawable.ic_lab,
+                        getString(R.string.entry_lab),
+                        getString(R.string.entry_lab_sub_remote)
+                    )
+                }
+            } else {
+                entries += Entry(
+                    "connect",
+                    R.drawable.ic_wifi,
+                    getString(R.string.entry_connect),
+                    getString(R.string.entry_connect_sub)
                 )
             }
         }

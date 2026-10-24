@@ -76,6 +76,7 @@
 
     <!-- 连接设备（遥控发现） -->
     <string name="connect_manual_hint">手动输入设备 IP</string>
+    <string name="connect_title">连接投影仪</string>
     <string name="connect_button">连接</string>
     <string name="connect_scan">重新扫描</string>
     <string name="connect_last">上次设备</string>
