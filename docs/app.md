@@ -73,7 +73,7 @@ CI/Release 中产出两个 APK（均使用与官方 ROM 相同的 AOSP testkey �
   做公钥比对，确保与官方 ROM 平台证书一致后才签名；
 - 手动本地构建：`cd app && gradle assembleStandardRelease assembleSystemRelease`
   （需 JDK 17 + Android SDK 34；APK 为未签名产物，用 `apksigner` + testkey 签名）。
-- 最低支持 **Android 7.0（API 24）**；无原生库，单 APK 适配 arm64/arm32/x86_64。
+- 最低支持 **Android 6.0（API 23）**（官方固件为 Android 7.0/API 24）；无原生库，单 APK 适配 arm64/arm32/x86_64。
 
 ## 4. 实现要点（与固件逆向结论的对应）
 
@@ -106,12 +106,19 @@ v0.2.1 起所有发送走后台发送队列。若仍无反应：确认状态卡�
 
 **Q4：界面语言？**
 应用设置 → 通用 → 语言，可选 跟随系统 / 简体中文 / English。
-v0.2.2 起使用 AppCompat 官方 per-app locale（`AppCompatDelegate.setApplicationLocales`），
-在 Android 7 上切换立即生效并自动重建界面；若为旧版本（≤0.2.1），请升级。
+实现说明：v0.2.3 起采用「双保险」——AppCompat 官方 per-app locale 向下兼容实现
+（`AppCompatDelegate.setApplicationLocales`，API 14+ 可用，配合 manifest 中必须声明的
+`AppLocalesMetadataHolderService`）+ BaseActivity 注入 Locale 兜底。
+语言项右侧会显示当前实际生效的区域（如 `English · en`），便于核对。
 
 **Q5：实验室解锁了但主界面没有入口？**
 「实验室设置」是**本机专属**功能（直接读写投影仪硬件参数），只在**本机模式**下出现在主界面。
 v0.2.2 起在遥控模式下若已解锁，主界面会显示实验室入口，点击可一键切回本机模式并打开。
+
+**Q6：界面版本与适配？**
+投影仪官方最后固件为 Android 7.0（API 24）；应用 minSdk 已降至 23（Android 6.0），
+兼容更早批次的设备。布局针对手机竖屏与投影仪/平板横屏分别优化：横屏/宽屏下
+主页、设备列表、文件列表自动变为双栏，遥控面板为左侧触控板+D-pad、右侧功能键的双窗格。
 
 ## 6. 风险与限制
 
