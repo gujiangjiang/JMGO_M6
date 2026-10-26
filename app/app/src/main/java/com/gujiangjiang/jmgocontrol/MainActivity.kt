@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
     private var bottomMenuRes = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        SplashScreen.installSplashScreen(this)
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         prefs = AppPrefs(this)
         if (prefs.mode == AppPrefs.MODE_UNSET) {
