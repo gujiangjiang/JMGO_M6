@@ -1,129 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:orientation="vertical">
+    android:background="@color/bg">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="6dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_app_logo" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/bg"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/text_primary" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/statusCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_entry_active"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="64dp"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_wifi" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/statusName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/statusSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/statusState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/deviceInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/teal"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/modeChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_chip"
-            android:paddingStart="12dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="5dp"
-            android:textColor="@color/accent"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/statusCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/bg_entry_active"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:minHeight="64dp"
-        android:orientation="horizontal"
-        android:paddingStart="14dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="14dp"
-        android:paddingBottom="10dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_wifi" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/layout_fall_down"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="vertical" />
 
-            <TextView
-                android:id="@+id/statusName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/statusSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/statusState"
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/teal"
-            android:textSize="12sp" />
+            android:background="@color/surface"
+            app:labelVisibilityMode="labeled" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingStart="12dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="24dp"
-        android:scrollbars="vertical" />
-</LinearLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/surface"
+        app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/text_primary"
+        app:itemIconTint="@color/text_secondary"
+        app:menu="@menu/nav_drawer" />
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -92,18 +92,7 @@ class AppSettingsActivity : BaseActivity() {
     }
 
     private fun showAboutDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.about_title)
-            .setMessage(
-                getString(
-                    R.string.about_msg,
-                    BuildConfig.VERSION_NAME,
-                    BuildConfig.VERSION_CODE
-                )
-            )
-            .setPositiveButton(R.string.about_repo) { _, _ -> openRepo() }
-            .setNegativeButton(R.string.dialog_ok, null)
-            .show()
+        com.gujiangjiang.jmgocontrol.ui.About.show(this)
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {

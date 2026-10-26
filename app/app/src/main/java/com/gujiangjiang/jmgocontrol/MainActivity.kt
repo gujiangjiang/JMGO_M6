@@ -5,16 +5,20 @@ import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
-import com.gujiangjiang.jmgocontrol.core.BaseActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.gujiangjiang.jmgocontrol.agent.AgentService
 import com.gujiangjiang.jmgocontrol.core.AppPrefs
+import com.gujiangjiang.jmgocontrol.core.BaseActivity
 import com.gujiangjiang.jmgocontrol.core.LabUnlockTracker
 import com.gujiangjiang.jmgocontrol.databinding.ActivityMainBinding
 import com.gujiangjiang.jmgocontrol.remote.AnymoteClient
+import com.gujiangjiang.jmgocontrol.ui.About
 import com.gujiangjiang.jmgocontrol.ui.Entry
 import com.gujiangjiang.jmgocontrol.ui.EntryAdapter
+import com.gujiangjiang.jmgocontrol.ui.Ui
 
 class MainActivity : BaseActivity() {
 
@@ -23,8 +27,12 @@ class MainActivity : BaseActivity() {
     private val labTracker = LabUnlockTracker()
     private var deviceReachable: Boolean? = null
     private var checking = false
+    private var seenLang = ""
+    private var suppressBottomNav = false
+    private var bottomMenuRes = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        androidx.core.splashscreen.SplashScreen.installSplashScreen(this)
         super.onCreate(savedInstanceState)
         prefs = AppPrefs(this)
         if (prefs.mode == AppPrefs.MODE_UNSET) {
@@ -34,14 +42,48 @@ class MainActivity : BaseActivity() {
         }
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
-        b.list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
-            this,
-            com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+
+        setSupportActionBar(b.toolbar)
+        val toggle = ActionBarDrawerToggle(
+            this, b.drawer, b.toolbar,
+            R.string.app_name, R.string.app_name
         )
+        b.drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        b.list.layoutManager = GridLayoutManager(this, Ui.span(this))
         b.statusCard.setOnClickListener {
             startActivity(Intent(this, RemoteConnectActivity::class.java))
         }
+
+        b.navView.setNavigationItemSelectedListener { item ->
+            b.drawer.closeDrawers()
+            onNavItem(item.itemId)
+            true
+        }
+
+        b.bottomNav.setOnItemSelectedListener { item ->
+            if (suppressBottomNav) return@setOnItemSelectedListener true
+            onBottomItem(item.itemId)
+            true
+        }
+
         maybeStartAgent()
+    }
+
+    override fun onCreateOptionsMenu(menu: android.view.Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_app_settings ->
+                startActivity(Intent(this, AppSettingsActivity::class.java))
+            R.id.action_about -> About.show(this)
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     private fun maybeStartAgent() {
@@ -52,8 +94,6 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-
-    private var seenLang = ""
 
     override fun onResume() {
         super.onResume()
@@ -68,30 +108,6 @@ class MainActivity : BaseActivity() {
         render()
         requestStorageIfNeeded()
         refreshDeviceStatus()
-    }
-
-    private fun refreshDeviceStatus() {
-        if (prefs.mode != AppPrefs.MODE_REMOTE) return
-        val ip = prefs.lastRemoteIp
-        if (ip.isEmpty()) {
-            deviceReachable = null
-            render()
-            return
-        }
-        if (checking) return
-        checking = true
-        deviceReachable = null
-        render()
-        Thread {
-            val ok = AnymoteClient.test(ip)
-            runOnUiThread {
-                checking = false
-                if (!isFinishing) {
-                    deviceReachable = ok
-                    render()
-                }
-            }
-        }.apply { isDaemon = true }.start()
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
@@ -121,15 +137,57 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun refreshDeviceStatus() {
+        if (prefs.mode != AppPrefs.MODE_REMOTE) return
+        val ip = prefs.lastRemoteIp
+        if (ip.isEmpty()) {
+            deviceReachable = null
+            render()
+            return
+        }
+        if (checking) return
+        checking = true
+        deviceReachable = null
+        render()
+        Thread {
+            val ok = AnymoteClient.test(ip)
+            runOnUiThread {
+                checking = false
+                if (!isFinishing) {
+                    deviceReachable = ok
+                    render()
+                }
+            }
+        }.apply { isDaemon = true }.start()
+    }
+
     private fun render() {
         val local = prefs.mode == AppPrefs.MODE_LOCAL
-        val span = com.gujiangjiang.jmgocontrol.ui.Ui.span(this)
+        val span = Ui.span(this)
         val lm = b.list.layoutManager
-        if (lm !is androidx.recyclerview.widget.GridLayoutManager || lm.spanCount != span) {
-            b.list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, span)
+        if (lm !is GridLayoutManager || lm.spanCount != span) {
+            b.list.layoutManager = GridLayoutManager(this, span)
         }
-        b.modeChip.text = getString(if (local) R.string.mode_local else R.string.mode_remote)
-        b.deviceInfo.text = getString(R.string.device_line, Build.MODEL, Build.VERSION.RELEASE)
+
+        val header = b.navView.getHeaderView(0)
+        header.findViewById<TextView>(R.id.navHeaderDevice)?.text =
+            getString(R.string.device_line, Build.MODEL, Build.VERSION.RELEASE)
+        header.findViewById<TextView>(R.id.navHeaderMode)?.text =
+            getString(if (local) R.string.mode_local else R.string.mode_remote)
+
+        b.navView.menu.findItem(R.id.drawer_mode_local)?.isChecked = local
+        b.navView.menu.findItem(R.id.drawer_mode_remote)?.isChecked = !local
+        b.navView.menu.findItem(R.id.drawer_lab)?.isVisible = prefs.labUnlocked
+
+        val menuRes = if (local) R.menu.nav_bottom_local else R.menu.nav_bottom_remote
+        if (bottomMenuRes != menuRes) {
+            bottomMenuRes = menuRes
+            b.bottomNav.menu.clear()
+            menuInflater.inflate(menuRes, b.bottomNav.menu)
+        }
+        suppressBottomNav = true
+        b.bottomNav.selectedItemId = R.id.bottom_home
+        suppressBottomNav = false
 
         b.statusCard.visibility = if (local) View.GONE else View.VISIBLE
         if (!local) {
@@ -211,34 +269,60 @@ class MainActivity : BaseActivity() {
         b.list.adapter = EntryAdapter(entries) { onEntry(it) }
     }
 
-    private fun onEntry(e: Entry) {
-        when (e.id) {
-            "appsettings" -> startActivity(Intent(this, AppSettingsActivity::class.java))
-            "general" -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
-            "advanced" -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
-            "lab" -> {
-                if (prefs.mode == AppPrefs.MODE_LOCAL) {
-                    openLocalPage(LocalSettingsActivity.PAGE_LAB)
-                } else {
-                    showLabRemoteDialog()
-                }
+    private fun onNavItem(id: Int) {
+        when (id) {
+            R.id.drawer_mode_local -> switchMode(AppPrefs.MODE_LOCAL)
+            R.id.drawer_mode_remote -> switchMode(AppPrefs.MODE_REMOTE)
+            R.id.drawer_home -> {
             }
-            "connect" -> startActivity(Intent(this, RemoteConnectActivity::class.java))
-            "remote" -> {
-                if (deviceReachable == true) {
-                    startActivity(Intent(this, RemotePadActivity::class.java))
-                } else {
-                    needConnect()
-                }
-            }
-            "toolbox" -> {
-                if (deviceReachable == true) {
-                    startActivity(Intent(this, RemoteToolboxActivity::class.java))
-                } else {
-                    needConnect()
-                }
-            }
-            else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
+            R.id.drawer_connect -> startActivity(Intent(this, RemoteConnectActivity::class.java))
+            R.id.drawer_general -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
+            R.id.drawer_advanced -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
+            R.id.drawer_lab -> onEntry(Entry("lab", R.drawable.ic_lab, "", null))
+            R.id.drawer_pad -> openPad()
+            R.id.drawer_toolbox -> openToolbox()
+            R.id.drawer_settings -> startActivity(Intent(this, AppSettingsActivity::class.java))
+            R.id.drawer_about -> About.show(this)
+        }
+    }
+
+    private fun onBottomItem(id: Int) {
+        when (id) {
+            R.id.bottom_home -> return
+            R.id.bottom_general -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
+            R.id.bottom_advanced -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
+            R.id.bottom_pad -> openPad()
+            R.id.bottom_toolbox -> openToolbox()
+            R.id.bottom_settings -> startActivity(Intent(this, AppSettingsActivity::class.java))
+        }
+        suppressBottomNav = true
+        b.bottomNav.selectedItemId = R.id.bottom_home
+        suppressBottomNav = false
+    }
+
+    private fun switchMode(mode: String) {
+        if (prefs.mode == mode) return
+        prefs.mode = mode
+        render()
+        val name =
+            getString(if (mode == AppPrefs.MODE_LOCAL) R.string.mode_local else R.string.mode_remote)
+        Toast.makeText(this, getString(R.string.mode_switched, name), Toast.LENGTH_SHORT).show()
+        refreshDeviceStatus()
+    }
+
+    private fun openPad() {
+        if (deviceReachable == true) {
+            startActivity(Intent(this, RemotePadActivity::class.java))
+        } else {
+            needConnect()
+        }
+    }
+
+    private fun openToolbox() {
+        if (deviceReachable == true) {
+            startActivity(Intent(this, RemoteToolboxActivity::class.java))
+        } else {
+            needConnect()
         }
     }
 
@@ -258,6 +342,25 @@ class MainActivity : BaseActivity() {
             }
             .setNegativeButton(R.string.dialog_cancel, null)
             .show()
+    }
+
+    private fun onEntry(e: Entry) {
+        when (e.id) {
+            "appsettings" -> startActivity(Intent(this, AppSettingsActivity::class.java))
+            "general" -> openLocalPage(LocalSettingsActivity.PAGE_GENERAL)
+            "advanced" -> openLocalPage(LocalSettingsActivity.PAGE_ADVANCED)
+            "lab" -> {
+                if (prefs.mode == AppPrefs.MODE_LOCAL) {
+                    openLocalPage(LocalSettingsActivity.PAGE_LAB)
+                } else {
+                    showLabRemoteDialog()
+                }
+            }
+            "connect" -> startActivity(Intent(this, RemoteConnectActivity::class.java))
+            "remote" -> openPad()
+            "toolbox" -> openToolbox()
+            else -> Toast.makeText(this, R.string.wip, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun openLocalPage(page: String) {

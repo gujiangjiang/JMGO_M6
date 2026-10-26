@@ -12,6 +12,21 @@
         <item name="android:statusBarColor">@color/bg</item>
         <item name="android:navigationBarColor">@color/bg</item>
         <item name="android:windowBackground">@color/bg</item>
+        <item name="android:windowAnimationStyle">@style/JmgoWindowAnim</item>
     </style>
 
+    <!-- 启动画面（androidx core-splashscreen，API 23+ 兼容） -->
+    <style name="Theme.JmgoControl.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bg</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.JmgoControl</item>
+    </style>
+
+    <!-- 页面过渡动画（右进左出 + 淡入淡出） -->
+    <style name="JmgoWindowAnim">
+        <item name="android:activityOpenEnterAnimation">@anim/nav_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/nav_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/nav_pop_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/nav_pop_exit</item>
+    </style>
 </resources>

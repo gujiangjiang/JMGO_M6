@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_mode_local"
+            android:icon="@drawable/ic_local"
+            android:title="@string/mode_local" />
+        <item
+            android:id="@+id/drawer_mode_remote"
+            android:icon="@drawable/ic_remote"
+            android:title="@string/mode_remote" />
+    </group>
+    <item android:title="@string/nav_section_pages">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/drawer_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="@string/nav_home" />
+                <item
+                    android:id="@+id/drawer_connect"
+                    android:icon="@drawable/ic_wifi"
+                    android:title="@string/entry_connect" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/nav_section_local">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/drawer_general"
+                    android:icon="@drawable/ic_general"
+                    android:title="@string/entry_general" />
+                <item
+                    android:id="@+id/drawer_advanced"
+                    android:icon="@drawable/ic_wrench"
+                    android:title="@string/entry_advanced" />
+                <item
+                    android:id="@+id/drawer_lab"
+                    android:icon="@drawable/ic_lab"
+                    android:title="@string/entry_lab" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/nav_section_remote">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/drawer_pad"
+                    android:icon="@drawable/ic_remote"
+                    android:title="@string/entry_remote_pad" />
+                <item
+                    android:id="@+id/drawer_toolbox"
+                    android:icon="@drawable/ic_toolbox"
+                    android:title="@string/entry_toolbox" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/nav_section_more">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/drawer_settings"
+                    android:icon="@drawable/ic_settings"
+                    android:title="@string/entry_app_settings" />
+                <item
+                    android:id="@+id/drawer_about"
+                    android:icon="@drawable/ic_info"
+                    android:title="@string/as_about_title" />
+            </group>
+        </menu>
+    </item>
+</menu>

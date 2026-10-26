@@ -31,6 +31,16 @@
     <string name="entry_remote_pad_sub">按键、鼠标、文本输入</string>
     <string name="entry_toolbox">工具箱</string>
     <string name="entry_toolbox_sub">亮度、截屏、应用推送、文件管理</string>
+    <string name="nav_home">主页</string>
+    <string name="nav_section_pages">页面</string>
+    <string name="nav_section_local">本机设置</string>
+    <string name="nav_section_remote">遥控</string>
+    <string name="nav_section_more">更多</string>
+    <string name="nav_general_short">一般</string>
+    <string name="nav_advanced_short">高级</string>
+    <string name="nav_pad_short">遥控</string>
+    <string name="nav_toolbox_short">工具箱</string>
+    <string name="nav_settings_short">设置</string>
     <string name="entry_app_settings">应用设置</string>
     <string name="wip">该功能正在开发中，敬请期待</string>
 

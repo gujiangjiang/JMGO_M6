@@ -31,6 +31,16 @@
     <string name="entry_remote_pad_sub">Keys, mouse pad, text input</string>
     <string name="entry_toolbox">Toolbox</string>
     <string name="entry_toolbox_sub">Brightness, screenshot, APK push, file manager</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_section_pages">Pages</string>
+    <string name="nav_section_local">Local settings</string>
+    <string name="nav_section_remote">Remote</string>
+    <string name="nav_section_more">More</string>
+    <string name="nav_general_short">General</string>
+    <string name="nav_advanced_short">Advanced</string>
+    <string name="nav_pad_short">Remote</string>
+    <string name="nav_toolbox_short">Toolbox</string>
+    <string name="nav_settings_short">Settings</string>
     <string name="entry_app_settings">App settings</string>
     <string name="wip">This feature is under development</string>
 
