@@ -199,9 +199,12 @@ USB 侧调用链：`_nav_updater_oad_is_upgrade_available` → `c_dlm_integrity_
 
 ```
 $ python3 tools/dlm_aes_emu.py keyscan work/rootfs_x/basic/libdtv_common.so JMGO_M6_upgrade_loader.pkg
+lib: work/rootfs_x/basic/libdtv_common.so
 默认记录密钥(canary×4) = 09291094092910940929109409291094  (canary=0x94102909)
-常量字段解密结果 = b'G\x08\xf4…'      ← 不等于 "reserved mtk inc"
-pkg 头解密魔数检查 = b'V\xaef4…'      ← 不等于 "#DH@FiRm"
+pkg 记录常量字段 = 9bf7ed4fda262a8e58fc63cf38f6e8a9
+常量字段解密结果 = b'G\x08\xf4\xa8|\xf0@\xc2\x0b\x03\xb4c\xa0\xb2Y\xb9'   ← 不等于 "reserved mtk inc"
+与 'reserved mtk inc' 一致: 否（不匹配）
+pkg 头解密魔数检查: b'V\xaef4\x9e\x17H\xd5' (期望 '#DH@FiRm') FAIL
 ```
 
 **即：本 pkg 不是用 `update_jmgo.zip`（1.0.53）的 DLM 密钥加密的。**
