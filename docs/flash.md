@@ -22,14 +22,20 @@ recovery 只认 **testkey 签名**；本仓库产出的包默认用 testkey 重�
 
 ## 3. 兜底恢复手段
 
+本机有**两条独立**的恢复通道：
+- **Android 侧**：系统里的「本地升级」（U 盘 `update_jmgo.zip` → recovery OTA）；
+- **Linux 世界侧**：U 盘 `upgrade.pkg` 救砖（独立于 Android，见 `usb-rescue.md`）。
+
 | 场景 | 恢复方式 |
 |---|---|
-| 新 system 刷坏 / 黑屏 | 重新用**官方 `update_jmgo.zip`** U 盘本地升级（幂等覆盖） |
-| 系统能起但异常 | recovery 模式下清 `/data`（恢复出厂）后重刷 |
+| 系统能起、OTA 刷坏 system / 黑屏但仍能进 recovery | 重新用**官方 `update_jmgo.zip`** U 盘本地升级（幂等覆盖）；或 recovery 清 `/data` 后重刷 |
+| **Android 世界全损**（起不来、recovery 也进不去） | 用 **U 盘 `upgrade.pkg` 救砖**（官方救砖包，流程与前提见 `usb-rescue.md` §4/§4.6） |
 | 误刷 recovery 后又想用官方 | 保留官方包即可；另外系统有 `flash_recovery` 服务会在启动时还原原厂 recovery（`ro.expect.recovery_id`） |
 
-> 注意：只改 system（可选 boot）时，最坏情况是"无法开机但 recovery/升级通道仍可用"。
-> **不要修改 `updater-script` 中对 uboot(p1)/uenv(p2)/tz(p22) 的刷写**，这些分区写坏才是真正意义上的变砖。
+> 注意：只改 system（可选 boot）时，最坏情况是"Android 无法开机，但 Linux 世界救砖通道仍可用"；
+> **Linux 世界本身（linux_rootfs/p10 等）与引导器（uboot/p1、preloader）才是真变砖区**，
+> 见 `usb-rescue.md` §4.6 的可救范围表。
+> **不要修改 `updater-script` 中对 uboot(p1)/uenv(p2)/tz(p22) 的刷写**。
 
 ## 4. 掉电/中断处理
 
