@@ -51,6 +51,14 @@
 - `tools/patch_pkginstaller_odex.py`：解除安装数量限制的 odex 补丁（含上下文校验，仅 1.0.53 适用）。
 - `tools/squashfs_lzo.py`：纯 Python SquashFS 解包（MTK C30 变体：压缩 id 3=LZO、dirent 无 type 数组、
   inode diff 非累积、fragment 间接表为裸 u64 数组）。解 `rootfs.bin` 用。
+- `tools/pkg_dlm.py`：救砖包（DLM 容器）解析/解包/校验清单（`list/extract/sha256`）。
+  记录定位靠常量字段 `9bf7ed4f…e8a9`；布局见 docs/pkg-format.md。
+- `tools/dlm_aes_emu.py`：用 Unicorn 直接执行固件 `libdtv_common.so` 的 DLM AES
+  （`keyscan` 输出该版本默认密钥=栈保护常量×4 并验证 pkg 匹配；`aes` 做加解密）。
+  **依赖 unicorn（pip3 install unicorn）与 llvm-objdump**；本机已验证可装。
+- `tools/pkg_build.py`：救砖包装配/改装（`repack` 以官方包为基底换组件；
+  `build` 从零装配）。**必须用目标设备固件版本的 libdtv_common.so（--lib）**；
+  32B 记录字段语义未完全确认，详见 docs/pkg-build.md 风险说明。
 
 ## 4. 修改 APK 的注意点
 

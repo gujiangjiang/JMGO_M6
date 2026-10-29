@@ -70,8 +70,10 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
   已给出免刷机绕过与 4 字节 odex 补丁，见 [安装数量限制分析与修复](docs/install-limit.md)。
 - U 盘 `.pkg` 救砖：设备为 MTK"双世界"架构，Linux 世界（`linux_rootfs`+`basic` 中间件）中的
   NAV_UPDATER 开机扫描 U 盘 `upgrade.pkg`，校验后按分区表擦写并重启；与被刷的 Android 相互独立，故可救砖。
-  见 [U 盘救砖机制分析](docs/usb-rescue.md)；包格式（magic `#DH@FiRm`、`iMtK` 追加段、
-  分 tag 组件、digest/HMAC/RSA 校验链）见 [upgrade.pkg 包格式](docs/pkg-format.md)。
+  见 [U 盘救砖机制分析](docs/usb-rescue.md)；包格式（368B 头 + 60B 记录头 + `iMtK`
+  追加块、AES-128-CBC 校验链、逐字段+模拟执行验证）见
+  [upgrade.pkg 包格式](docs/pkg-format.md)，自制/改装救砖包见
+  [自制 DLM 救砖包指南](docs/pkg-build.md)（含设备版本密钥提取与装配工具）。
 - **设置项可由自开发 App 接管**：框架层内置 `android.app.HolatekOSManager`
   （`getSystemService("holatekos_mananger")`，命令表见 [设置项 API 文档](docs/settings-api.md)），
   亮度/风扇/投影方式/梯形校正/对焦/光机电源等全部可编程；系统杂项走
@@ -94,7 +96,8 @@ python3 tools/verify_ota.py update_jmgo_mod.zip artifacts/certs/testkey.x509.pem
 - [内置应用清单](docs/apps.md)
 - [安装数量限制分析与修复](docs/install-limit.md)（含补丁工具与刷机步骤）
 - [U 盘救砖机制分析（upgrade.pkg）](docs/usb-rescue.md)
-- [upgrade.pkg 包格式逆向（MTK DLM 容器）](docs/pkg-format.md)
+- [upgrade.pkg 包格式（MTK DLM 容器，含真样本验证）](docs/pkg-format.md)
+- [自制 DLM 救砖包指南](docs/pkg-build.md)（密钥机制/改装/装配/上机验证）
 - [设置项 API 逆向（自开发设置 App 指南）](docs/settings-api.md)
 - [局域网遥控协议逆向（Anymote 发现/控制/最小客户端）](docs/remote-control.md)
 - [自研 App「坚果控制台」](docs/app.md)（本机设置 + 遥控 + 工具箱，CI 构建）
