@@ -131,15 +131,35 @@ pq aq logo bootlogo tzbp adsp part_23 part_24 part_26..part_31
   但只要 bootloader（p1）未被写坏，仍可用 U 盘包再次恢复；若 bootloader 也写坏，
   则需走 SoC 级下载模式（T8032/USB 烧录工具），本仓库未覆盖。
 
-## 6. 尚未证实（后续工作）
+### 4.5 真实样本对照（`JMGO_M6_upgrade_loader.pkg`，2024-08，709MB）
 
-- `upgrade.pkg` 的**容器二进制格式**：已逆向出魔数与结构框架，见
-  [`pkg-format.md`](pkg-format.md)（`#DH@FiRm` 头 / `iMtK` 追加段 / 分 tag 组件 /
-  digest-HMAC-RSA 校验链）；字段级偏移仍需一份真实 pkg 样本对照。
-- "开机即自动刷"是**自动触发**还是**屏上确认**（升级器含确认 UI 代码
+已获得官方救砖包样本并完成逐字段解析（详见 [`pkg-format.md`](pkg-format.md)）：
+
+- 包内 16 条记录 → 分区：`uenv`(p1) `misc`(p2) `recv`(p3=recovery) `boot`(p4)
+  `sysm`(p5=system) `rfsA`(p9=linux_rootfs) `perm`(p11) `3rdp`(p12=3rd_ro)
+  `3rdw`(p13=3rd_rw) `pqda`(p17) `aqda`(p18) `logo`(p20) `tzbp`(p21) `adsp`(p22)，
+  外加 **`load` = u-boot（p0）** 与 `cfig`（分区表文本,不作写入）。
+- `usrd/cach/ddb`（userdata/cache/part_24）在表中列出但不含记录 → 救砖不清数据。
+- `load`（896KB）与 OTA 包 `uboot.bin` **逐字节一致**；`boot`/`rfsA`/`uenv`/`adsp`/
+  `pq`/`aq` 同样与 OTA 内镜像逐字节一致；`sysm`（600MB ext4）为出厂加密系统镜像的
+  截取版，与 OTA 的 1.31GB 明文 system.img 内容不同（见 pkg-format.md §7.1）。
+- 校验链实测：文件头 AES 解密魔数 `#DH@FiRm` → ID/型号/版本（可跳过位）→
+  **文件级 SHA-256（覆盖 [368:EOF]，密文存于 [112:368]）**；每条记录另有固定
+  AES 常量核对（`reserved mtk inc`）。用户态无 RSA 校验（空桩）。
+- ⚠ 关键：DLM 的默认 AES 密钥 = **编译器栈保护常量×4**（随每次固件编译随机变化），
+  因此**某一版本的固件只能通过与其同一次编译的 pkg**。本样本并非用
+  `update_jmgo.zip` 版本库的密钥加密（Unicorn 模拟执行实证），即它面向更早的
+  出厂固件版本。自制包流程见 [`pkg-build.md`](pkg-build.md)。
+
+## 6. 尚未证实（后续工作，2026-10 更新）
+
+- ~~`upgrade.pkg` 的容器二进制格式~~：已完成（`pkg-format.md`，含真样本+模拟执行验证）。
+- 32B 每记录字段的精确语义（“codefile HMAC” 的比对源）。
+- “开机即自动刷”是**自动触发**还是**屏上确认**（升级器含确认 UI 代码
   `_nav_updater_lb_confirm_proc_fct`，且字符串有 `pause menu`）。
 - 双 bank 的物理布局（分区表未见 `*_a/*_b`，bank 概念可能只作用于 SVL/TSL 版本表与
   引导指针，未展开验证）。
+- 样本 `sysm` 截断镜像在 flash 端的补齐行为（擦除后写 600MB，尾部是否保留）。
 
 ## 7. 复现命令
 
