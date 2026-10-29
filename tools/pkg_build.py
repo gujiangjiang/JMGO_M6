@@ -49,11 +49,20 @@ def u32(v):
     return struct.pack("<I", v)
 
 
+def _name8(name):
+    """名字字段 8 字节。str 转字节补 0；bytes 原样保留（保留 sysm 的 0x01 标志位）。"""
+    if isinstance(name, bytes):
+        assert len(name) == 8
+        return name
+    return name.encode()[:8].ljust(8, b"\0")
+
+
 def make_record(dlm, key, iv, name, payload, field32=None, append_data=None,
                 is_cfig=False):
     """构造一条完整记录。cfig：60B 头 + 表；其它：60B 头 + 64B iMtK 块 + payload。"""
+    n8 = _name8(name)
     if is_cfig:
-        hdr = name.encode()[:8].ljust(8, b"\0") + u32(len(payload))
+        hdr = n8 + u32(len(payload))
         hdr += dlm.aes(MARKER_PLAIN, key, iv, 1)           # 常量密文
         hdr += field32 if field32 else dlm.aes(b"\0" * 32, key, iv, 1)
         return hdr + payload
@@ -61,7 +70,7 @@ def make_record(dlm, key, iv, name, payload, field32=None, append_data=None,
         append_data = APPEND_REGULAR
     assert len(append_data) == 56, "追加数据必须 56 字节"
     body = b"iMtK" + u32(0x38) + append_data
-    hdr = name.encode()[:8].ljust(8, b"\0") + u32(64 + len(payload))
+    hdr = n8 + u32(64 + len(payload))
     hdr += dlm.aes(MARKER_PLAIN, key, iv, 1)
     hdr += field32 if field32 else dlm.aes(b"\0" * 32, key, iv, 1)
     return hdr + body + payload
@@ -93,15 +102,16 @@ def read_base(pkg_path):
         pos = i + 1
     for k, o in enumerate(hits):
         rec = o - 12
-        name = data[rec:rec + 8].rstrip(b"\0").decode("latin1")
+        raw_name = data[rec:rec + 8]
+        name = raw_name.rstrip(b"\0").decode("latin1")
         val = struct.unpack("<I", data[rec + 8:rec + 12])[0]
         field32 = data[o + 16:o + 48]
         if name == "cfig":
-            out.append((name, field32, None, data[rec + 60:rec + 60 + val], True))
+            out.append((raw_name, field32, None, data[rec + 60:rec + 60 + val], True))
             continue
         append = data[rec + 68:rec + 68 + 56]
         payload = data[rec + 124:rec + 60 + val]
-        out.append((name, field32, append, payload, False))
+        out.append((raw_name, field32, append, payload, False))
     return out
 
 
@@ -118,7 +128,8 @@ def assemble(dlm, key, iv, hdr_plain, records, out_path):
 
 
 def cmd_info(args):
-    for name, f32, append, payload, is_cfig in read_base(args.base):
+    for raw_name, f32, append, payload, is_cfig in read_base(args.base):
+        name = repr(raw_name)
         print("%-8s payload=%-12d is_cfig=%s field32=%s append=%r" %
               (name, len(payload), is_cfig, f32.hex()[:16], (append[:8] if append else b"")))
 
@@ -133,11 +144,12 @@ def cmd_repack(args):
     iv = b"\0" * 16
     records = []
     replaced = dict(kv.split("=", 1) for kv in args.replace)
-    for name, f32, append, payload, is_cfig in read_base(args.base):
+    for raw_name, f32, append, payload, is_cfig in read_base(args.base):
+        name = raw_name.rstrip(b"\0").decode("latin1")
         if name in replaced:
             payload = open(replaced.pop(name), "rb").read()
             print("replace %-8s <- %s (%d bytes)" % (name, "file", len(payload)))
-        records.append(make_record(dlm, key, iv, name, payload,
+        records.append(make_record(dlm, key, iv, raw_name, payload,
                                    field32=f32, append_data=append, is_cfig=is_cfig))
     if replaced:
         print("以下未找到同名记录: %s" % ", ".join(replaced), file=sys.stderr)

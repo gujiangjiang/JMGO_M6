@@ -1,6 +1,6 @@
 # 自制 DLM 救砖包（`upgrade.pkg`）指南
 
-> 目标：把官方救砖包换成/改装成自己的包（如自定义 boot/system/logo），
+> 目标：把官方救砖包换成/改装成自己的包（如自定义 boot/logo；system 的定制见 §6），
 > 让设备的 U 盘救砖流程接受并刷入。
 > 前置知识：[`pkg-format.md`](pkg-format.md)（容器格式与校验链）与
 > [`usb-rescue.md`](usb-rescue.md)（刷机流程）。工具：`tools/pkg_dlm.py`、
@@ -25,10 +25,15 @@
 - 自制包必须用**目标设备当前系统里那份 `libdtv_common.so`** 来打
   （或找到设备同版本的固件包解出该文件）。
 
-> 已实测：官方 `JMGO_M6_upgrade_loader.pkg` 不匹配本仓库
+> 已实测（两件事合看）：① 官方 `JMGO_M6_upgrade_loader.pkg` 不匹配本仓库
 > `update_jmgo.zip`（1.0.53）里的 `libdtv_common.so`（key=0x94102909）；
-> 说明官方 pkg 是按更早出厂固件版本构建的。你的设备实际跑哪个版本，
-> 决定了你能不能继续用官方 pkg —— 也决定自制包要用哪个版本的 lib。
+> ② **该官方 pkg 在你的实机上确认可用**。⇒ 你的设备当前运行的固件**不是 1.0.53
+> 批次**，而是与 pkg 同批构建的版本。请先用 §1 的方法从设备提取它当前的
+> `libdtv_common.so` 并 keyscan 复核（也顺便得到自制包要用的密钥）。
+>
+> ⚠ 由此推出一条重要的使用纪律：**不要把设备升级到与救砖包不同批次的固件后，
+> 还指望这一只 pkg 能救**（校验会因密钥不匹配而拒绝）；升级前先留好对应版本的
+> 救砖包，并用 keyscan 预检。
 
 ## 1. 第一步：拿到目标版本的 `libdtv_common.so` 并验证
 
@@ -37,7 +42,7 @@
 1. **从设备当前系统提取**（最可靠；设备已 root，adb root 可用）：
    ```bash
    adb root && adb pull /basic/libdtv_common.so        # Linux 世界（two-worlds）根
-   # 若 adb 拿不到，可从 /dev/block 里定位 linux_rootfs(p9) 分区拉 squashfs，
+   # 若 adb 拿不到，可从 /dev/block 里定位 linux_rootfs（mmcblk0p10）分区拉 squashfs，
    # 用 tools/squashfs_lzo.py 解出 basic/libdtv_common.so
    ```
 2. **从与设备同版本的官方固件包**（`update_jmgo.zip` 之类）里解出：
@@ -85,7 +90,7 @@ python3 tools/pkg_dlm.py list custom.pkg                        # 结构/尺寸�
 ## 3. 可选：从零装配
 
 ```bash
-python3 tools/pkg_build.py build --lib <证件lib> \
+python3 tools/pkg_build.py build --lib <目标版本 lib> \
     --company jmgo --model JmGO_mt5863_64_n --version <ver> \
     --cfig artifacts/pkg/cfig-partition-table.bin \
     --component uenv=... --component misc=... --component boot=... \
@@ -100,14 +105,15 @@ python3 tools/pkg_build.py build --lib <证件lib> \
   payload 摘要/HMAC）尚未完全确认，存在校验不过的设备端行为差异；
 - `adsp` 的追加块里带客户版本串，全新建包时工具用常规占位（“iPAd”+0）——
   是否影响 adsp 升级校验未实测；**建议 adsp 直接用 repack 保留**；
-- `load`(uboot) 写入 p0 属高风险，本工具默认不组装 `load`，确需时自行加入并自负风险。
+- `load`(uboot→物理 p1) 属高风险，本工具默认不组装 `load`，确需时自行加入并自负风险。
 
 ## 4. 第三步：上机验证（风险自负）
 
 1. U 盘 FAT32，根目录放包并改名为 `upgrade.pkg`（中间件默认路径还认
    `/upgrade/upgrade.pkg` 与 `/3rd_rw/upgrade/upgrade.pkg`，见 usb-rescue §4）；
 2. 插到投影仪上开机，观察是否进入升级 UI；
-3. **兜底**：保留原厂 pkg；若引导器（uboot）未被写坏，救砖流程可反复重试；
+3. **兜底**：保留原厂 pkg；只要引导器（uboot/p1）未被写坏、且 Linux 世界仍可启动
+   （见 usb-rescue §4.6 的可救范围），救砖流程可反复重试；
    引导器坏了就只能走 SoC 级线刷（T8032/USB，本仓库未覆盖）。
 
 > 强烈建议第一次测试前，先用模拟执行把整条“读取→校验”链跑一遍：

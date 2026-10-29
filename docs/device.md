@@ -36,7 +36,7 @@
 | p6 | /system | **ext4** | 本仓库主要修改对象；无 dm-verity |
 | p7 | /data | ext4 | 用户数据 |
 | p8 | /cache | ext4 | OTA 中转（`/cache/ota_update.zip`） |
-| p10 | /linux_rootfs | **squashfs(LZO, MTK 变体)** | `rootfs.bin` 44MB；Linux 世界（U 盘救砖升级器所在），可用 `tools/squashfs_lzo.py` 解包 |
+| p10 | /linux_rootfs | **squashfs(LZO, MTK 变体)** | `rootfs.bin` 50 MiB（52,428,800 B，分区 0x3200000）；Linux 世界（U 盘救砖升级器所在），可用 `tools/squashfs_lzo.py` 解包 |
 | p13 | /3rd | squashfs | 预置三方资源 |
 | p14 | /3rd_rw | ext4 | 三方资源可写区 |
 | p18 | pq | raw | `pq.bin` 画质参数表（头 `PQEX`） |

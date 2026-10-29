@@ -14,7 +14,9 @@
 
 - 开发机：macOS（Apple Silicon），zsh。
 - 工具依赖：`python3`（3.9+，仅标准库）、`openssl`（macOS 自带 LibreSSL 即可）、`git`。
-- **无 brew / 无 JRE / 无 7z / 无 wget 网络受限**：不要假设能安装外部工具或访问外网；优先用仓库内 `tools/` 的纯 Python 实现。
+- **无 brew / 无 JRE / 无 7z / 无 wget；外网受限但 pip 可用**（已验证可安装
+  `unicorn`、`pycryptodome` 等纯 wheel 包）：优先用仓库内 `tools/` 的纯 Python 实现，
+  确需时再 pip 装。
 - 修改 ext4 镜像（增删文件）需要 Linux 环境的 `debugfs`/挂载；macOS 上只做**读取**与**打包/签名**。
 - 本机可用：`llvm-objdump`（反汇编）、`strings`、`bsdtar`（cpio）、`openssl`。
 

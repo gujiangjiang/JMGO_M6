@@ -60,7 +60,7 @@ gunzip -kf work/boot_ramdisk.gz && mkdir -p work/ramdisk && bsdtar -xf work/boot
 
 ## 5. rootfs.bin（MTK 变体 squashfs，LZO）
 
-44MB。`file` 会误报 lzo；实际是 **MTK C30 变体 squashfs（超块 compression id = 3 → LZO，
+50 MiB（52,428,800 B）。`file` 会误报 lzo；实际是 **MTK C30 变体 squashfs（超块 compression id = 3 → LZO，
 沿用 3.x 编号）**，且与主线格式有差异（dirent 无 type 数组、inode diff 非累积、
 fragment 间接表为裸 u64 数组、符号链接 inode 末尾多 4 字节 xattr 索引）。
 本仓库提供纯 Python 解包器（无需依赖）：

@@ -45,7 +45,7 @@
 | 4 | `misc` | 0x26D7FE | 0x26D87A | 1,024 | bootloader message（`boot-rec…`） |
 | 5 | `recv` | 0x26DC7A | 0x26DCF6 | 14,069,036 | `ANDROID!`（recovery） |
 | 6 | `boot` | 0xFD8A22 | 0xFD8A9E | 11,556,136 | `ANDROID!`（= OTA 内 boot.img，逐字节一致） |
-| 7 | `sysm` | 0x1ADD1FC6… 见 records.txt | — | 600,179,296 | ext4（label=system；文件内容不可读，见 §7） |
+| 7 | `sysm` | 0x01ADDFC6 | 0x01ADE042 | 600,179,296 | ext4（label=system；文件内容不可读，见 §7）。**名字填充位含 0x01**（16 条中唯一，疑似“大分区/截断数据”标志，见 §7.3） |
 | 8 | `logo` | 0x2573E2A2 | 0x2573E31E | 15,818 | JPEG（开机 logo） |
 | 9 | `rfsA` | 0x257420E8 | 0x25742164 | 52,428,800 | SquashFS（= OTA 内 rootfs.bin，逐字节一致） |
 | 10 | `3rdw` | 0x28942164 | 0x289421E0 | 10,485,760 | ext4（3rd_rw） |
@@ -70,11 +70,32 @@ ddb   nand 24
 END
 ```
 
-- 含义（与 `dtv_driver.ko` 的 DRVCUST 分区名表交叉验证，见 `artifacts/rescue/partition-table.txt`）：
-  `名字 类型 物理分区号`。编号与设备分区表一致：uenv=p1、misc=p2、recovery=p3、
-  boot=p4、system=p5、userdata=p6、cache=p7、linux_rootfs=p9、perm=p11、
-  3rd_ro=p12、3rd_rw=p13、pq=p17、aq=p18、bootlogo=p20、tzbp=p21、adsp=p22、part_24=p24。
-- 表中**没有 uboot(p0)**：`load` 组件不在表内（见 §7.2）。
+- 含义：`名字 类型 分区序号`。**cfig 用的是 0 基序号（Linux 世界/DLM 内部），
+  eMMC 物理节点 `mmcblk0pN = 序号 + 1`**（已用 OTA `updater-script` 与设备
+  `fstab` 多处锚点交叉验证）：
+
+  | cfig 序号（0 基） | 名字 | 物理节点 | 锚点证据 |
+  |---|---|---|---|
+  | 0（未列） | uboot | p1 | OTA：`uboot.bin→p1`；`device.md §2` |
+  | 1 | uenv | p2 | OTA：`uenv.bin→p2` |
+  | 2 | misc | p3 | `device.md §2`（/misc） |
+  | 3 | recv | p4 | `device.md §2`（/recovery） |
+  | 4 | boot | p5 | OTA：`boot.img→p5` |
+  | 5 | sysm | p6 | OTA：`system→p6` |
+  | 6 | usrd | p7 | `device.md §2`（/data） |
+  | 7 | cach | p8 | `device.md §2`（/cache） |
+  | 9 | rfsA | p10 | OTA：`rootfs.bin→p10` |
+  | 11 | perm | p12 | dtv 名单序（待直接实证） |
+  | 12 | 3rdp | p13 | `device.md §2`（/3rd squashfs ✓ 类型吻合） |
+  | 13 | 3rdw | p14 | `device.md §2`（/3rd_rw ext4 ✓ 类型吻合） |
+  | 17 | pqda | p18 | OTA：`pq.bin→p18` |
+  | 18 | aqda | p19 | OTA：`AQ.bin→p19` |
+  | 20 | logo | p21 | 序号锚定 pq/aq/tzbp/adsp 连续吻合；与 dtv 名单中 logo(19)/bootlogo(20) 存在一处命名差，实际以序号 p21 为准 |
+  | 21 | tzbp | p22 | OTA：`tz.bin.lzhs→p22` |
+  | 22 | adsp | p23 | OTA：`adsp.bin→p23` |
+  | 24 | ddb | p25 | dtv 名单序（待直接实证） |
+
+- 表中**没有 uboot（序号 0/物理 p1）**：`load` 组件因此不在表内（见 §7.2）。
 - `usrd/cach/ddb` 在表中有名字但没有对应记录 → 这些分区在救砖包里**不写**（保留数据）。
 
 ## 3. 记录格式（60 字节头 + 64 字节追加块）
@@ -183,20 +204,28 @@ $ python3 tools/dlm_aes_emu.py keyscan work/rootfs_x/basic/libdtv_common.so JMGO
 pkg 头解密魔数检查 = b'V\xaef4…'      ← 不等于 "#DH@FiRm"
 ```
 
-**即：本 pkg 不是用 `update_jmgo.zip`（当前分析固件）的 DLM 密钥加密的**，
-它是针对**更早版本的设备固件**（密钥=那一版的编译常量）构建的。
-由于密钥=编译期随机常量（§5.2），这属于预期现象：
-**每个固件版本只能校验与它同版本构建的 pkg**。自制包与救援的完整流程见
-[`pkg-build.md`](pkg-build.md)（含“从设备提取当前版本密钥”的方法）。
+**即：本 pkg 不是用 `update_jmgo.zip`（1.0.53）的 DLM 密钥加密的。**
+同时，**用户实机确认该 pkg 在其设备上可用** —— 两个事实合起来说明：
+**用户设备当前运行的固件并不是 1.0.53（或至少不是同一编译批次）**，
+而是与 pkg 同批构建的版本（密钥=那一版的编译常量）。
+
+推论与提醒：
+- 由于密钥=编译期随机常量（§5.2），**每个固件版本只能校验与它同批次构建的 pkg**；
+- 若设备升级到 1.0.53，该 pkg 的原版校验是否仍通过**未经实机验证**（按本分析应
+  不通过）；请保留与设备版本对应的救砖包，并在任何 OTA 升级前用
+  `tools/dlm_aes_emu.py keyscan <新版本 lib> <pkg>` 预检；
+- 要让自制包 100% 对齐设备，请先从设备提取 `/basic/libdtv_common.so` 并 keyscan
+  （方法见 [`pkg-build.md`](pkg-build.md) §1）。
 
 ## 6. 与救砖流程的衔接
 
 1. NAV_UPDATER（Linux 世界）开机/插 U 盘 → 找 `upgrade.pkg`（见 usb-rescue.md §4）；
 2. `c_dlm_integrity_check` → 通过则进入下载；
 3. `c_dlm_download_by_tag`（或 `by_division`）逐记录：跳过不匹配 tag，写其余；
-4. 记录 → 分区：**load→uboot(p0)**、uenv→p1、misc→p2、recv→p3、boot→p4、
-   sysm→p5、rfsA→p9、perm→p11、3rdp→p12、3rdw→p13、pqda→p17、aqda→p18、
-   logo→p20、tzbp→p21、adsp→p22（cfig 表内编号一一对应；usrd/cach/ddb 不写）；
+4. 记录 → 分区（cfig 序号+1 = 物理节点）：**load→uboot(p1)**、uenv→p2、misc→p3、
+   recv→p4、boot→p5、sysm→p6、rfsA→p10、perm→p12、3rdp→p13、3rdw→p14、
+   pqda→p18、aqda→p19、logo→p21、tzbp→p22、adsp→p23；
+   usrd(p7)/cach(p8)/ddb(p25) 不写（`load`→uboot 的写入路径未直接实测，见 §7.2）；
 5. 双 bank 切换（`_nav_updater_toggle_dual_bank`）→ `nav_updater_start_reboot_upgrade`。
 
 ## 7. 样本三次实检的补充发现
@@ -209,14 +238,23 @@ pkg 头解密魔数检查 = b'V\xaef4…'      ← 不等于 "#DH@FiRm"
 | boot | `boot.img`（OTA） | **逐字节一致** |
 | rfsA | `rootfs.bin`（OTA） | **逐字节一致** |
 | uenv/adsp/pqda/aqda | OTA 同名 bin | **逐字节一致** |
-| sysm | OTA `system.img`（1.31GB 原始） | **不同**：样本仅 600MB，ext4 超级块 uuid/几何与 OTA 相同（`da594c53-…`），但数据区无任何 Android 明文串（无 build.prop/dex/arsc），呈文件内容级加密特征；应为出厂设备分区原样（fscrypt）且只截取了使用区。**不可在其中直接替换应用** |
+| sysm | OTA `system.img`（1.31GB 原始） | **不同**：样本仅 600,179,296 B（相对 1.29GB 文件系统为截断），ext4 超级块 uuid/几何与 OTA 相同（`da594c53-…`），元数据区基本一致（仅少量时间戳/计数差异），但数据区无任何 Android 明文串（无 build.prop/dex/arsc）、呈“内容加密/乱码”特征（**疑似文件级加密，未最终证实**）。截断原因两种解释（未实测区分）：① 打包工具按最后已用数据裁剪；② 该版本系统自身用量即如此。**不可在其中直接替换应用** |
 
 ### 7.2 为什么 `load` 不在 cfig 表里
 
-`cfig` 表从 uenv(p1) 开始，而 p0 是 uboot。`load` 与 uboot.bin 逐字节一致，
-说明 DLM 对 p0（引导器）走特殊 tag 或固定分区号写入；表的“不写 uboot”设计是
-**安全设计**：
-  常规救援不触碰引导器；样本虽携带引导器镜像，但表内不列 p0/不要求写。
+`cfig` 表从 uenv（序号 1 → 物理 p2）开始，而序号 0 是 uboot（物理 p1）。
+`load` 与 uboot.bin 逐字节一致，说明包内确实携带引导器镜像；但表内不列序号 0。
+两种可能（未实测区分）：① DLM/升级器对 `load` 走特殊 tag 或固定分区号写入 p1；
+② 表语义即“不写引导器”，`load` 仅作为备用/其它流程（如线刷工具）使用。
+无论哪种，**常规救援按表执行时不把 uboot 列为必写项**（对救砖更安全）。
+
+### 7.3 `sysm` 名字填充位的异常标志
+
+16 条记录中只有 `sysm` 的 8 字节名字字段带一个额外字节：`"sysm\0\x01\0\0"`（其余记录均为 `名字+4×0`）。
+结合两个事实：（a）`x_dlm_download` 中存在 `puac_large_pkg_buf_offset` /
+`x_dlm_set_buffer`（“大包缓冲”）逻辑；（b）本样本 `sysm` 恰好是**被截断的大分区
+镜像**（600MB，见 §7.1）——推测该位与“大分区/截断数据的特殊读写处理”有关，
+具体语义未完全确认。自制包时对已存在的大分区记录**原样保留**该字节最稳妥。
 
 ## 8. 未确认 / 后续
 
@@ -227,6 +265,8 @@ pkg 头解密魔数检查 = b'V\xaef4…'      ← 不等于 "#DH@FiRm"
 - 文件头 0x4C 标志位的完整语义（0x10/0x20/0x40 的跳过行为已从分支结构确认，
   但组合行为未实测）。
 - sysm 使用区截断规则与 flash 端补齐行为（擦除→写 600MB→剩下保留/擦除？见 §7.1）。
+- `load` 记录的写入路径/目标（序号 0/物理 p1 的 uboot；表内不列，见 §7.2）。
+- sysm 名字字节 0x01 的精确语义（见 §7.3）。
 
 ## 9. 复现命令
 

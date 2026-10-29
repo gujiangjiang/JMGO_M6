@@ -31,8 +31,9 @@
 │   ├── flash.md            # 官方/本地刷机流程与安全注意事项
 │   ├── apps.md             # 系统/预装应用清单
 │   ├── install-limit.md    # 第三方应用安装数量限制的分析与修复
-│   ├── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析
-│   ├── pkg-format.md       # upgrade.pkg 包格式逆向（MTK DLM 容器）
+│   ├── usb-rescue.md       # U 盘救砖（upgrade.pkg）机制分析与可救范围
+│   ├── pkg-format.md       # upgrade.pkg 包格式（MTK DLM 容器，含真样本验证）
+│   ├── pkg-build.md        # 自制/改装救砖包（密钥机制、装配、上机验证）
 │   ├── settings-api.md     # 设置项 API 逆向（自开发设置 App 指南）
 │   ├── remote-control.md   # 局域网遥控协议逆向（坚果控 App ↔ Anymote）
 │   └── app.md              # 自研 App「坚果控制台」使用与实现说明
